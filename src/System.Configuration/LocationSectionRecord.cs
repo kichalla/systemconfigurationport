@@ -4,18 +4,20 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-    using System.Configuration.Internal;
-    using System.Collections;
-    using System.Collections.Specialized;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Text;
-    using System.Threading;
-    using System.Reflection;
-    using System.Xml;
+using System.Configuration.Internal;
+using System.Collections;
+using System.Collections.Specialized;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Text;
+using System.Threading;
+using System.Reflection;
+using System.Xml;
+using System.Diagnostics;
+
 namespace System.Configuration {
 
-    [System.Diagnostics.DebuggerDisplay("LocationSectionRecord {ConfigKey}")]
+    [DebuggerDisplay("LocationSectionRecord {ConfigKey}")]
     internal class LocationSectionRecord {
         SectionXmlInfo                  _sectionXmlInfo;        // sectionXmlInfo
         List<ConfigurationException>    _errors;   // errors

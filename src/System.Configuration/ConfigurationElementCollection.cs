@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Xml;
 
 namespace System.Configuration
 {
 
-    [System.Diagnostics.DebuggerDisplay("Count = {Count}")]
+    [DebuggerDisplay("Count = {Count}")]
     public abstract class ConfigurationElementCollection : ConfigurationElement, ICollection
     {
         internal const string DefaultAddItemName = "add";

@@ -1,6 +1,4 @@
-﻿namespace System.Configuration
-{
-    using System.Configuration.Internal;
+﻿    using System.Configuration.Internal;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -12,7 +10,9 @@
     using System.Xml;
     using System.Runtime.Versioning;
     using System.Diagnostics.CodeAnalysis;
-    using System.Xml.ReaderWriter
+    using System.Xml.ReaderWriter;
+namespace System.Configuration
+{
 
     [Serializable]
     public class ConfigurationErrorsException : ConfigurationException

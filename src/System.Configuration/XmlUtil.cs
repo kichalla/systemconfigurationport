@@ -13,7 +13,7 @@
     using System.IO;
     using System.Runtime.InteropServices;
     using System.Security;
-    
+
     using System.Text;
     using System.Xml;
     using System.Net;
@@ -124,7 +124,7 @@ namespace System.Configuration {
                 _reader = null;
             }
             else if (_stream != null) {
-                _stream.Close();
+                _stream.Dispose();
             }
 
             _stream = null;

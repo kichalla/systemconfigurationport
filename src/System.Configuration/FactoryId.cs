@@ -4,10 +4,12 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
+using System.Diagnostics;
+
 namespace System.Configuration {
 
     // Identifies a factory
-    [System.Diagnostics.DebuggerDisplay("FactoryId {ConfigKey}")]
+    [DebuggerDisplay("FactoryId {ConfigKey}")]
     internal class FactoryId {
         private string  _configKey;
         private string  _group;

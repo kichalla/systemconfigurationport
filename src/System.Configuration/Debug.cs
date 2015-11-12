@@ -4,20 +4,22 @@
 // </copyright>                                                                
 //------------------------------------------------------------------------------
 
-    using Microsoft.Win32;
-    using Microsoft.Win32.SafeHandles;
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Globalization;
-    using System.Reflection;
-    using System.Runtime.ConstrainedExecution;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Versioning;
-    using System.Security;
-    
-    using System.Threading;
+using Microsoft.Win32;
+using Microsoft.Win32.SafeHandles;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Reflection;
+using System.Runtime.ConstrainedExecution;
+using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
+using System.Security;
+
+using System.Threading;
+using System.Diagnostics;
+
 namespace System.Configuration {
 
     internal static class Debug {
@@ -847,7 +849,7 @@ A=Exit process R=Debug I=Continue";
         //
         // Breaks into the debugger, or launches one if not yet attached.
         //
-        [System.Diagnostics.Conditional("DBG")]
+        [Conditional("DBG")]
         internal static void Break() {
 #if DBG
             if (!System.Diagnostics.Debugger.IsAttached) {

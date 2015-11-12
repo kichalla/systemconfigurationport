@@ -8,9 +8,9 @@
     using System.Collections.Specialized;
     using System.Runtime.Serialization;
 namespace System.Configuration {
-    
 
-    [STUBS()]
+
+    [Serializable]
     public sealed class ConfigurationSectionGroupCollection : NameObjectCollectionBase {
 
         private MgmtConfigurationRecord     _configRecord;
@@ -30,11 +30,6 @@ namespace System.Configuration {
                     BaseAdd(factoryId.Name, factoryId.Name);
                 }
             }
-        }
-
-        [SecurityPermissionAttribute(SecurityAction.Demand,SerializationFormatter=true)]
-        public override void GetObjectData(SerializationInfo info, StreamingContext context) {
-            base.GetObjectData(info, context);
         }
 
         //
@@ -98,7 +93,7 @@ namespace System.Configuration {
             if (_configSectionGroup.IsRoot) {
                 _configRecord.RemoveLocationWriteRequirement();
             }
-            
+
             string[] allKeys = BaseGetAllKeys();
             foreach (string key in allKeys) {
                 Remove(key);
@@ -179,8 +174,8 @@ namespace System.Configuration {
         }
 
         //
-        // Remove the declaration and definition of a section in this config file, including any 
-        // location sections in the file. This will also remove any descendant sections and 
+        // Remove the declaration and definition of a section in this config file, including any
+        // location sections in the file. This will also remove any descendant sections and
         // section groups.
         //
         // Note that if the section group is declared in a parent, we still remove the declaration and

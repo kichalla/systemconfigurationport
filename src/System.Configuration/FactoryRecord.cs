@@ -4,18 +4,20 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-    using System.Configuration.Internal;
-    using System.Collections;
-    using System.Collections.Specialized;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Text;
-    using System.Threading;
-    using System.Reflection;
-    using System.Xml;
+using System.Configuration.Internal;
+using System.Collections;
+using System.Collections.Specialized;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Text;
+using System.Threading;
+using System.Reflection;
+using System.Xml;
+using System.Diagnostics;
+
 namespace System.Configuration {
 
-    [System.Diagnostics.DebuggerDisplay("FactoryRecord {ConfigKey}")]
+    [DebuggerDisplay("FactoryRecord {ConfigKey}")]
     internal class FactoryRecord : IConfigErrorInfo {
         private const int Flag_AllowLocation                = 0x0001;   // Does the factory allow location directives?
         private const int Flag_RestartOnExternalChanges     = 0x0002;   // Restart on external changes?

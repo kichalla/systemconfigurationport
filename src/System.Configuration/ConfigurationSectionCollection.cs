@@ -33,11 +33,6 @@ namespace System.Configuration {
             }
         }
 
-        [SecurityPermissionAttribute(SecurityAction.Demand,SerializationFormatter=true)]
-        public override void GetObjectData(SerializationInfo info, StreamingContext context) {
-            base.GetObjectData(info, context);
-        }
-
         //
         // Remove the collection from configuration system, and remove all entries
         // in the base collection so that enumeration will return an empty collection.

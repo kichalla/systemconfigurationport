@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Xml;
 using System.Runtime.Versioning;
+using System.Diagnostics;
 
 namespace System.Configuration
 {
@@ -20,7 +21,7 @@ namespace System.Configuration
     // This object represents the configuration for a request path, and is cached per-path.
     //
 
-    [System.Diagnostics.DebuggerDisplay("ConfigPath = {ConfigPath}")]
+    [DebuggerDisplay("ConfigPath = {ConfigPath}")]
     abstract internal class BaseConfigurationRecord : IInternalConfigRecord
     {
         protected const string NL = "\r\n";

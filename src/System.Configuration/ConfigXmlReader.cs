@@ -48,6 +48,66 @@ namespace System.Configuration {
             return new ConfigXmlReader(_rawXml, _filename, _lineOffset, _lineNumberIsConstant);
         }
 
+        public override System.String GetAttribute(System.Int32 i)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override System.String GetAttribute(System.String name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override System.String GetAttribute(System.String name, System.String namespaceURI)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override System.String LookupNamespace(System.String prefix)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override System.Boolean MoveToAttribute(System.String name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override System.Boolean MoveToAttribute(System.String name, System.String ns)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override System.Boolean MoveToElement()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override System.Boolean MoveToFirstAttribute()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override System.Boolean MoveToNextAttribute()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override System.Boolean Read()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override System.Boolean ReadAttributeValue()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void ResolveEntity()
+        {
+            throw new NotImplementedException();
+        }
+
         int IConfigErrorInfo.LineNumber {
             get {
                 if (_lineNumberIsConstant) {
@@ -71,6 +131,102 @@ namespace System.Configuration {
         internal string RawXml {
             get {
                 return _rawXml;
+            }
+        }
+
+        public override System.Int32 AttributeCount
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public override System.String BaseURI
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public override System.Int32 Depth
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public override System.Boolean EOF
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public override System.Boolean IsEmptyElement
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public override System.String LocalName
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public override System.String NamespaceURI
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public override XmlNameTable NameTable
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public override XmlNodeType NodeType
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public override System.String Prefix
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public override ReadState ReadState
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public override System.String Value
+        {
+            get
+            {
+                throw new NotImplementedException();
             }
         }
     }

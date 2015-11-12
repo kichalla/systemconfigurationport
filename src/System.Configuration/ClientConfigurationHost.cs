@@ -523,42 +523,6 @@ namespace System.Configuration
             return configPath == MachineConfigPath;
         }
 
-        [SecurityPermission(SecurityAction.Assert, ControlEvidence = true)]
-        public override void GetRestrictedPermissions(IInternalConfigRecord configRecord, out PermissionSet permissionSet, out bool isHostReady)
-        {
-            // Get the stream name as a URL
-            string url;
-            bool isFile = IsFile(configRecord.StreamName);
-            if (isFile)
-            {
-                url = UrlPath.ConvertFileNameToUrl(configRecord.StreamName);
-            }
-            else
-            {
-                url = configRecord.StreamName;
-            }
-
-            Evidence evidence = new Evidence();
-
-            // Add Url evidence, which is simply the URL.
-            evidence.AddHostEvidence(new Url(url));
-
-            // Add Zone evidence - My Computer, Intranet, Internet, etc.
-            evidence.AddHostEvidence(Zone.CreateFromUrl(url));
-
-            // Add Site evidence if the url is http.
-            if (!isFile)
-            {
-                evidence.AddHostEvidence(Site.CreateFromUrl(url));
-            }
-
-            // Get the resulting permission set.
-            permissionSet = SecurityManager.GetStandardSandbox(evidence);
-
-            // Client host is always ready to return permissions.
-            isHostReady = true;
-        }
-
         //
         // Impersonate for Client Config
         // Use the process identity

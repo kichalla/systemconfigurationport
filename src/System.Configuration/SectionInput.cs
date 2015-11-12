@@ -6,10 +6,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace System.Configuration {
 
-    [System.Diagnostics.DebuggerDisplay("SectionInput {_sectionXmlInfo.ConfigKey}")]
+    [DebuggerDisplay("SectionInput {_sectionXmlInfo.ConfigKey}")]
     internal class SectionInput {
         // result can be null, so we use this object to indicate whether it has been evaluated
         private static object                   s_unevaluated = new object();
