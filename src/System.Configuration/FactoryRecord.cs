@@ -317,11 +317,12 @@ namespace System.Configuration {
         }
 
         internal bool IsIgnorable() {
-            if (_factory != null)
-                return (_factory is IgnoreSectionHandler);
-            else if (_factoryTypeName != null)
-                return _factoryTypeName.Contains("System.Configuration.IgnoreSection");
-            else
+            // TODO:  Where is the IgnoreSectionHandler?  Should be in this project
+            //if (_factory != null)
+            //    return (_factory is IgnoreSectionHandler);
+            //else if (_factoryTypeName != null)
+            //    return _factoryTypeName.Contains("System.Configuration.IgnoreSection");
+            //else
                 return false;
         }
     }

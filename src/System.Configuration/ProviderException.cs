@@ -4,7 +4,6 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-    using Runtime.Serialization;
 namespace System.Configuration.Provider {
 
     [Serializable]
@@ -20,8 +19,5 @@ namespace System.Configuration.Provider {
             : base( message, innerException )
         {}
 
-        protected ProviderException( SerializationInfo info, StreamingContext context )
-            //: base( info, context )
-        {}
     }
 }

@@ -70,7 +70,7 @@ namespace System.Configuration
             {
                 if (s_machineConfigFilePath == null)
                 {
-                    string directory = System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory();
+                    string directory = AppContext.BaseDirectory;
                     s_machineConfigFilePath = Path.Combine(Path.Combine(directory, MachineConfigSubdirectory), MachineConfigFilename);
                 }
 
@@ -209,13 +209,6 @@ namespace System.Configuration
                         }
                     }
                 }
-            }
-            catch (SecurityException)
-            {
-                // Lets try to give them some information telling them 
-                // they don't have enough security privileges
-                throw new ConfigurationErrorsException(
-                    SR.GetString(SR.Config_client_config_init_security));
             }
             catch
             {

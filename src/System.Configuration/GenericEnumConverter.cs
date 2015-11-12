@@ -30,7 +30,7 @@ namespace System.Configuration {
         }
 
         public override object ConvertTo(ITypeDescriptorContext ctx, CultureInfo ci, object value, Type type) {
-            Debug.Assert(typeof(System.Enum).IsAssignableFrom(value.GetType()), "typeof(System.Enum).IsAssignableFrom(value.GetType())");
+            Debug.Assert(typeof(Enum).IsAssignableFrom(value.GetType()), "typeof(System.Enum).IsAssignableFrom(value.GetType())");
 
             return value.ToString();
         }

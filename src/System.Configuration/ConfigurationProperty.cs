@@ -12,6 +12,7 @@ using System.Collections.Specialized;
 using System.Reflection;
 using System.Text;
 using System.Diagnostics.CodeAnalysis;
+using System.Configuration.System.ComponentModel;
 
 namespace System.Configuration {
 
@@ -91,9 +92,9 @@ namespace System.Configuration {
 
             TypeConverter typeConverter = null;
             ConfigurationValidatorBase validator = null;
-
+            
             // Find the interesting attributes in the collection
-            foreach (Attribute attribute in Attribute.GetCustomAttributes(info)) {
+            foreach (Attribute attribute in info.GetCustomAttributes()) {
                 if (attribute is TypeConverterAttribute) {
                     attribConverter = (TypeConverterAttribute)attribute;
                     typeConverter = TypeUtil.CreateInstanceRestricted<TypeConverter>(info.DeclaringType, attribConverter.ConverterTypeName);

@@ -903,6 +903,7 @@ namespace System.Configuration
                         // If none on the property - see if there is an attribute on the collection type itself
                         if (attribCollection == null)
                         {
+                            
                             attribCollection =
                                 Attribute.GetCustomAttribute(propertyType,
                                                                 typeof(ConfigurationCollectionAttribute)) as ConfigurationCollectionAttribute;

@@ -47,7 +47,7 @@ namespace System.Configuration
             return -1;
         }
 
-        internal void AddValue(System.String sERIALIZATION_PARAM_FILENAME, System.String filename)
+        internal void AddValue(String sERIALIZATION_PARAM_FILENAME, String filename)
         {
             throw new NotImplementedException();
         }

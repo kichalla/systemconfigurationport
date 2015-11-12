@@ -674,7 +674,7 @@ namespace System.Configuration
 
                                 using (XmlUtil xmlUtil = new XmlUtil(stream, ConfigStreamInfo.StreamName, true, _initErrors))
                                 {
-                                    ConfigStreamInfo.StreamEncoding = xmlUtil.Reader.Encoding;
+                                    ConfigStreamInfo.StreamEncoding = Encoding.UTF8; // xmlUtil.Reader.Encoding;
 
                                     // Read the factories
                                     Hashtable factoryList = ScanFactories(xmlUtil);
@@ -1937,7 +1937,8 @@ namespace System.Configuration
                         // We've reached the section. Load the section into a string.
                         //
                         string filename = ((IConfigErrorInfo)xmlUtil).Filename;
-                        int lineOffset = xmlUtil.Reader.LineNumber;
+                        //int lineOffset = xmlUtil.Reader.LineNumber;
+                        int lineOffset = 0;
                         string rawXml = xmlUtil.CopySection();
                         section = new ConfigXmlReader(rawXml, filename, lineOffset);
                         break;
@@ -2016,7 +2017,8 @@ namespace System.Configuration
                                 sectionXmlInfo.ProtectionProviderName = ValidateProtectionProviderAttribute(protectionProviderAttribute, xmlUtil);
                             }
 
-                            int lineOffset = xmlUtil.Reader.LineNumber;
+                            //int lineOffset = xmlUtil.Reader.LineNumber;
+                            int lineOffset = 0;
                             string rawXml = xmlUtil.CopySection();
 
                             // Detect if there is any XML left over after the section
@@ -2168,10 +2170,6 @@ namespace System.Configuration
                         throw new ConfigurationErrorsException(SR.GetString(SR.Config_object_is_null), filename, line);
                     }
                 }
-            }
-            catch (ThreadAbortException)
-            {
-                throw;
             }
             catch (Exception e)
             {
@@ -2402,7 +2400,8 @@ namespace System.Configuration
                             string tagName = null;
                             string typeName = null;
 
-                            int lineNumber = xmlUtil.Reader.LineNumber;
+                            // int lineNumber = xmlUtil.Reader.LineNumber;
+                            int lineNumber = 0;
                             while (xmlUtil.Reader.MoveToNextAttribute())
                             {
                                 switch (xmlUtil.Reader.Name)
@@ -2505,7 +2504,9 @@ namespace System.Configuration
                             bool gotType = false;
 
                             // parse section attributes
-                            int lineNumber = xmlUtil.Reader.LineNumber;
+                            //int lineNumber = xmlUtil.Reader.LineNumber;
+                            int lineNumber = 0;
+
                             while (xmlUtil.Reader.MoveToNextAttribute())
                             {
                                 switch (xmlUtil.Reader.Name)
@@ -2694,7 +2695,8 @@ namespace System.Configuration
                                 }
 
                                 name = xmlUtil.Reader.Value;
-                                lineNumber = xmlUtil.Reader.LineNumber;
+                                // lineNumber = xmlUtil.Reader.LineNumber;
+                                lineNumber = 0;
                             }
                             xmlUtil.Reader.MoveToElement();
 

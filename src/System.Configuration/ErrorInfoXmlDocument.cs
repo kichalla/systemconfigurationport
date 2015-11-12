@@ -19,21 +19,22 @@ namespace System.Configuration
     // into the default XML classes.  This class could also go away if webdata brings back
     // the UserData property to hang any info off of any node.
     internal sealed class ErrorInfoXmlDocument : XmlDocument, IConfigErrorInfo {
-        XmlTextReader   _reader;
+        XmlReader   _reader;
         int             _lineOffset;
         string          _filename;
 
         int IConfigErrorInfo.LineNumber {
-            get { 
-                if (_reader == null) {
-                    return 0;
-                }
-                
-                if (_lineOffset > 0) {
-                    return _reader.LineNumber + _lineOffset - 1;
-                }
-                
-                return _reader.LineNumber;
+            get {
+                //if (_reader == null) {
+                //    return 0;
+                //}
+
+                //if (_lineOffset > 0) {
+                //    return _reader.LineNumber + _lineOffset - 1;
+                //}
+
+                //return _reader.LineNumber;
+                return 0;
             }
         }
 
@@ -43,16 +44,16 @@ namespace System.Configuration
             get { return _filename; } 
         }
 
-        public override void Load(string filename) {
+        public void Load(string filename) {
             _filename = filename;
             try {
-                _reader = new XmlTextReader(filename);
-                _reader.XmlResolver = null;
+                _reader = XmlReader.Create(filename);
+                //_reader.XmlResolver = null;
                 base.Load(_reader);
             }
             finally {
                 if (_reader != null) {
-                    _reader.Close();
+                    _reader.Dispose();
                     _reader = null;
                 }
             }
@@ -69,7 +70,7 @@ namespace System.Configuration
             }
             finally {
                 if (_reader != null) {
-                    _reader.Close();
+                    _reader.Dispose();
                     _reader = null;
                 }
             }

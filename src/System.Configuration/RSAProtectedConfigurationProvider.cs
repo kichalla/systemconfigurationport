@@ -259,6 +259,6 @@
 //        private EncryptionMethod GetSymEncryptionMethod() {
 //            return UseFIPS ? new EncryptionMethod(EncryptedXml.XmlEncAES256Url) :
 //                             new EncryptionMethod(EncryptedXml.XmlEncTripleDESUrl);
-//        }
+//        
 //    }
-}
+//}

@@ -20,7 +20,7 @@
 namespace System.Configuration {
 
     //
-    // XmlTextReader Helper class.
+    // XmlReader Helper class.
     //
     // Provides the following services:
     //
@@ -64,7 +64,7 @@ namespace System.Configuration {
 
         private Stream                      _stream;                    // the stream to read
         private string                      _streamName;                // name of the stream, typically a file name
-        private XmlReader               _reader;                    // the XmlTextReader over the stream
+        private XmlReader               _reader;                    // the XmlReader over the stream
         private StringWriter                _cachedStringWriter;        // cached string writer used by CopySection()
         private ConfigurationSchemaErrors   _schemaErrors;              // accumulated errors
         private int                         _lastLineNumber;            // last line number after a call to CopyXmlNode()
@@ -144,7 +144,10 @@ namespace System.Configuration {
         }
 
         public int LineNumber {
-            get { return Reader.LineNumber; }
+            get {
+                //return Reader.LineNumber;
+                return 0;
+            }
         }
 
         //
@@ -153,13 +156,14 @@ namespace System.Configuration {
         //
         internal int TrueLinePosition {
             get {
-                int trueLinePosition = Reader.LinePosition - GetPositionOffset(Reader.NodeType);
-                Debug.Assert(trueLinePosition > 0, "trueLinePosition > 0");
-                return trueLinePosition;
+                return 0;
+                //int trueLinePosition = Reader.LinePosition - GetPositionOffset(Reader.NodeType);
+                //Debug.Assert(trueLinePosition > 0, "trueLinePosition > 0");
+                //return trueLinePosition;
             }
         }
 
-        internal XmlTextReader Reader {
+        internal XmlReader Reader {
             get { return _reader; }
         }
 

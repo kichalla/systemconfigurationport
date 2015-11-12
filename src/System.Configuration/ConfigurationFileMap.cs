@@ -10,7 +10,7 @@ namespace System.Configuration
     // machine.config. It is the base class for
     // ExeConfigurationFileMap and WebConfigurationFileMap.
     //
-    public class ConfigurationFileMap : ICloneable
+    public class ConfigurationFileMap 
     {
         // DevDiv #407902 - This used to be two fields: one containing the filename and the other containing
         // a Boolean dictating whether a security check needed to take place. Such a pattern wasn't thread-safe

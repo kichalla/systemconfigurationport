@@ -10,7 +10,7 @@
 namespace System.Configuration {
     
 
-    [STUBS()]
+    
     public sealed class ConfigurationSectionCollection : NameObjectCollectionBase {
 
         private MgmtConfigurationRecord     _configRecord;

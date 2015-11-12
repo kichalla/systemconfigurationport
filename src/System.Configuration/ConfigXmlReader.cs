@@ -48,7 +48,7 @@ namespace System.Configuration {
             return new ConfigXmlReader(_rawXml, _filename, _lineOffset, _lineNumberIsConstant);
         }
 
-        public override System.String GetAttribute(Int32 i)
+        public override String GetAttribute(Int32 i)
         {
             throw new NotImplementedException();
         }

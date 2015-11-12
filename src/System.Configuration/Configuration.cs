@@ -265,7 +265,7 @@ namespace System.Configuration
             }
             else
             {
-                filename = System.IO.Path.GetFullPath(filename);
+                filename = Path.GetFullPath(filename);
             }
 
             if (forceSaveAll)

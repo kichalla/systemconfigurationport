@@ -153,7 +153,8 @@ namespace System.Configuration
                                         xmlUtil);
                             }
 
-                            lineOffset = xmlUtil.Reader.LineNumber;
+                            //lineOffset = xmlUtil.Reader.LineNumber;
+                            lineOffset = 0;
                             rawXml = xmlUtil.CopySection();
 
                             // Detect if there is any XML left over after the section
