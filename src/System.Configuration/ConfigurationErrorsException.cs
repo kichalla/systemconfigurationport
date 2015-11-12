@@ -12,6 +12,7 @@
     using System.Xml;
     using System.Runtime.Versioning;
     using System.Diagnostics.CodeAnalysis;
+    using System.Xml.ReaderWriter
 
     [Serializable]
     public class ConfigurationErrorsException : ConfigurationException
@@ -264,7 +265,7 @@
             info.AddValue(SERIALIZATION_PARAM_ERROR_COUNT, subErrors);
         }
 
-        // The message includes the file/line number information.  
+        // The message includes the file/line number information.
         // To get the message without the extra information, use BareMessage.
         public override string Message
         {
@@ -342,7 +343,7 @@
             }
         }
 
-        // 
+        //
         // Get file and linenumber from an XML Node in a DOM
         //
         public static int GetLineNumber(XmlNode node)
@@ -360,7 +361,7 @@
             return GetUnsafeConfigErrorInfoFilename(node as IConfigErrorInfo);
         }
 
-        // 
+        //
         // Get file and linenumber from an XML Reader
         //
         public static int GetLineNumber(XmlReader reader)
@@ -378,7 +379,7 @@
             return GetUnsafeConfigErrorInfoFilename(reader as IConfigErrorInfo);
         }
 
-        // 
+        //
         // Get file and linenumber from an IConfigErrorInfo
         //
         private static int GetConfigErrorInfoLineNumber(IConfigErrorInfo errorInfo)
@@ -415,8 +416,8 @@
             return Path.GetFileName(fullPath);
         }
 
-        // 
-        // Internal Helper to strip a full path to just filename.ext when caller 
+        //
+        // Internal Helper to strip a full path to just filename.ext when caller
         // does not have path discovery to the path (used for sane error handling).
         //
         internal static string SafeFilename(string filename)
@@ -433,7 +434,7 @@
             }
 
             //
-            // If it is a relative path, return it as is. 
+            // If it is a relative path, return it as is.
             // This could happen if the exception was constructed from the serialization constructor,
             // and the caller did not have PathDiscoveryPermission for the file.
             //
@@ -475,7 +476,7 @@
             return filename;
         }
 
-        // 
+        //
         // Internal Helper to always strip a full path to just filename.ext.
         //
         internal static string AlwaysSafeFilename(string filename)
@@ -492,7 +493,7 @@
             }
 
             //
-            // If it is a relative path, return it as is. 
+            // If it is a relative path, return it as is.
             // This could happen if the exception was constructed from the serialization constructor,
             // and the caller did not have PathDiscoveryPermission for the file.
             //

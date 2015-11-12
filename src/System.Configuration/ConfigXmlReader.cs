@@ -19,7 +19,7 @@ namespace System.Configuration {
     using System.Xml;
     using System.Net;
 
-    internal sealed class ConfigXmlReader : XmlTextReader, IConfigErrorInfo {
+    internal sealed class ConfigXmlReader : XmlReader, IConfigErrorInfo {
         string  _rawXml;
         int     _lineOffset;
         string  _filename;

@@ -19,7 +19,7 @@ namespace System.Configuration {
     // Collection of PropertyInformation objects
     //
 
-    [Serializable()]
+    [STUBS()]
     public sealed class PropertyInformationCollection : NameObjectCollectionBase {
         ConfigurationElement ThisElement = null;
         internal PropertyInformationCollection(ConfigurationElement thisElement) : base(StringComparer.Ordinal) {

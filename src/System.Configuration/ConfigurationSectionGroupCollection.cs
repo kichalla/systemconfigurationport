@@ -10,7 +10,7 @@ namespace System.Configuration {
     using System.Runtime.Serialization;
     using System.Security.Permissions;
 
-    [Serializable()]
+    [STUBS()]
     public sealed class ConfigurationSectionGroupCollection : NameObjectCollectionBase {
 
         private MgmtConfigurationRecord     _configRecord;
