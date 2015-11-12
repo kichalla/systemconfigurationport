@@ -25,7 +25,8 @@ namespace System.Configuration.Internal
         private static volatile bool _osPlatformDetermined;
         private static volatile string _osPlatform;
 
-        private TempFileCollection _tempFiles;
+        // System.CodeDom.Compilation not available in Core
+        // private TempFileCollection _tempFiles;
         private string _tempNewFilename;
         private string _templateFilename;
 
@@ -34,17 +35,17 @@ namespace System.Configuration.Internal
             string directoryname = UrlPath.GetDirectoryOrRootName(filename);
 
             _templateFilename = templateFilename;
-            _tempFiles = new TempFileCollection(directoryname);
-            try
-            {
-                _tempNewFilename = _tempFiles.AddExtension("newcfg");
-            }
-            catch
-            {
-                ((IDisposable)_tempFiles).Dispose();
-                _tempFiles = null;
-                throw;
-            }
+            //_tempFiles = new TempFileCollection(directoryname);
+            //try
+            //{
+            //    _tempNewFilename = _tempFiles.AddExtension("newcfg");
+            //}
+            //catch
+            //{
+            //    ((IDisposable)_tempFiles).Dispose();
+            //    _tempFiles = null;
+            //    throw;
+            //}
         }
 
         static WriteFileContext()
@@ -99,13 +100,13 @@ namespace System.Configuration.Internal
                     ReplaceFile(_tempNewFilename, filename);
 
                     // Don't delete, since we just moved it.
-                    _tempFiles.KeepFiles = true;
+                   // _tempFiles.KeepFiles = true;
                 }
             }
             finally
             {
-                ((IDisposable)_tempFiles).Dispose();
-                _tempFiles = null;
+                //((IDisposable)_tempFiles).Dispose();
+                //_tempFiles = null;
             }
         }
 

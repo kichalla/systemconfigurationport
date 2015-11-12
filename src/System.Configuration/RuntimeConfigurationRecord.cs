@@ -179,7 +179,7 @@ namespace System.Configuration {
                 object config;
 
                 if (_sectionCtor != null) {
-                    ConfigurationSection configSection = (ConfigurationSection) TypeUtil.InvokeCtorWithReflectionPermission(_sectionCtor);
+                    ConfigurationSection configSection = (ConfigurationSection)_sectionCtor.Invoke(new object[] { });// TypeUtil.InvokeCtorWithReflectionPermission(_sectionCtor);
 
                     configSection.SectionInformation.SetRuntimeConfigurationInformation(configRecord, factoryRecord, sectionRecord);
 

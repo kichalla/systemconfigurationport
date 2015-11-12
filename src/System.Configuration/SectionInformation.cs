@@ -5,8 +5,9 @@
 //------------------------------------------------------------------------------
 
 namespace System.Configuration {
+    using Internal;
     using System;
- 
+
 
     public sealed class SectionInformation {
         // Flags

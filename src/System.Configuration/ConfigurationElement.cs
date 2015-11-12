@@ -901,13 +901,14 @@ namespace System.Configuration
                         ConfigurationCollectionAttribute attribCollection = propertyInformation.GetCustomAttribute<ConfigurationCollectionAttribute>();
 
                         // If none on the property - see if there is an attribute on the collection type itself
-                        if (attribCollection == null)
-                        {
+                        // TODO:  Fix this ... 
+                        //if (attribCollection == null)
+                        //{
                             
-                            attribCollection =
-                                Attribute.GetCustomAttribute(propertyType,
-                                                                typeof(ConfigurationCollectionAttribute)) as ConfigurationCollectionAttribute;
-                        }
+                        //    attribCollection =
+                        //        Attribute.GetCustomAttribute(propertyType,
+                        //                                        typeof(ConfigurationCollectionAttribute)) as ConfigurationCollectionAttribute;
+                        //}
 
                         ConfigurationElementCollection coll = propertyInformation.GetValue(instance, null) as ConfigurationElementCollection;
                         if (coll == null)

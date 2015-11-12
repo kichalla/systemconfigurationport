@@ -32,11 +32,6 @@ namespace System.Configuration {
             IsReadOnly = true;
         }
 
-        // [SecurityPermissionAttribute(SecurityAction.Demand,SerializationFormatter=true)]
-        public override void GetObjectData(SerializationInfo info, StreamingContext context) {
-            base.GetObjectData(info, context);
-        }
-
         // Item
         //
         // Indexor for retrieving a Property by name

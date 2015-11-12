@@ -144,7 +144,7 @@ namespace System.Configuration {
         override protected object CreateSection(bool inputIsTrusted, FactoryRecord factoryRecord, SectionRecord sectionRecord, object parentConfig, ConfigXmlReader reader) {
             // Create an instance of the ConfigurationSection
             ConstructorInfo ctor = (ConstructorInfo) factoryRecord.Factory;
-            ConfigurationSection configSection = (ConfigurationSection) TypeUtil.InvokeCtorWithReflectionPermission(ctor);
+            ConfigurationSection configSection = (ConfigurationSection)ctor.Invoke(new object[] { });//TypeUtil.InvokeCtorWithReflectionPermission(ctor);
 
             // Attach the ConfigurationSection to this record
             configSection.SectionInformation.AttachToConfigurationRecord(this, factoryRecord, sectionRecord);
