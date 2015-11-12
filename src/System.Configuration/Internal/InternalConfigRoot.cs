@@ -83,14 +83,14 @@ namespace System.Configuration.Internal {
                 throw ExceptionUtil.UnexpectedError("System.Configuration.Internal.InternalConfigRoot::AcquireHierarchyLockForRead - writer lock already held by this thread");
             }
 
-            _hierarchyLock.AcquireReaderLock(-1);
+            _hierarchyLock.EnterReadLock();
         }
 
         private void ReleaseHierarchyLockForRead() {
             Debug.Assert(!_hierarchyLock.IsWriteLockHeld, "!_hierarchyLock.IsWriterLockHeld");
 
             if (_hierarchyLock.IsReadLockHeld) {
-                _hierarchyLock.ReleaseReaderLock();
+                _hierarchyLock.ExitReadLock();
             }
         }
 
@@ -106,14 +106,14 @@ namespace System.Configuration.Internal {
                 throw ExceptionUtil.UnexpectedError("System.Configuration.Internal.InternalConfigRoot::AcquireHierarchyLockForWrite - writer lock already held by this thread");
             }
 
-            _hierarchyLock.AcquireWriterLock(-1);
+            _hierarchyLock.EnterWriteLock();
         }
 
         private void ReleaseHierarchyLockForWrite() {
             Debug.Assert(!_hierarchyLock.IsReadLockHeld, "!_hierarchyLock.IsReaderLockHeld");
 
             if (_hierarchyLock.IsReadLockHeld) {
-                _hierarchyLock.ReleaseWriterLock();
+                _hierarchyLock.ExitWriteLock();
             }
         }
 

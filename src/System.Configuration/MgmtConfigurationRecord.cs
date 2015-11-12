@@ -17,8 +17,6 @@
     using System.Text;
     using System.Xml;
     using System.Runtime.Versioning;
-    using Collections;
-    using Text;
 namespace System.Configuration {
 
     internal sealed class MgmtConfigurationRecord : BaseConfigurationRecord {
@@ -324,7 +322,7 @@ namespace System.Configuration {
                     ConstructorInfo ctor = EnsureSectionGroupFactory(factoryRecord);
 
                     try {
-                        configSectionGroup = (ConfigurationSectionGroup) TypeUtil.InvokeCtorWithReflectionPermission(ctor);
+                        configSectionGroup = (ConfigurationSectionGroup)ctor.Invoke(new object[] { });
                     }
                     catch (Exception e) {
                         throw new ConfigurationErrorsException(SR.GetString(SR.Config_exception_creating_section_handler, factoryRecord.ConfigKey),
@@ -687,10 +685,10 @@ namespace System.Configuration {
             if (string.IsNullOrEmpty(xmlElement))
                 return;
 
-            XmlTextReader reader = null;
+            XmlReader reader = null;
             try {
                 XmlParserContext context = new XmlParserContext(null, null, null, XmlSpace.Default, Encoding.Unicode);
-                reader = new XmlTextReader(xmlElement, XmlNodeType.Element, context);
+                reader = XmlReader.Create(new StringReader(xmlElement));   //new XmlextReader(xmlElement, XmlNodeType.Element, context);
 
                 // Verify that the it is an element
                 reader.Read();
@@ -734,7 +732,7 @@ namespace System.Configuration {
             }
             finally {
                 if (reader != null) {
-                    reader.Close();
+                    reader.Dispose();
                 }
             }
         }
@@ -2295,8 +2293,8 @@ namespace System.Configuration {
             using (Stream stream = new MemoryStream(buffer)) {
                 using (XmlUtil xmlUtil = new XmlUtil(stream, filename, false)) {
                     // copy up to the <configuration> node
-                    XmlTextReader reader = xmlUtil.Reader;
-                    reader.WhitespaceHandling = WhitespaceHandling.All;
+                    XmlReader reader = xmlUtil.Reader;
+                    //reader.WhitespaceHandling = WhitespaceHandling.All;
                     reader.Read();
                     xmlUtil.CopyReaderToNextElement(utilWriter, false);
 
@@ -2474,7 +2472,7 @@ namespace System.Configuration {
                 int parentLinePosition, int parentIndent) {
 
             bool wroteASection = false;
-            XmlTextReader reader = xmlUtil.Reader;
+            XmlReader reader = xmlUtil.Reader;
             int linePosition;
             int indent;
             int startingLinePosition;
@@ -2700,7 +2698,7 @@ namespace System.Configuration {
                 bool addNewSections, string group, int parentLinePosition, int parentIndent) {
 
             bool wroteASection = false;
-            XmlTextReader reader = xmlUtil.Reader;
+            XmlReader reader = xmlUtil.Reader;
             int linePosition;
             int indent;
             int startingLinePosition;
@@ -3144,10 +3142,10 @@ namespace System.Configuration {
 
             using (Stream stream = new MemoryStream(buffer)) {
                 using (XmlUtil xmlUtil = new XmlUtil(stream, configSourceStreamName, false)) {
-                    XmlTextReader reader = xmlUtil.Reader;
+                    XmlReader reader = xmlUtil.Reader;
 
                     // copy up to the first element
-                    reader.WhitespaceHandling = WhitespaceHandling.All;
+                    //reader.WhitespaceHandling = WhitespaceHandling.All;
                     reader.Read();
 
                     // determine the indent to use for the element
@@ -3156,22 +3154,22 @@ namespace System.Configuration {
                     bool hasElement = xmlUtil.CopyReaderToNextElement(utilWriter, false);
                     if (hasElement) {
                         // find the indent of the first attribute, if any
-                        int lineNumber = reader.LineNumber;
-                        linePosition = reader.LinePosition - 1;
+                        //int lineNumber = reader.LineNumber;
+                        //linePosition = reader.LinePosition - 1;
                         int attributeIndent = 0;
-                        while (reader.MoveToNextAttribute()) {
-                            if (reader.LineNumber > lineNumber) {
-                                attributeIndent =   reader.LinePosition - linePosition;
-                                break;
-                            }
-                        }
+                        //while (reader.MoveToNextAttribute()) {
+                        //    if (reader.LineNumber > lineNumber) {
+                        //        attributeIndent =   reader.LinePosition - linePosition;
+                        //        break;
+                        //    }
+                        //}
 
                         // find the indent of the first sub element, if any
                         int elementIndent = 0;
                         reader.Read();
                         while (reader.Depth >= 1) {
                             if (reader.NodeType == XmlNodeType.Element) {
-                                elementIndent = (reader.LinePosition - 1) - linePosition;
+                                //elementIndent = (reader.LinePosition - 1) - linePosition;
                                 break;
                             }
 

@@ -223,94 +223,7 @@ namespace System.Configuration
                 }
             }
         }
-
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            int subErrors = 0;
-            string numPrefix;
-
-            // call base implementation
-            base.GetObjectData(info, context);
-
-            // Serialize our members
-            info.AddValue(SERIALIZATION_PARAM_FILENAME, Filename);
-            info.AddValue(SERIALIZATION_PARAM_LINE, Line);
-
-            // Serialize rest of errors, along with count
-            // (since first error duplicates this error, only worry if
-            //  there is more than one)
-            if ((_errors != null) &&
-                (_errors.Length > 1))
-            {
-                subErrors = _errors.Length;
-
-                for (int i = 0; i < _errors.Length; i++)
-                {
-                    numPrefix = i.ToString(CultureInfo.InvariantCulture);
-
-                    info.AddValue(numPrefix + SERIALIZATION_PARAM_ERROR_DATA,
-                                  _errors[i]);
-                    info.AddValue(numPrefix + SERIALIZATION_PARAM_ERROR_TYPE,
-                                  _errors[i].GetType());
-                }
-            }
-
-            info.AddValue(SERIALIZATION_PARAM_ERROR_COUNT, subErrors);
-        }
-
-        // The message includes the file/line number information.
-        // To get the message without the extra information, use BareMessage.
-        public override string Message
-        {
-            get
-            {
-                string file = Filename;
-                if (!string.IsNullOrEmpty(file))
-                {
-                    if (Line != 0)
-                    {
-                        return BareMessage + " (" + file + " line " + Line.ToString(CultureInfo.CurrentCulture) + ")";
-                    }
-                    else
-                    {
-                        return BareMessage + " (" + file + ")";
-                    }
-                }
-                else if (Line != 0)
-                {
-                    return BareMessage + " (line " + Line.ToString("G", CultureInfo.CurrentCulture) + ")";
-                }
-                else
-                {
-                    return BareMessage;
-                }
-            }
-        }
-
-        public override string BareMessage
-        {
-            get
-            {
-                return base.BareMessage;
-            }
-        }
-
-        public override string Filename
-        {
-            get
-            {
-                return SafeFilename(_firstFilename);
-            }
-        }
-
-        public override int Line
-        {
-            get
-            {
-                return _firstLine;
-            }
-        }
-
+        
         public ICollection Errors
         {
             get
@@ -446,19 +359,7 @@ namespace System.Configuration
                 // Confirm that it is a full path.
                 // GetFullPath will also Demand PathDiscovery for the resulting path
                 string fullPath = Path.GetFullPath(filename);
-            }
-            catch (SecurityException)
-            {
-                // Get just the name of the file without the directory part.
-                try
-                {
-                    filename = ExtractFileNameWithAssert(filename);
-                }
-                catch
-                {
-                    filename = null;
-                }
-            }
+            }     
             catch
             {
                 filename = null;

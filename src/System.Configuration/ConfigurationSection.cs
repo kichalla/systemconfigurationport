@@ -87,10 +87,10 @@ namespace System.Configuration
             TempElement.Unmerge(this, parentElement, saveMode);
 
             StringWriter strWriter = new StringWriter(CultureInfo.InvariantCulture);
-            XmlTextWriter writer = new XmlTextWriter(strWriter);
-            writer.Formatting = Formatting.Indented;
-            writer.Indentation = 4;
-            writer.IndentChar = ' ';
+            XmlWriter writer = XmlWriter.Create(strWriter);
+            //writer.Formatting = Formatting.Indented;
+            //writer.Indentation = 4;
+            //writer.IndentChar = ' ';
             TempElement.DataToWriteInternal = (saveMode != ConfigurationSaveMode.Minimal);
 
             if (CurrentConfiguration != null && CurrentConfiguration.TargetFramework != null)

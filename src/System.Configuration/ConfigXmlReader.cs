@@ -33,7 +33,7 @@ namespace System.Configuration {
         }
 
         internal ConfigXmlReader(string rawXml, string filename, int lineOffset, bool lineNumberIsConstant) : 
-                base(new StringReader(rawXml)) {
+                base() {
 
             _rawXml = rawXml;
             _filename = filename;
@@ -113,12 +113,13 @@ namespace System.Configuration {
                 if (_lineNumberIsConstant) {
                     return _lineOffset;
                 }
-                else if (_lineOffset > 0) {
-                    return base.LineNumber + (_lineOffset - 1);
-                }
-                else {
-                    return base.LineNumber;
-                }
+                return 0;
+                //else if (_lineOffset > 0) {
+                //    return base.LineNumber + (_lineOffset - 1);
+                //}
+                //else {
+                //    return base.LineNumber;
+                //}
             }
         }
     

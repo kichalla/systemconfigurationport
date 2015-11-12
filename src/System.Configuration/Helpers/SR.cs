@@ -238,7 +238,7 @@ namespace System.Configuration
 
         internal SR()
         {
-            resources = new System.Resources.ResourceManager("System.Configuration", this.GetType().GetTypeInfo().Assembly);
+            resources = new ResourceManager("System.Configuration", this.GetType().GetTypeInfo().Assembly);
         }
 
         private static SR GetLoader()

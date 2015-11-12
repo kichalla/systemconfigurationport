@@ -20,6 +20,11 @@ namespace System.Configuration
         public string Filename { get; set; }
 
         public int Line { get; set; }
+
+        internal void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class SerializationInfo
@@ -32,6 +37,11 @@ namespace System.Configuration
         internal int GetInt32(string sERIALIZATION_PARAM_LINE)
         {
             return -1;
+        }
+
+        internal void AddValue(System.String sERIALIZATION_PARAM_FILENAME, System.String filename)
+        {
+            throw new NotImplementedException();
         }
     }
 
