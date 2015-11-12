@@ -16,6 +16,7 @@ namespace System.Configuration {
     using System.Configuration.Internal;
     using Assembly = System.Reflection.Assembly;
     using System.Diagnostics.CodeAnalysis;
+    using Xml;
 
     internal sealed class RuntimeConfigurationRecord : BaseConfigurationRecord {
 
@@ -145,24 +146,8 @@ namespace System.Configuration {
                 Init(configRecord, factoryRecord);
             }
 
-            [SuppressMessage("Microsoft.Security", "CA2107:ReviewDenyAndPermitOnlyUsage", Justification = "This PermitOnly is meant to protect unassuming handlers from malicious callers by undoing any asserts we have put on the stack.")]
             private void InitWithRestrictedPermissions(RuntimeConfigurationRecord configRecord, FactoryRecord factoryRecord) {
-                // Run configuration section handlers as if user code was on the stack
-                bool revertPermitOnly = false;
-                try {
-                    PermissionSet permissionSet = configRecord.GetRestrictedPermissions();
-                    if (permissionSet != null) {
-                        permissionSet.PermitOnly();
-                        revertPermitOnly = true;
-                    }
-
                     Init(configRecord, factoryRecord);
-                }
-                finally {
-                    if (revertPermitOnly) {
-                        CodeAccessPermission.RevertPermitOnly();
-                    }
-                }
             }
 
             //
@@ -241,7 +226,6 @@ namespace System.Configuration {
             }
 
             // Ignore user code on the stack
-            [PermissionSet(SecurityAction.Assert, Unrestricted=true)]
             private object CreateSectionWithFullTrust(
                     RuntimeConfigurationRecord configRecord, FactoryRecord factoryRecord, SectionRecord sectionRecord, 
                     object parentConfig, ConfigXmlReader reader) {
@@ -249,27 +233,11 @@ namespace System.Configuration {
                 return CreateSectionImpl(configRecord, factoryRecord, sectionRecord, parentConfig, reader);
             }
 
-            [SuppressMessage("Microsoft.Security", "CA2107:ReviewDenyAndPermitOnlyUsage", Justification = "This PermitOnly is meant to protect unassuming handlers from malicious callers by undoing any asserts we have put on the stack.")]
             private object CreateSectionWithRestrictedPermissions(
                     RuntimeConfigurationRecord configRecord, FactoryRecord factoryRecord, SectionRecord sectionRecord, 
                     object parentConfig, ConfigXmlReader reader) {
 
-                // run configuration section handlers as if user code was on the stack
-                bool revertPermitOnly = false;
-                try {
-                    PermissionSet permissionSet = configRecord.GetRestrictedPermissions();
-                    if (permissionSet != null) {
-                        permissionSet.PermitOnly();
-                        revertPermitOnly = true;
-                    }
-
                     return CreateSectionImpl(configRecord, factoryRecord, sectionRecord, parentConfig, reader);
-                }
-                finally {
-                    if (revertPermitOnly) {
-                        CodeAccessPermission.RevertPermitOnly();
-                    }
-                }
             }
 
             internal object CreateSection(bool inputIsTrusted, RuntimeConfigurationRecord configRecord, 

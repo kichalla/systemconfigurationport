@@ -16,9 +16,8 @@ namespace System.Configuration
     using System.IO;
     using System.Runtime.InteropServices;
     using Microsoft.Win32;
-    
+    using Xml;
 
-    [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
     public sealed class RsaProtectedConfigurationProvider : ProtectedConfigurationProvider
     {
         // Note: this name has to match the name used in RegiisUtility 

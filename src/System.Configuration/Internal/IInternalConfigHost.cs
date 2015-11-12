@@ -49,9 +49,7 @@ namespace System.Configuration.Internal {
         // null means stream doesn't exist for this name
         Stream      OpenStreamForRead(string streamName);
         Stream      OpenStreamForRead(string streamName, bool assertPermissions);
-        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId="2#")]
         Stream      OpenStreamForWrite(string streamName, string templateStreamName, ref object writeContext);
-        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId="2#")]
         Stream      OpenStreamForWrite(string streamName, string templateStreamName, ref object writeContext, bool assertPermissions);
         void        WriteCompleted(string streamName, bool success, object writeContext);
         void        WriteCompleted(string streamName, bool success, object writeContext, bool assertPermissions);

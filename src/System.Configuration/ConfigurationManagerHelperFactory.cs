@@ -7,10 +7,10 @@
 namespace System.Configuration {
     using System.Configuration.Internal;
     using System.Diagnostics.CodeAnalysis;
-    
+
 
     //
-    // class ConfigurationManagerHelperFactory manages access to a 
+    // class ConfigurationManagerHelperFactory manages access to a
     // single instance of ConfigurationManagerHelper.
     //
     static internal class ConfigurationManagerHelperFactory {
@@ -28,8 +28,6 @@ namespace System.Configuration {
             }
         }
 
-        [ReflectionPermission(SecurityAction.Assert, Flags = ReflectionPermissionFlag.MemberAccess)]
-        [SuppressMessage("Microsoft.Security", "CA2106:SecureAsserts", Justification = "Hard-coded to create an instance of a specific type.")]
         private static IConfigurationManagerHelper CreateConfigurationManagerHelper() {
             return TypeUtil.CreateInstance<IConfigurationManagerHelper>(ConfigurationManagerHelperTypeString);
         }

@@ -10,8 +10,9 @@ namespace System.Configuration
     using System.Collections.Specialized;
     using System.Xml;
     using System.Globalization;
-    
+
     using System.Diagnostics.CodeAnalysis;
+    using Collections.Specialized;
 
     public sealed class ProtectedConfigurationSection : ConfigurationSection
     {
@@ -36,8 +37,6 @@ namespace System.Configuration
             return coll;
         }
 
-        [PermissionSet(SecurityAction.Assert, Unrestricted=true)]
-        [SuppressMessage("Microsoft.Security", "CA2106:SecureAsserts", Justification = "This assert is potentially dangerous and shouldn't be present but is necessary for back-compat.")]
         private ProtectedConfigurationProvider CreateAndInitializeProviderWithAssert(Type t, ProviderSettings pn) {
             ProtectedConfigurationProvider provider = (ProtectedConfigurationProvider)TypeUtil.CreateInstanceWithReflectionPermission(t);
             NameValueCollection pars = pn.Parameters;

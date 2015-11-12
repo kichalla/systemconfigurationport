@@ -5,8 +5,7 @@
 //------------------------------------------------------------------------------
 
 namespace System.Configuration.Provider {
-    using  System.Collections.Specialized;
-    using  System.Runtime.Serialization;
+    using Runtime.Serialization;
 
     [Serializable]
     public class ProviderException : Exception
@@ -22,7 +21,7 @@ namespace System.Configuration.Provider {
         {}
 
         protected ProviderException( SerializationInfo info, StreamingContext context )
-            : base( info, context )
+            //: base( info, context )
         {}
     }
 }

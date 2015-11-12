@@ -14,10 +14,12 @@ namespace System.Configuration {
     using System.IO;
     using System.Reflection;
     using System.Security;
-    
+
     using System.Text;
     using System.Xml;
     using System.Runtime.Versioning;
+    using Collections;
+    using Text;
 
     internal sealed class MgmtConfigurationRecord : BaseConfigurationRecord {
         private const int   DEFAULT_INDENT = 4;

@@ -127,15 +127,11 @@ namespace System.Configuration {
             Type propertyType = info.PropertyType;
             // Collections need some customization when the collection attribute is present
             if (typeof(ConfigurationElementCollection).IsAssignableFrom(propertyType)) {
-                ConfigurationCollectionAttribute attribCollection =
-                    Attribute.GetCustomAttribute(info,
-                                                    typeof(ConfigurationCollectionAttribute)) as ConfigurationCollectionAttribute;
+                ConfigurationCollectionAttribute attribCollection = info.GetCustomAttribute<ConfigurationCollectionAttribute>();
 
                 // If none on the property - see if there is an attribute on the collection type itself
                 if (attribCollection == null) {
-                    attribCollection =
-                        Attribute.GetCustomAttribute(propertyType,
-                                                        typeof(ConfigurationCollectionAttribute)) as ConfigurationCollectionAttribute;
+                    attribCollection = propertyType.GetTypeInfo().GetCustomAttribute<ConfigurationCollectionAttribute>();
                 }
                 if (attribCollection != null) {
                     if (attribCollection.AddItemName.IndexOf(',') == -1) {
@@ -253,7 +249,7 @@ namespace System.Configuration {
                 if (_type == typeof(string)) {
                     defaultValue = String.Empty;
                 }
-                else if (_type.IsValueType) {
+                else if (_type.GetTypeInfo().IsValueType) {
                     defaultValue = TypeUtil.CreateInstanceWithReflectionPermission(_type);
                 }
             }
@@ -261,26 +257,22 @@ namespace System.Configuration {
         }
 
         public string Name {
-            [SuppressMessage("Microsoft.Concurrency", "CA8001", Justification = "_name is actually immutable once constructed")]
             get {
                 return _name;
             }
         }
 
         public string Description {
-            [SuppressMessage("Microsoft.Concurrency", "CA8001", Justification = "_description is actually immutable once constructed")]
             get {
                 return _description;
             }
         }
 
         internal string ProvidedName {
-            [SuppressMessage("Microsoft.Concurrency", "CA8001", Justification = "_providedName is actually immutable once constructed")]
             get { return _providedName; }
         }
 
         internal bool IsConfigurationElementType {
-            [SuppressMessage("Microsoft.Concurrency", "CA8001", Justification = "_type is effectively readonly")]
             get {
                 if (!_isTypeInited) {
                     _isConfigurationElementType = typeof(ConfigurationElement).IsAssignableFrom(_type);
@@ -291,56 +283,48 @@ namespace System.Configuration {
         }
 
         public Type Type {
-            [SuppressMessage("Microsoft.Concurrency", "CA8001", Justification = "_type is actually immutable once constructed")]
             get {
                 return _type;
             }
         }
 
         public Object DefaultValue {
-            [SuppressMessage("Microsoft.Concurrency", "CA8001", Justification = "_defaultValue is actually immutable once constructed")]
             get {
                 return _defaultValue;
             }
         }
 
         public bool IsRequired {
-            [SuppressMessage("Microsoft.Concurrency", "CA8001", Justification = "_options is actually immutable once constructed")]
             get {
                 return (_options & ConfigurationPropertyOptions.IsRequired) != 0;
             }
         }
 
         public bool IsKey {
-            [SuppressMessage("Microsoft.Concurrency", "CA8001", Justification = "_options is actually immutable once constructed")]
             get {
                 return (_options & ConfigurationPropertyOptions.IsKey) != 0;
             }
         }
 
         public bool IsDefaultCollection {
-            [SuppressMessage("Microsoft.Concurrency", "CA8001", Justification = "_options is actually immutable once constructed")]
             get {
                 return ((_options & ConfigurationPropertyOptions.IsDefaultCollection) != 0);
             }
         }
 
         public bool IsTypeStringTransformationRequired  {
-            [SuppressMessage("Microsoft.Concurrency", "CA8001", Justification = "_options is actually immutable once constructed")]
             get {
                 return (_options & ConfigurationPropertyOptions.IsTypeStringTransformationRequired) != 0;
             }
         }
 
         public bool IsAssemblyStringTransformationRequired {
-            [SuppressMessage("Microsoft.Concurrency", "CA8001", Justification = "_options is actually immutable once constructed")]
             get {
                 return (_options & ConfigurationPropertyOptions.IsAssemblyStringTransformationRequired) != 0;
             }
         }
 
         public bool IsVersionCheckRequired {
-            [SuppressMessage("Microsoft.Concurrency", "CA8001", Justification = "_options is actually immutable once constructed")]
             get {
                 return (_options & ConfigurationPropertyOptions.IsVersionCheckRequired) != 0;
             }
@@ -406,7 +390,6 @@ namespace System.Configuration {
 
             return result;
         }
-        [SuppressMessage("Microsoft.Concurrency", "CA8001", Justification = "_name and _validator are effectively readonly")]
         internal void Validate(object value) {
             try {
                 _validator.Validate(value);
@@ -423,10 +406,10 @@ namespace System.Configuration {
 
             if (_converter == null) {
                 // Enums are exception. We use our custom converter for all enums
-                if (_type.IsEnum) {
+                if (_type.GetTypeInfo().IsEnum) {
                     _converter = new GenericEnumConverter(_type);
                 }
-                else if (!_type.IsSubclassOf(typeof(ConfigurationElement))) {
+                else if (!_type.GetTypeInfo().IsSubclassOf(typeof(ConfigurationElement))) {
                     _converter = TypeDescriptor.GetConverter(_type);
 
                     if ((_converter == null) ||

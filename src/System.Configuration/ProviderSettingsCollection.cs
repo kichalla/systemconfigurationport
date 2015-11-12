@@ -7,14 +7,7 @@
 namespace System.Configuration
 {
     using System;
-    using System.Xml;
-    using System.Configuration;
-    using System.Collections.Specialized;
-    using System.Collections;
-    using System.IO;
-    using System.Text;
-    using System.Globalization;
-
+    
     [ConfigurationCollection(typeof(ProviderSettings))]
     public sealed class ProviderSettingsCollection : ConfigurationElementCollection 
     {
