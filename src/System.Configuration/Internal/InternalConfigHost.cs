@@ -124,15 +124,15 @@ namespace System.Configuration.Internal
             DateTime utcCreationTime = DateTime.MinValue;
             DateTime utcLastWriteTime = DateTime.MinValue;
 
-            UnsafeNativeMethods.WIN32_FILE_ATTRIBUTE_DATA data;
-            if (UnsafeNativeMethods.GetFileAttributesEx(streamName, UnsafeNativeMethods.GetFileExInfoStandard, out data) &&
-                    (data.fileAttributes & (int)FileAttributes.Directory) == 0)
-            {
-                exists = true;
-                fileSize = (long)(uint)data.fileSizeHigh << 32 | (long)(uint)data.fileSizeLow;
-                utcCreationTime = DateTime.FromFileTimeUtc(((long)data.ftCreationTimeHigh) << 32 | (long)data.ftCreationTimeLow);
-                utcLastWriteTime = DateTime.FromFileTimeUtc(((long)data.ftLastWriteTimeHigh) << 32 | (long)data.ftLastWriteTimeLow);
-            }
+            //UnsafeNativeMethods.WIN32_FILE_ATTRIBUTE_DATA data;
+            //if (UnsafeNativeMethods.GetFileAttributesEx(streamName, UnsafeNativeMethods.GetFileExInfoStandard, out data) &&
+            //        (data.fileAttributes & (int)FileAttributes.Directory) == 0)
+            //{
+            //    exists = true;
+            //    fileSize = (long)(uint)data.fileSizeHigh << 32 | (long)(uint)data.fileSizeLow;
+            //    utcCreationTime = DateTime.FromFileTimeUtc(((long)data.ftCreationTimeHigh) << 32 | (long)data.ftCreationTimeLow);
+            //    utcLastWriteTime = DateTime.FromFileTimeUtc(((long)data.ftLastWriteTimeHigh) << 32 | (long)data.ftLastWriteTimeLow);
+            //}
 
             return new FileVersion(exists, fileSize, utcCreationTime, utcLastWriteTime);
         }

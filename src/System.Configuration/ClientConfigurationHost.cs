@@ -531,7 +531,7 @@ namespace System.Configuration
         public override IDisposable Impersonate()
         {
             // Use the process identity
-            return WindowsIdentity.Impersonate(IntPtr.Zero);
+            return WindowsIdentity.GetCurrent(); // .Impersonate(IntPtr.Zero);
         }
 
         // context support

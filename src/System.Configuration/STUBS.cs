@@ -25,6 +25,14 @@ namespace System.Configuration
         {
             throw new NotImplementedException();
         }
+
+        public string BareMessage
+        {
+            get
+            {
+                return this.Message;
+            }
+        }
     }
 
     public class SerializationInfo

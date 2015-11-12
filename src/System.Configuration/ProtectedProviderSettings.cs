@@ -6,11 +6,6 @@
 
 namespace System.Configuration
 {
-    using System.Collections;
-    using System.Collections.Specialized;
-    using System.Xml;
-    using System.Globalization;
-
     public class ProtectedProviderSettings : ConfigurationElement
     {
         private ConfigurationPropertyCollection _properties;

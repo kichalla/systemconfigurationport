@@ -19,7 +19,7 @@ namespace System.Configuration {
     // Collection of PropertyInformation objects
     //
 
-    [STUBS()]
+    //[STUBS()]
     public sealed class PropertyInformationCollection : NameObjectCollectionBase {
         ConfigurationElement ThisElement = null;
         internal PropertyInformationCollection(ConfigurationElement thisElement) : base(StringComparer.Ordinal) {
@@ -32,7 +32,7 @@ namespace System.Configuration {
             IsReadOnly = true;
         }
 
-        [SecurityPermissionAttribute(SecurityAction.Demand,SerializationFormatter=true)]
+        // [SecurityPermissionAttribute(SecurityAction.Demand,SerializationFormatter=true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context) {
             base.GetObjectData(info, context);
         }

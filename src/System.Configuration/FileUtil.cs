@@ -20,27 +20,35 @@ namespace System.Configuration {
         // If trueOnError is set, then return true if we cannot confirm that the file does NOT exist.
         //
         internal static bool FileExists(string filename, bool trueOnError) {
-            UnsafeNativeMethods.WIN32_FILE_ATTRIBUTE_DATA data;
-            bool ok = UnsafeNativeMethods.GetFileAttributesEx(filename, UnsafeNativeMethods.GetFileExInfoStandard, out data);
-            if (ok) {
-                // The path exists. Return true if it is a file, false if a directory.
-                return (data.fileAttributes & (int) FileAttributes.Directory) != (int) FileAttributes.Directory;
+            try
+            {
+                return File.Exists(filename);
             }
-            else {
-                if (!trueOnError) {
-                    return false;
-                }
-                else {
-                    // Return true if we cannot confirm that the file does NOT exist.
-                    int hr = Marshal.GetHRForLastWin32Error();
-                    if (hr == HRESULT_WIN32_FILE_NOT_FOUND || hr == HRESULT_WIN32_PATH_NOT_FOUND) {
-                        return false;
-                    }
-                    else {
-                        return true;
-                    }
-                }
+            catch
+            {
+                return trueOnError;
             }
+            //UnsafeNativeMethods.WIN32_FILE_ATTRIBUTE_DATA data;
+            //bool ok = UnsafeNativeMethods.GetFileAttributesEx(filename, UnsafeNativeMethods.GetFileExInfoStandard, out data);
+            //if (ok) {
+            //    // The path exists. Return true if it is a file, false if a directory.
+            //    return (data.fileAttributes & (int) FileAttributes.Directory) != (int) FileAttributes.Directory;
+            //}
+            //else {
+            //    if (!trueOnError) {
+            //        return false;
+            //    }
+            //    else {
+            //        // Return true if we cannot confirm that the file does NOT exist.
+            //        int hr = Marshal.GetHRForLastWin32Error();
+            //        if (hr == HRESULT_WIN32_FILE_NOT_FOUND || hr == HRESULT_WIN32_PATH_NOT_FOUND) {
+            //            return false;
+            //        }
+            //        else {
+            //            return true;
+            //        }
+            //    }
+            //}
         }
     }
 }

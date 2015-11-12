@@ -217,9 +217,9 @@ namespace System.Configuration
                         throw ExceptionUtil.UnexpectedError("ConfigurationErrorsException");
                     }
 
-                    _errors[i] = (ConfigurationException)
-                                    info.GetValue(numPrefix + SERIALIZATION_PARAM_ERROR_DATA,
-                                                  currentExceptionType);
+                    //_errors[i] = (ConfigurationException)
+                    //                info.GetValue(numPrefix + SERIALIZATION_PARAM_ERROR_DATA,
+                    //                              currentExceptionType);
                 }
             }
         }

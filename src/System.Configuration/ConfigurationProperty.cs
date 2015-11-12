@@ -41,7 +41,7 @@ namespace System.Configuration {
             if (type == typeof(string)) {
                 defaultValue = String.Empty;
             }
-            else if (type.IsValueType) {
+            else if (type.GetTypeInfo().IsValueType) {
                 defaultValue = TypeUtil.CreateInstanceWithReflectionPermission(type);
             }
             SetDefaultValue(defaultValue);

@@ -10,7 +10,6 @@ using System.Xml;
 using System.Globalization;
 
 using System.Diagnostics.CodeAnalysis;
-using Collections.Specialized;
 using System.Reflection;
 
 namespace System.Configuration

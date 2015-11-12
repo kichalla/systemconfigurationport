@@ -163,10 +163,10 @@ namespace System.Configuration {
             // registry keys, but we'll also get back 0 as an invalid handle from
             // RegOpenKeyEx.
 
-            [SecurityPermission(SecurityAction.LinkDemand, UnmanagedCode=true)]
+            // [SecurityPermission(SecurityAction.LinkDemand, UnmanagedCode=true)]
             internal SafeRegistryHandle() : base(true) {}
 
-            [SecurityPermission(SecurityAction.LinkDemand, UnmanagedCode=true)]
+            // [SecurityPermission(SecurityAction.LinkDemand, UnmanagedCode=true)]
             internal SafeRegistryHandle(IntPtr preexistingHandle, bool ownsHandle) : base(ownsHandle) {
                 SetHandle(preexistingHandle);
             }
