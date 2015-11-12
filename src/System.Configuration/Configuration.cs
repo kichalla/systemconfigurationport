@@ -299,7 +299,6 @@ namespace System.Configuration
             {
                 return _TypeStringTransformer;
             }
-            [ConfigurationPermission(SecurityAction.Demand, Unrestricted = true)]
             set
             {
                 if (_TypeStringTransformer != value)
@@ -318,7 +317,6 @@ namespace System.Configuration
             {
                 return _AssemblyStringTransformer;
             }
-            [ConfigurationPermission(SecurityAction.Demand, Unrestricted = true)]
             set
             {
                 if (_AssemblyStringTransformer != value)
@@ -337,7 +335,6 @@ namespace System.Configuration
             {
                 return _TargetFramework;
             }
-            [ConfigurationPermission(SecurityAction.Demand, Unrestricted = true)]
             set
             {
                 _TargetFramework = value;

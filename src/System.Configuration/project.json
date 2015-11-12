@@ -1,10 +1,10 @@
 {
-  "version": "1.0.0-*",
-  "description": "System.Configuration Class Library",
-  "authors": [ "kichalla" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
+    "version": "1.0.0-*",
+    "description": "System.Configuration Class Library",
+    "authors": [ "kichalla" ],
+    "tags": [ "" ],
+    "projectUrl": "",
+    "licenseUrl": "",
     "frameworks": {
         "dnxcore50": {
             "dependencies": {
@@ -17,7 +17,11 @@
         }
     },
     "dependencies": {
+        "System.AppContext": "4.0.1-beta-23409",
         "System.Collections.Specialized": "4.0.1-beta-23409",
-        "System.Xml.ReaderWriter": "4.0.11-beta-23409"
+        "System.Xml.ReaderWriter": "4.0.11-beta-23409",
+        "System.ComponentModel.TypeConverter": "4.0.1-beta-23409",
+        "System.Runtime.Serialization.Primitives": "4.0.11-beta-23409",
+        "System.Runtime.Serialization.Xml": "4.0.11-beta-23409"
     }
 }
