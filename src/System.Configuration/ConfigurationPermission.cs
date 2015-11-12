@@ -7,18 +7,18 @@
 namespace System.Configuration {
 
     using System.Security;
-    
+
     using System.Globalization;
     using System.Diagnostics.CodeAnalysis;
-    
+
     [AttributeUsage(AttributeTargets.All, AllowMultiple=true, Inherited=false )]
-    [Serializable] 
+    [Serializable]
     sealed public class ConfigurationPermissionAttribute : CodeAccessSecurityAttribute
     {
         public ConfigurationPermissionAttribute(SecurityAction action) : base(action) {}
 
         public override IPermission CreatePermission() {
-            PermissionState state = (this.Unrestricted) ? 
+            PermissionState state = (this.Unrestricted) ?
                     PermissionState.Unrestricted : PermissionState.None;
 
             return new ConfigurationPermission(state);
@@ -75,67 +75,6 @@ namespace System.Configuration {
             return new ConfigurationPermission(_permissionState);
         }
 
-        //
-        // Returns the logical union between ConfigurationPermission instances.
-        //
-        [SuppressMessage("Microsoft.Security", "CA2103:ReviewImperativeSecurity", Justification = "This is a standard implementation of a union method.")]
-        public override IPermission Union(IPermission target) {
-            if (target == null) {
-                return Copy();
-            }
-
-            if (target.GetType() !=  typeof(ConfigurationPermission)) {
-                throw ExceptionUtil.ParameterInvalid("target");
-            }
-
-            // Create an Unrestricted permission if either this or other is unrestricted
-            if (_permissionState == PermissionState.Unrestricted) {
-                return new ConfigurationPermission(PermissionState.Unrestricted);
-            }
-            else {
-                ConfigurationPermission other = (ConfigurationPermission) target;
-                return new ConfigurationPermission(other._permissionState);
-            }
-        }
-
-        //
-        // Returns the logical intersection between two ConfigurationPermission instances.
-        //
-        [SuppressMessage("Microsoft.Security", "CA2103:ReviewImperativeSecurity", Justification = "This is a standard implementation of an intersection method.")]
-        public override IPermission Intersect(IPermission target) {
-            if (target == null) {
-                return null;
-            }
-
-            if (target.GetType() !=  typeof(ConfigurationPermission)) {
-                throw ExceptionUtil.ParameterInvalid("target");
-            }
-
-            // Create an None permission if either this or other is None
-            if (_permissionState == PermissionState.None) {
-                return new ConfigurationPermission(PermissionState.None);
-            }
-            else {
-                ConfigurationPermission other = (ConfigurationPermission) target;
-                return new ConfigurationPermission(other._permissionState);
-            }
-        }
-
-        //
-        // Compares two ConfigurationPermission instances
-        //
-        public override bool IsSubsetOf(IPermission target) {
-            if (target == null) {
-                return _permissionState == PermissionState.None;
-            }
-
-            if (target.GetType() != typeof(ConfigurationPermission)) {
-                throw ExceptionUtil.ParameterInvalid("target");
-            }
-
-            ConfigurationPermission other = (ConfigurationPermission) target;
-            return (_permissionState == PermissionState.None || other._permissionState == PermissionState.Unrestricted);
-        }
 
         public override void FromXml(SecurityElement securityElement) {
             if (securityElement == null) {

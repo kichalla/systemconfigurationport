@@ -38,4 +38,11 @@ namespace System.Configuration
     {
 
     }
+
+    public interface IConfigurationSectionHandler
+    {
+        object Create(Object parent, Object configContext, System.Xml.XmlNode section);
+    }
+
+
 }

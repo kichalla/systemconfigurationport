@@ -11,8 +11,6 @@ namespace System.Configuration {
     using System.IO;
     using System.Reflection;
     using System.Security;
-    
-    using System.Security.Policy;
     using System.Xml;
     using System.Net;
     using System.Configuration.Internal;
@@ -67,31 +65,8 @@ namespace System.Configuration {
             return parentResult;
         }
 
-        // Ignore user code on the stack
-        [PermissionSet(SecurityAction.Assert, Unrestricted=true)]
-        private object GetRuntimeObjectWithFullTrust(ConfigurationSection section) {
-            return section.GetRuntimeObject();
-        }
-
-        [SuppressMessage("Microsoft.Security", "CA2107:ReviewDenyAndPermitOnlyUsage", Justification = "This PermitOnly is meant to protect unassuming handlers from malicious callers by undoing any asserts we have put on the stack.")]
         private object GetRuntimeObjectWithRestrictedPermissions(ConfigurationSection section) {
-            // Run configuration section handlers as if user code was on the stack
-            bool revertPermitOnly = false;
-
-            try {
-                PermissionSet permissionSet = GetRestrictedPermissions();
-                if (permissionSet != null) {
-                    permissionSet.PermitOnly();
-                    revertPermitOnly = true;
-                }
-
                 return section.GetRuntimeObject();
-            }
-            finally {
-                if (revertPermitOnly) {
-                    CodeAccessPermission.RevertPermitOnly();
-                }
-            }
         }
 
         override protected object GetRuntimeObject(object result) {
@@ -123,7 +98,6 @@ namespace System.Configuration {
             return runtimeObject;
         }
 
-        [PermissionSet(SecurityAction.Assert, Unrestricted=true)]
         protected override string CallHostDecryptSection(string encryptedXml, ProtectedConfigurationProvider protectionProvider, ProtectedConfigurationSection protectedConfig) {
             // Decrypt should always succeed in runtime.  (VSWhidbey 429996)
             // Need to override in order to Assert before calling the base class method.
