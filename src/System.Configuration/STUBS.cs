@@ -11,6 +11,6 @@ namespace System.Configuration
 
     public class ConfigurationException : Exception
     {
-
+        public string Filename { get; set; }
     }
 }

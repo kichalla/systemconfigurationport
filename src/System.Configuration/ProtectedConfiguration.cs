@@ -14,8 +14,6 @@ namespace System.Configuration
     
     using System.Diagnostics.CodeAnalysis;
 
-    [PermissionSet(SecurityAction.LinkDemand, Name = "FullTrust")]
-    [SuppressMessage("Microsoft.Security", "CA2112:SecuredTypesShouldNotExposeFields", Justification = "The only fields exposed are constant strings, which aren't sensitive information.")]
     public static class ProtectedConfiguration
     {
         public static ProtectedConfigurationProviderCollection Providers

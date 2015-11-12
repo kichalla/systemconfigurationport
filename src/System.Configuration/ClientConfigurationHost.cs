@@ -565,7 +565,6 @@
         // Impersonate for Client Config
         // Use the process identity
         //
-        [SecurityPermissionAttribute(SecurityAction.Assert, Flags = SecurityPermissionFlag.ControlPrincipal | SecurityPermissionFlag.UnmanagedCode)]
         public override IDisposable Impersonate()
         {
             // Use the process identity

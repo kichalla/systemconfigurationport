@@ -389,11 +389,11 @@ namespace System.Configuration.Internal {
             return TypeUtil.IsCallerFullTrust;
         }
 
-        // security support
-        void IInternalConfigHost.GetRestrictedPermissions(IInternalConfigRecord configRecord, out PermissionSet permissionSet, out bool isHostReady) {
-            permissionSet = null;
-            isHostReady = true;
-        }
+        //// security support
+        //void IInternalConfigHost.GetRestrictedPermissions(IInternalConfigRecord configRecord, out PermissionSet permissionSet, out bool isHostReady) {
+        //    permissionSet = null;
+        //    isHostReady = true;
+        //}
 
         IDisposable IInternalConfigHost.Impersonate() {
             return null;

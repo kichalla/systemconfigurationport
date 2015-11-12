@@ -7,15 +7,15 @@
 namespace System.Configuration.Internal {
     using System.Configuration;
     using System.IO;
-    
+
     using System.Reflection;
     using System.Threading;
     using System.Security;
     using System.CodeDom.Compiler;
 
     //
-    // A public implementation of IInternalConfigHost that simply 
-    // delegates all members of the IInternalConfigHost interface to 
+    // A public implementation of IInternalConfigHost that simply
+    // delegates all members of the IInternalConfigHost interface to
     // another instance of a host. All interface members are marked virtual
     // so that a derived class can override just the ones needed to
     // implement that specific host, while all others are delegated to
@@ -45,7 +45,7 @@ namespace System.Configuration.Internal {
             Host.Init(configRoot, hostInitParams);
         }
 
-        public virtual void InitForConfiguration(ref string locationSubPath, out string configPath, out string locationConfigPath, 
+        public virtual void InitForConfiguration(ref string locationSubPath, out string configPath, out string locationConfigPath,
                 IInternalConfigRoot configRoot, params object[] hostInitConfigurationParams) {
 
             Host.InitForConfiguration(ref locationSubPath, out configPath, out locationConfigPath, configRoot, hostInitConfigurationParams);
@@ -178,9 +178,9 @@ namespace System.Configuration.Internal {
             return Host.IsFullTrustSectionWithoutAptcaAllowed(configRecord);
         }
 
-        public virtual void GetRestrictedPermissions(IInternalConfigRecord configRecord, out PermissionSet permissionSet, out bool isHostReady) {
-            Host.GetRestrictedPermissions(configRecord, out permissionSet, out isHostReady);
-        }
+        //public virtual void GetRestrictedPermissions(IInternalConfigRecord configRecord, out PermissionSet permissionSet, out bool isHostReady) {
+        //    Host.GetRestrictedPermissions(configRecord, out permissionSet, out isHostReady);
+        //}
 
         public virtual IDisposable Impersonate() {
             return Host.Impersonate();
@@ -198,8 +198,8 @@ namespace System.Configuration.Internal {
             return Host.CreateDeprecatedConfigContext(configPath);
         }
 
-        public virtual object 
-        CreateConfigurationContext( string configPath, string locationSubPath ) 
+        public virtual object
+        CreateConfigurationContext( string configPath, string locationSubPath )
         {
             return Host.CreateConfigurationContext( configPath, locationSubPath );
         }

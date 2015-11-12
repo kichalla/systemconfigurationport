@@ -14,15 +14,13 @@ namespace System.Configuration {
     using System.Runtime.Serialization.Formatters.Binary;
     using System.Security;
     using System.Security.Cryptography;
-    using System.Security.Policy;
-    
     using System.Text;
     using System.Globalization;
     using Microsoft.Win32;
 
     class ClientConfigPaths {
         internal const string       UserConfigFilename = "user.config";
-        
+
         const string                ClickOnceDataDirectory = "DataDirectory";
         const string                ConfigExtension = ".config";
         const int                   MAX_PATH = 260;
@@ -36,9 +34,9 @@ namespace System.Configuration {
         const string                PathDesc = "Path";
 
         static Char[] s_Base32Char   = {
-                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
                 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-                'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 
+                'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
                 'y', 'z', '0', '1', '2', '3', '4', '5'};
 
         static  volatile ClientConfigPaths  s_current;
@@ -58,9 +56,7 @@ namespace System.Configuration {
         string  _productName;
         string  _productVersion;
 
-        
-        [FileIOPermission(SecurityAction.Assert, AllFiles=FileIOPermissionAccess.PathDiscovery | FileIOPermissionAccess.Read)]
-        [SecurityPermission(SecurityAction.Assert, UnmanagedCode=true)]
+
         private ClientConfigPaths(string exePath, bool includeUserConfig) {
 
             _includesUserConfig = includeUserConfig;
@@ -68,7 +64,7 @@ namespace System.Configuration {
             Assembly    exeAssembly = null;
             string      applicationUri = null;
             string      applicationFilename = null;
-            
+
             // get the assembly and applicationUri for the file
             if (exePath == null) {
                 // First check if a configuration file has been set for this app domain. If so, we will use that.
@@ -129,7 +125,7 @@ namespace System.Configuration {
             // Set application path
             _applicationUri = applicationUri;
 
-            // In the case when exePath was explicitly supplied, we will not be able to 
+            // In the case when exePath was explicitly supplied, we will not be able to
             // construct user.config paths, so quit here.
             if (exePath != null) {
                 return;
@@ -160,7 +156,7 @@ namespace System.Configuration {
             else if (!isHttp) {
                 // If we get the config from http, we do not have a roaming or local config directory,
                 // as it cannot be edited by the app in those cases because it does not have Full Trust.
-                
+
                 // suffix for user config paths
 
                 string part1 = Validate(_companyName, true);
@@ -169,21 +165,21 @@ namespace System.Configuration {
                 string applicationUriLower = !String.IsNullOrEmpty(_applicationUri) ? _applicationUri.ToLower(CultureInfo.InvariantCulture) : null;
                 string namePrefix = !String.IsNullOrEmpty(validAppDomainName) ? validAppDomainName : Validate(_productName, true);
                 string hashSuffix = GetTypeAndHashSuffix(AppDomain.CurrentDomain, applicationUriLower);
-                
+
                 string part2 = (!String.IsNullOrEmpty(namePrefix) && !String.IsNullOrEmpty(hashSuffix)) ? namePrefix + hashSuffix : null;
-                
+
                 string part3 = Validate(_productVersion, false);
 
                 string dirSuffix = CombineIfValid(CombineIfValid(part1, part2), part3);
-    
+
                 string roamingFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 if (Path.IsPathRooted(roamingFolderPath)) {
                     _roamingConfigDirectory = CombineIfValid(roamingFolderPath, dirSuffix);
                     _roamingConfigFilename = CombineIfValid(_roamingConfigDirectory, UserConfigFilename);
                 }
-    
+
                 string localFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                if (Path.IsPathRooted(localFolderPath)) { 
+                if (Path.IsPathRooted(localFolderPath)) {
                     _localConfigDirectory = CombineIfValid(localFolderPath, dirSuffix);
                     _localConfigFilename = CombineIfValid(_localConfigDirectory, UserConfigFilename);
                 }
@@ -288,21 +284,21 @@ namespace System.Configuration {
         }
 
         private static SecurityPermission ControlEvidencePermission {
-            get { 
+            get {
                 if (s_controlEvidencePerm == null) {
                     s_controlEvidencePerm = new SecurityPermission(SecurityPermissionFlag.ControlEvidence);
                 }
                 return s_controlEvidencePerm;
-            } 
+            }
         }
 
         private static SecurityPermission SerializationFormatterPermission {
-            get { 
+            get {
                 if (s_serializationPerm == null) {
                     s_serializationPerm = new SecurityPermission(SecurityPermissionFlag.SerializationFormatter);
                 }
                 return s_serializationPerm;
-            } 
+            }
         }
 
         // Combines path2 with path1 if possible, else returns null.
@@ -319,18 +315,18 @@ namespace System.Configuration {
                 catch {
                 }
             }
-            
+
             return returnPath;
         }
 
         // Returns a type and hash suffix based on app domain evidence. The evidence we use, in
-        // priority order, is Strong Name, Url and Exe Path. If one of these is found, we compute a 
+        // priority order, is Strong Name, Url and Exe Path. If one of these is found, we compute a
         // SHA1 hash of it and return a suffix based on that. If none is found, we return null.
         private string GetTypeAndHashSuffix(AppDomain appDomain, string exePath) {
             string suffix       = null;
             string typeName     = null;
             object evidenceObj  = null;
-            
+
             evidenceObj = GetEvidenceInfo(appDomain, exePath, out typeName);
 
             if (evidenceObj != null && !String.IsNullOrEmpty(typeName)) {
@@ -359,10 +355,10 @@ namespace System.Configuration {
             if (evidence != null) {
                 IEnumerator e = evidence.GetHostEnumerator();
                 object      temp = null;
-    
+
                 while (e.MoveNext()) {
                     temp = e.Current;
-    
+
                     if (temp is StrongName) {
                         sn = (StrongName) temp;
                         break;
@@ -460,7 +456,7 @@ namespace System.Configuration {
 
             //
             // If we couldn't get custom attributes, try the Win32 file version
-            // 
+            //
             if (!isHttp && (String.IsNullOrEmpty(_companyName) || String.IsNullOrEmpty(_productName) || String.IsNullOrEmpty(_productVersion))) {
                 string versionInfoFileName = null;
 
@@ -479,7 +475,7 @@ namespace System.Configuration {
                 }
 
                 if (versionInfoFileName != null) {
-                    System.Diagnostics.FileVersionInfo version = System.Diagnostics.FileVersionInfo.GetVersionInfo(versionInfoFileName); 
+                    System.Diagnostics.FileVersionInfo version = System.Diagnostics.FileVersionInfo.GetVersionInfo(versionInfoFileName);
                     if (version != null) {
                         if (String.IsNullOrEmpty(_companyName)) {
                             _companyName = version.CompanyName;
@@ -570,13 +566,13 @@ namespace System.Configuration {
             StringBuilder sb = new StringBuilder();
             byte b0, b1, b2, b3, b4;
             int  l, i;
-        
+
             l = buff.Length;
             i = 0;
-        
-            // Create l chars using the last 5 bits of each byte.  
+
+            // Create l chars using the last 5 bits of each byte.
             // Consume 3 MSB bits 5 bytes at a time.
-        
+
             do
             {
                 b0 = (i < l) ? buff[i++] : (byte)0;
@@ -584,36 +580,36 @@ namespace System.Configuration {
                 b2 = (i < l) ? buff[i++] : (byte)0;
                 b3 = (i < l) ? buff[i++] : (byte)0;
                 b4 = (i < l) ? buff[i++] : (byte)0;
-        
+
                 // Consume the 5 Least significant bits of each byte
                 sb.Append(s_Base32Char[b0 & 0x1F]);
                 sb.Append(s_Base32Char[b1 & 0x1F]);
                 sb.Append(s_Base32Char[b2 & 0x1F]);
                 sb.Append(s_Base32Char[b3 & 0x1F]);
                 sb.Append(s_Base32Char[b4 & 0x1F]);
-        
+
                 // Consume 3 MSB of b0, b1, MSB bits 6, 7 of b3, b4
                 sb.Append(s_Base32Char[(
-                        ((b0 & 0xE0) >> 5) | 
+                        ((b0 & 0xE0) >> 5) |
                         ((b3 & 0x60) >> 2))]);
-        
+
                 sb.Append(s_Base32Char[(
-                        ((b1 & 0xE0) >> 5) | 
+                        ((b1 & 0xE0) >> 5) |
                         ((b4 & 0x60) >> 2))]);
-        
+
                 // Consume 3 MSB bits of b2, 1 MSB bit of b3, b4
-                
+
                 b2 >>= 5;
-        
+
                 if ((b3 & 0x80) != 0)
                     b2 |= 0x08;
                 if ((b4 & 0x80) != 0)
                     b2 |= 0x10;
-        
+
                 sb.Append(s_Base32Char[b2]);
-        
+
             } while (i < l);
-        
+
             return sb.ToString();
         }
 
@@ -628,7 +624,7 @@ namespace System.Configuration {
                 foreach (char c in Path.GetInvalidFileNameChars()) {
                     validated = validated.Replace(c, '_');
                 }
-    
+
                 // Replace all spaces with underscores
                 validated = validated.Replace(' ', '_');
 

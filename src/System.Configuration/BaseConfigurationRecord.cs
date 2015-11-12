@@ -9,7 +9,7 @@
     using System.IO;
     using System.Reflection;
     using System.Runtime.InteropServices;
-    
+
     using System.Security;
     using System.Text;
     using System.Threading;
@@ -128,7 +128,7 @@
 
         private object _configContext;         // Context for config level
         private ProtectedConfigurationSection _protectedConfig;       // section containing the encryption providers
-        private PermissionSet _restrictedPermissions; // cached restricted permission set
+        //private PermissionSet _restrictedPermissions; // cached restricted permission set
         private ConfigurationSchemaErrors _initErrors;            // errors encountered during the parse of the configuration file
         private BaseConfigurationRecord _initDelayedRoot;       // root of delayed initialization
 
@@ -275,56 +275,56 @@
             return context;
         }
 
-        internal PermissionSet GetRestrictedPermissions()
-        {
-            if (!_flags[RestrictedPermissionsResolved])
-            {
-                lock (this)
-                {
-                    if (!_flags[RestrictedPermissionsResolved])
-                    {
-                        if (AppDomain.CurrentDomain.IsHomogenous)
-                        {
-                            // in a homogenous domain, just call PermitOnly() on the AppDomain's existing permission set
-                            _restrictedPermissions = AppDomain.CurrentDomain.PermissionSet;
-                            _flags[RestrictedPermissionsResolved] = true;
-                        }
-                        else
-                        {
-                            // in a non-homogenous domain, use Evidence to calculate the current security policy
-                            PermissionSet restrictedPermissions;
-                            bool isHostReady;
+        //internal PermissionSet GetRestrictedPermissions()
+        //{
+        //    if (!_flags[RestrictedPermissionsResolved])
+        //    {
+        //        lock (this)
+        //        {
+        //            if (!_flags[RestrictedPermissionsResolved])
+        //            {
+        //                if (AppDomain.CurrentDomain.IsHomogenous)
+        //                {
+        //                    // in a homogenous domain, just call PermitOnly() on the AppDomain's existing permission set
+        //                    _restrictedPermissions = AppDomain.CurrentDomain.PermissionSet;
+        //                    _flags[RestrictedPermissionsResolved] = true;
+        //                }
+        //                else
+        //                {
+        //                    // in a non-homogenous domain, use Evidence to calculate the current security policy
+        //                    PermissionSet restrictedPermissions;
+        //                    bool isHostReady;
 
-                            GetRestrictedPermissionsWithAssert(out restrictedPermissions, out isHostReady);
-                            if (isHostReady)
-                            {
-                                _restrictedPermissions = restrictedPermissions;
-                                _flags[RestrictedPermissionsResolved] = true;
-                            }
-                        }
+        //                    GetRestrictedPermissionsWithAssert(out restrictedPermissions, out isHostReady);
+        //                    if (isHostReady)
+        //                    {
+        //                        _restrictedPermissions = restrictedPermissions;
+        //                        _flags[RestrictedPermissionsResolved] = true;
+        //                    }
+        //                }
 
-                        // calling PermitOnly() on an unrestricted PermissionSet is a no-op
-                        if (_restrictedPermissions != null && _restrictedPermissions.IsUnrestricted())
-                        {
-                            _restrictedPermissions = null;
-                        }
-                    }
-                }
-
-
+        //                // calling PermitOnly() on an unrestricted PermissionSet is a no-op
+        //                if (_restrictedPermissions != null && _restrictedPermissions.IsUnrestricted())
+        //                {
+        //                    _restrictedPermissions = null;
+        //                }
+        //            }
+        //        }
 
 
 
-            }
 
-            return _restrictedPermissions;
-        }
+
+        //    }
+
+        //    return _restrictedPermissions;
+        //}
         // Getting the PermissionSet object is a FullTrust operation; we can Assert since our callers are careful not to leak it
-        [PermissionSet(SecurityAction.Assert, Unrestricted = true)]
-        private void GetRestrictedPermissionsWithAssert(out PermissionSet permissionSet, out bool isHostReady)
-        {
-            Host.GetRestrictedPermissions(this, out permissionSet, out isHostReady);
-        }
+        //[PermissionSet(SecurityAction.Assert, Unrestricted = true)]
+        //private void GetRestrictedPermissionsWithAssert(out PermissionSet permissionSet, out bool isHostReady)
+        //{
+        //    Host.GetRestrictedPermissions(this, out permissionSet, out isHostReady);
+        //}
 
         internal void Init(
                 IInternalConfigRoot configRoot,

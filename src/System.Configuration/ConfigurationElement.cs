@@ -890,9 +890,7 @@ namespace System.Configuration
             foreach (PropertyInfo propertyInformation in type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
             {
 
-                ConfigurationPropertyAttribute attribProperty =
-                    Attribute.GetCustomAttribute(propertyInformation,
-                                                 typeof(ConfigurationPropertyAttribute)) as ConfigurationPropertyAttribute;
+                ConfigurationPropertyAttribute attribProperty = propertyInformation.GetCustomAttribute<ConfigurationPropertyAttribute>();
 
                 if (attribProperty != null)
                 {
@@ -900,9 +898,7 @@ namespace System.Configuration
                     // Collections need some customization when the collection attribute is present
                     if (typeof(ConfigurationElementCollection).IsAssignableFrom(propertyType))
                     {
-                        ConfigurationCollectionAttribute attribCollection =
-                            Attribute.GetCustomAttribute(propertyInformation,
-                                                            typeof(ConfigurationCollectionAttribute)) as ConfigurationCollectionAttribute;
+                        ConfigurationCollectionAttribute attribCollection = propertyInformation.GetCustomAttribute<ConfigurationCollectionAttribute>();
 
                         // If none on the property - see if there is an attribute on the collection type itself
                         if (attribCollection == null)
@@ -977,7 +973,7 @@ namespace System.Configuration
             // For ConfigurationElement derived classes - get the per-type validator
             if (typeof(ConfigurationElement).IsAssignableFrom(type))
             {
-                ConfigurationValidatorAttribute attribValidator = Attribute.GetCustomAttribute(type, typeof(ConfigurationValidatorAttribute)) as ConfigurationValidatorAttribute;
+                ConfigurationValidatorAttribute attribValidator = type.GetTypeInfo().GetCustomAttribute<ConfigurationValidatorAttribute>();
 
                 if (attribValidator != null)
                 {
@@ -1011,9 +1007,7 @@ namespace System.Configuration
 
             ConfigurationProperty result = null;
 
-            ConfigurationPropertyAttribute attribProperty =
-                Attribute.GetCustomAttribute(propertyInformation,
-                                                typeof(ConfigurationPropertyAttribute)) as ConfigurationPropertyAttribute;
+            ConfigurationPropertyAttribute attribProperty = propertyInformation.GetCustomAttribute<ConfigurationPropertyAttribute>();
 
             // If there is no ConfigurationProperty attrib - this is not considered a property
             if (attribProperty != null)
@@ -1459,7 +1453,7 @@ namespace System.Configuration
                 {
                     DataToWrite = true;
                     if (writer != null)
-                        writer.WriteAttributeString(LockItemKey, true.ToString().ToLower(CultureInfo.InvariantCulture));
+                        writer.WriteAttributeString(LockItemKey, true.ToString().ToLowerInvariant());
                 }
             }
             if (hasAnyChildElements)
