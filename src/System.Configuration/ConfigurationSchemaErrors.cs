@@ -4,11 +4,11 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
-    using System.Collections;
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Text;
+    using System.Collections;
+namespace System.Configuration {
 
     internal class ConfigurationSchemaErrors {
         // Errors with ExceptionAction.Local are logged to this list.

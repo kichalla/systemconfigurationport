@@ -4,7 +4,6 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System.Configuration.Internal;
     using System.Collections;
     using System.Collections.Generic;
@@ -18,6 +17,7 @@ namespace System.Configuration {
     using System.Security;
     using System.Text;
     using System.Xml;
+namespace System.Configuration {
 
 
     // This is the public type of the override mode enum visible to the API users

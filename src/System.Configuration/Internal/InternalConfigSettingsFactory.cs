@@ -4,9 +4,9 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
+    using System.Configuration;
 namespace System.Configuration.Internal {
 
-    using System.Configuration;
 
     //
     // Called by System.Web.HttpConfigurationSystem to set the configuration system 

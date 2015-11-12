@@ -4,11 +4,11 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System.Collections;
     using System.Security.Cryptography;
     using System.Security.Cryptography.Xml;
     using System.Xml;
+namespace System.Configuration {
 
     // 
     // Extends EncryptedXml to use FIPS-certified symmetric algorithm

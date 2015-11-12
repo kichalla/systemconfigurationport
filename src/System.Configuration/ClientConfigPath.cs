@@ -1,6 +1,4 @@
-﻿namespace System.Configuration
-{
-    using System;
+﻿    using System;
     using System.Collections;
     using System.IO;
     using System.Reflection;
@@ -14,6 +12,8 @@
     using System.Text;
     using System.Globalization;
     using Microsoft.Win32;
+namespace System.Configuration
+{
 
     class ClientConfigPaths
     {

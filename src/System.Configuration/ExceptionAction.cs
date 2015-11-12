@@ -4,7 +4,6 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System.Configuration.Internal;
     using System.Collections;
     using System.Collections.Specialized;
@@ -19,6 +18,7 @@ namespace System.Configuration {
     using System.Xml;
     using System.Net;
 
+namespace System.Configuration {
     // ExceptionAction
     //
     // Value to change how we handle the Exception

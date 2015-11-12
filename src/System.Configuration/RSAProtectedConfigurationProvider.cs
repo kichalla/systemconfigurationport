@@ -4,8 +4,6 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration
-{
     using System.Collections.Specialized;
     using System.Runtime.Serialization;
     using System.Configuration.Provider;
@@ -17,6 +15,8 @@ namespace System.Configuration
     using System.Runtime.InteropServices;
     using Microsoft.Win32;
     using Xml;
+namespace System.Configuration
+{
 
     public sealed class RsaProtectedConfigurationProvider : ProtectedConfigurationProvider
     {

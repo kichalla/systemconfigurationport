@@ -4,7 +4,6 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System.Configuration.Internal;
     using System.Collections;
     using System.Collections.Specialized;
@@ -14,6 +13,7 @@ namespace System.Configuration {
     using System.Threading;
     using System.Reflection;
     using System.Xml;
+namespace System.Configuration {
 
     [System.Diagnostics.DebuggerDisplay("LocationSectionRecord {ConfigKey}")]
     internal class LocationSectionRecord {

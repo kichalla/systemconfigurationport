@@ -1,20 +1,20 @@
-﻿namespace System.Configuration
-{
-    using System.Configuration.Internal;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Collections.Specialized;
-    using System.Configuration;
-    using System.Globalization;
-    using System.IO;
-    using System.Reflection;
-    using System.Runtime.InteropServices;
+﻿using System.Configuration.Internal;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
+using System.Globalization;
+using System.IO;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Security;
+using System.Text;
+using System.Threading;
+using System.Xml;
+using System.Runtime.Versioning;
 
-    using System.Security;
-    using System.Text;
-    using System.Threading;
-    using System.Xml;
-    using System.Runtime.Versioning;
+namespace System.Configuration
+{
 
     //
     // This object represents the configuration for a request path, and is cached per-path.

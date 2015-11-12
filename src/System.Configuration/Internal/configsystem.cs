@@ -4,9 +4,9 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration.Internal {
     using System;
     using System.Configuration;
+namespace System.Configuration.Internal {
 
     // The runtime config system
     internal class ConfigSystem : IConfigSystem {

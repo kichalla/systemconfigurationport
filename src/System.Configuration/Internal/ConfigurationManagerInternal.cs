@@ -4,9 +4,9 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
+    using System.Configuration;
 namespace System.Configuration.Internal {
 
-    using System.Configuration;
 
     internal sealed class ConfigurationManagerInternal : IConfigurationManagerInternal {
 

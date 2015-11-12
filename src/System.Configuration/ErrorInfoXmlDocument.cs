@@ -4,12 +4,12 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration
-{
     using System.Configuration.Internal;
     using System.IO;
     using System.Xml;
     
+namespace System.Configuration
+{
 
     // ErrorInfoXmlDocument - the default Xml Document doesn't track line numbers, and line
     // numbers are necessary to display source on config errors.

@@ -4,7 +4,6 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration.Internal {
     using System.Configuration;
     using System.IO;
     
@@ -16,6 +15,7 @@ namespace System.Configuration.Internal {
 #if !FEATURE_PAL
     using System.Security.AccessControl;
 #endif
+namespace System.Configuration.Internal {
 
     internal class WriteFileContext {
         private const  int          SAVING_TIMEOUT        = 10000;  // 10 seconds

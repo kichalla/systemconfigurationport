@@ -4,8 +4,6 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration
-{
     using System.Collections;
     using System.Collections.Specialized;
     using System.Runtime.Serialization;
@@ -13,6 +11,8 @@ namespace System.Configuration
     using System.Xml;
     
     using System.Diagnostics.CodeAnalysis;
+namespace System.Configuration
+{
 
     public static class ProtectedConfiguration
     {

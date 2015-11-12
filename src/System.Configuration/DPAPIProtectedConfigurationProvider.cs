@@ -4,8 +4,6 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration
-{
     using System.Collections.Specialized;
     using System.Runtime.Serialization;
     using System.Configuration.Provider;
@@ -16,8 +14,9 @@ namespace System.Configuration
     
     using Microsoft.Win32.SafeHandles;
     using System.Runtime.CompilerServices;
+namespace System.Configuration
+{
 
-    [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
     public sealed class DpapiProtectedConfigurationProvider : ProtectedConfigurationProvider
     {
         public override XmlNode Decrypt(XmlNode encryptedNode)

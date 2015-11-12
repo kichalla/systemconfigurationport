@@ -4,10 +4,10 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System.Configuration.Internal;
     using System.Diagnostics.CodeAnalysis;
 
+namespace System.Configuration {
 
     //
     // class ConfigurationManagerHelperFactory manages access to a

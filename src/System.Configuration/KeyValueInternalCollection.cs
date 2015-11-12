@@ -4,7 +4,6 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System;
     using System.Xml;
     using System.Configuration;
@@ -12,6 +11,7 @@ namespace System.Configuration {
     using System.Collections;
     using System.IO;
     using System.Text;
+namespace System.Configuration {
 
     // class AppSettingsSection
 

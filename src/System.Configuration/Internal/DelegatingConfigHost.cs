@@ -4,7 +4,6 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration.Internal {
     using System.Configuration;
     using System.IO;
 
@@ -12,6 +11,7 @@ namespace System.Configuration.Internal {
     using System.Threading;
     using System.Security;
     using System.CodeDom.Compiler;
+namespace System.Configuration.Internal {
 
     //
     // A public implementation of IInternalConfigHost that simply

@@ -4,8 +4,8 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System.Xml;
+namespace System.Configuration {
 
     sealed public class IgnoreSection : ConfigurationSection {
         private static volatile ConfigurationPropertyCollection  s_properties;

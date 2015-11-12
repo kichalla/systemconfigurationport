@@ -4,12 +4,12 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration
-{
     using System.Collections.Specialized;
     using System.Runtime.Serialization;
     using System.Configuration.Provider;
     using System.Xml;
+namespace System.Configuration
+{
 
     ////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////

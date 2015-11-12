@@ -4,10 +4,10 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System.Collections.Specialized;
     using System.Configuration.Internal;
     using System.IO;
+namespace System.Configuration {
 
     //
     // Configuration host that intercepts calls to filename functions

@@ -4,7 +4,6 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System.Configuration.Internal;
     using System.CodeDom.Compiler;
     using System.Collections;
@@ -17,6 +16,7 @@ namespace System.Configuration {
     using System.Text;
     using System.Xml;
     using System.Collections.Specialized;
+namespace System.Configuration {
 
     enum NamespaceChange {
         None    = 0,

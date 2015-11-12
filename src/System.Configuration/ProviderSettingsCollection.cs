@@ -4,16 +4,16 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
+using System;
 namespace System.Configuration
 {
-    using System;
-    
+
     [ConfigurationCollection(typeof(ProviderSettings))]
-    public sealed class ProviderSettingsCollection : ConfigurationElementCollection 
+    public sealed class ProviderSettingsCollection : ConfigurationElementCollection
     {
         static private ConfigurationPropertyCollection _properties;
-         
-        static ProviderSettingsCollection() 
+
+        static ProviderSettingsCollection()
         {
             // Property initialization
             _properties = new ConfigurationPropertyCollection();
@@ -23,16 +23,16 @@ namespace System.Configuration
             base(StringComparer.OrdinalIgnoreCase)
         {
         }
-         
-        protected internal override ConfigurationPropertyCollection Properties 
+
+        protected internal override ConfigurationPropertyCollection Properties
         {
             get
             {
                 return _properties;
             }
         }
-         
-        public void Add(ProviderSettings provider) 
+
+        public void Add(ProviderSettings provider)
         {
             if (provider != null)
             {
@@ -41,7 +41,7 @@ namespace System.Configuration
             }
         }
 
-        public void Remove(String name) 
+        public void Remove(String name)
         {
             BaseRemove(name);
         }
@@ -51,11 +51,11 @@ namespace System.Configuration
             BaseClear();
         }
 
-        protected override ConfigurationElement CreateNewElement() 
+        protected override ConfigurationElement CreateNewElement()
         {
             return new ProviderSettings();
         }
-        protected override Object GetElementKey(ConfigurationElement element) 
+        protected override Object GetElementKey(ConfigurationElement element)
         {
             return ((ProviderSettings)element).Name;
         }
@@ -67,7 +67,7 @@ namespace System.Configuration
                 return (ProviderSettings)BaseGet(key);
             }
         }
-        
+
         public ProviderSettings this[int index]
         {
             get
@@ -79,7 +79,7 @@ namespace System.Configuration
                 if (BaseGet(index) != null)
                     BaseRemoveAt(index);
 
-                BaseAdd(index,value);
+                BaseAdd(index, value);
             }
         }
     }

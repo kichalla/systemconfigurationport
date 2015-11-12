@@ -3,8 +3,6 @@
 //     Copyright (c) Microsoft Corporation.  All rights reserved.
 // </copyright>
 //------------------------------------------------------------------------------
-
-namespace System.Configuration {
     using System;
     using System.Xml;
     using System.Configuration;
@@ -13,6 +11,8 @@ namespace System.Configuration {
     using System.IO;
     using System.Text;
 
+
+namespace System.Configuration {
     public sealed class ConnectionStringSettings : ConfigurationElement {
         private static ConfigurationPropertyCollection _properties;
         private static readonly ConfigurationProperty _propName =

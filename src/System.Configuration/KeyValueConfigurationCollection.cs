@@ -4,14 +4,14 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
+    using System.Text;
     using System;
     using System.Xml;
     using System.Configuration;
     using System.Collections.Specialized;
     using System.Collections;
     using System.IO;
-    using System.Text;
+namespace System.Configuration {
 
     [ConfigurationCollection(typeof(KeyValueConfigurationElement))]
     public class KeyValueConfigurationCollection : ConfigurationElementCollection {

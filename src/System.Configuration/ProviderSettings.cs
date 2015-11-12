@@ -3,12 +3,12 @@
 //     Copyright (c) Microsoft Corporation.  All rights reserved.
 // </copyright>
 //------------------------------------------------------------------------------
-
-namespace System.Configuration
-{
     using System;
     using Collections.Specialized;
     using Collections;
+
+namespace System.Configuration
+{
 
     public sealed class ProviderSettings : ConfigurationElement
     {

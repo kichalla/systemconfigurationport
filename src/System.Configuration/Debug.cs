@@ -4,7 +4,6 @@
 // </copyright>                                                                
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using Microsoft.Win32;
     using Microsoft.Win32.SafeHandles;
     using System;
@@ -19,6 +18,7 @@ namespace System.Configuration {
     using System.Security;
     
     using System.Threading;
+namespace System.Configuration {
 
     internal static class Debug {
 

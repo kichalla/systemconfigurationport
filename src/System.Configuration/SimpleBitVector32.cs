@@ -4,8 +4,8 @@
 // </copyright>                                                                
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System;
+namespace System.Configuration {
 
     //
     // This is a cut down copy of System.Collections.Specialized.BitVector32. The

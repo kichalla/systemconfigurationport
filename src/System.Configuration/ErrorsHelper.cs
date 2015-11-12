@@ -4,10 +4,10 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System.Collections;
     using System.Collections.Specialized;
     using System.Collections.Generic;
+namespace System.Configuration {
 
     static internal class ErrorsHelper {
 

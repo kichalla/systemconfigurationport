@@ -1,6 +1,4 @@
-﻿namespace System.Configuration
-{
-    using System.Configuration.Internal;
+﻿    using System.Configuration.Internal;
     using System.Globalization;
     using System.Collections;
     using System.IO;
@@ -11,6 +9,8 @@
     using System.Net;
     using Assembly = System.Reflection.Assembly;
     using StringBuilder = System.Text.StringBuilder;
+namespace System.Configuration
+{
 
     internal sealed class ClientConfigurationSystem : IInternalConfigSystem
     {

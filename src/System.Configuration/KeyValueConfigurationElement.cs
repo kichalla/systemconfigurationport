@@ -4,7 +4,6 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System;
     using System.Xml;
     using System.Configuration;
@@ -13,6 +12,7 @@ namespace System.Configuration {
     using System.IO;
     using System.Text;
 
+namespace System.Configuration {
     public class KeyValueConfigurationElement : ConfigurationElement {
         private static ConfigurationPropertyCollection _properties;
         private static readonly ConfigurationProperty _propKey =

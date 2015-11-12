@@ -1,6 +1,6 @@
-﻿namespace System.Configuration
+﻿    using System.Collections;
+namespace System.Configuration
 {
-    using System.Collections;
 
     //
     // Contains all the updates to section definitions across all location sections.

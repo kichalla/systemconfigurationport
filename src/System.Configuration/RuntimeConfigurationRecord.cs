@@ -4,7 +4,6 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System.Collections;
     using System.Collections.Specialized;
     using System.Globalization;
@@ -17,6 +16,7 @@ namespace System.Configuration {
     using Assembly = System.Reflection.Assembly;
     using System.Diagnostics.CodeAnalysis;
     using Xml;
+namespace System.Configuration {
 
     internal sealed class RuntimeConfigurationRecord : BaseConfigurationRecord {
 

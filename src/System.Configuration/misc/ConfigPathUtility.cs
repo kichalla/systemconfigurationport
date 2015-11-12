@@ -4,11 +4,11 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
-
 #if CONFIGPATHUTILITY_SYSTEMWEB
     using Debug=System.Web.Util.Debug;
 #endif
+
+namespace System.Configuration {
 
     internal static class ConfigPathUtility {
         private const char SeparatorChar = '/';

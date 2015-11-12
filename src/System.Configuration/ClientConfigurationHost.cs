@@ -1,6 +1,4 @@
-﻿namespace System.Configuration
-{
-    using System.Configuration.Internal;
+﻿    using System.Configuration.Internal;
     using System.IO;
     using System.Security.Policy;
     
@@ -10,6 +8,8 @@
     using System.Net;
     using System.Security.Principal;
     using System.Diagnostics.CodeAnalysis;
+namespace System.Configuration
+{
 
     internal sealed class ClientConfigurationHost : DelegatingConfigHost, IInternalConfigClientHost
     {

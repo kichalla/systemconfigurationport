@@ -1,6 +1,4 @@
 ﻿
-namespace System.Configuration
-{
     using System;
     using System.Reflection;
     using System.Globalization;
@@ -11,6 +9,8 @@ namespace System.Configuration
 
     using System.ComponentModel;
 
+namespace System.Configuration
+{
 
 
     [AttributeUsage(AttributeTargets.All)]

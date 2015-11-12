@@ -4,10 +4,10 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System;
     using System.Xml;
     using System.Configuration.Internal;
+namespace System.Configuration {
 
     static internal class ExceptionUtil {
         static internal ArgumentException ParameterInvalid(string parameter) {

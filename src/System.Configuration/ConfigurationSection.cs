@@ -4,8 +4,6 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration
-{
     using System;
     using System.Collections.Specialized;
     using System.Configuration.Internal;
@@ -16,6 +14,8 @@ namespace System.Configuration
     using System.Xml;
     using System.Globalization;
     using System.Runtime.Versioning;
+namespace System.Configuration
+{
 
     public abstract class ConfigurationSection : ConfigurationElement
     {

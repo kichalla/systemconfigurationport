@@ -4,9 +4,9 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration.Provider {
     using  System.Collections.Specialized;
     using  System.Runtime.Serialization;
+namespace System.Configuration.Provider {
 
     public abstract class ProviderBase {
 

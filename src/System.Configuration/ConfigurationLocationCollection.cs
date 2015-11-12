@@ -4,11 +4,11 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System.Collections;
     using System.Collections.Specialized;
     using System.Configuration;
     using System.Text;
+namespace System.Configuration {
 
     public class ConfigurationLocationCollection : ReadOnlyCollectionBase {
         

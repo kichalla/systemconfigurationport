@@ -4,11 +4,11 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System;
     using System.IO;
     using Microsoft.Win32;
     using System.Runtime.InteropServices;
+namespace System.Configuration {
 
     static internal class FileUtil {
         const int HRESULT_WIN32_FILE_NOT_FOUND = unchecked((int)0x80070002);

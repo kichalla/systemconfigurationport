@@ -4,8 +4,8 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration.Provider {
     using Runtime.Serialization;
+namespace System.Configuration.Provider {
 
     [Serializable]
     public class ProviderException : Exception

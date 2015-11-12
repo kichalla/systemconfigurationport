@@ -4,8 +4,8 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System.Xml;
+namespace System.Configuration {
 
     public sealed class DefaultSection : ConfigurationSection {
         private static volatile ConfigurationPropertyCollection  s_properties;

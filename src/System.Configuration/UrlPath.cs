@@ -4,7 +4,6 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System.Collections;
     using System.Collections.Specialized;
     using System.Configuration;
@@ -16,6 +15,7 @@ namespace System.Configuration {
     using System.Text;
     using System.Xml;
     using Microsoft.Win32;
+namespace System.Configuration {
 
     static internal class UrlPath {
     

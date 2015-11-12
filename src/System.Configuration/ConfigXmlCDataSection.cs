@@ -4,12 +4,12 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration
-{
     using System.Configuration.Internal;
     using System.IO;
     using System.Xml;
-    
+namespace System.Configuration
+{
+
 
     internal sealed class ConfigXmlCDataSection : XmlCDataSection, IConfigErrorInfo {
         int _line;

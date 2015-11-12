@@ -1,6 +1,4 @@
-﻿namespace System.Configuration
-{
-    using System;
+﻿    using System;
     using System.Xml;
     using System.Configuration;
     using System.Collections.Specialized;
@@ -10,6 +8,8 @@
     using Collections.Specialized;
     using Xml;
     using IO;
+namespace System.Configuration
+{
 
     public sealed class AppSettingsSection : ConfigurationSection
     {

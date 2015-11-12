@@ -4,8 +4,8 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System.Collections;
+namespace System.Configuration {
 
     //
     // A collection of updates to the sections that have the same location attributes.

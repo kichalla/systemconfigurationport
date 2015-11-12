@@ -4,7 +4,6 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System.Configuration.Internal;
     using System.Collections;
     using System.Collections.Specialized;
@@ -18,6 +17,7 @@ namespace System.Configuration {
     using System.Text;
     using System.Xml;
     using System.Net;
+namespace System.Configuration {
 
     internal sealed class ConfigXmlReader : XmlReader, IConfigErrorInfo {
         string  _rawXml;

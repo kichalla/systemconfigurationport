@@ -4,7 +4,6 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System.Configuration.Internal;
     using System.Collections;
     using System.Collections.Specialized;
@@ -16,6 +15,7 @@ namespace System.Configuration {
     using System.Security;
     using System.Text;
     using System.Xml;
+namespace System.Configuration {
 
     // Information about a stream used in configuration
     class StreamInfo {

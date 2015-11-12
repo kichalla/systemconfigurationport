@@ -4,10 +4,10 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System;
     using System.Configuration.Internal;
     using System.Runtime.Versioning;
+namespace System.Configuration {
 
     public class ConfigurationSectionGroup {
         string                              _configKey              = String.Empty;

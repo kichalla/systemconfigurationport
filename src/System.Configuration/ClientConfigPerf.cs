@@ -4,7 +4,6 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System.Configuration.Internal;
     using System.Globalization;
     using System.Collections;
@@ -16,6 +15,7 @@ namespace System.Configuration {
     using System.Net;
     using Assembly = System.Reflection.Assembly;
     using StringBuilder = System.Text.StringBuilder;
+namespace System.Configuration {
 
 #if NOPERF
     internal class ClientConfigPerf {

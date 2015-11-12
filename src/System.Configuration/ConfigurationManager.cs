@@ -4,8 +4,6 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
-
     using System.Collections;
     using System.Collections.Specialized;
     using System.Globalization;
@@ -13,6 +11,8 @@ namespace System.Configuration {
     using System.IO;
     
     using System.Threading;
+namespace System.Configuration {
+
 
     public static class ConfigurationManager {
         // The Configuration System

@@ -4,7 +4,6 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration.Internal {
     using System.Configuration.Internal;
     using System.Collections;
     using System.Collections.Specialized;
@@ -17,6 +16,7 @@ namespace System.Configuration.Internal {
     using System.Text;
     using System.Xml;
     using System.Threading;
+namespace System.Configuration.Internal {
 
     //
     // Event arguments for Configuration events.

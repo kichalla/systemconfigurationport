@@ -4,10 +4,10 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration.Provider {
     using  System.Collections;
     using  System.Collections.Specialized;
     using  System.Runtime.Serialization;
+namespace System.Configuration.Provider {
 
     /// <devdoc>
     ///    <para>[To be supplied.]</para>

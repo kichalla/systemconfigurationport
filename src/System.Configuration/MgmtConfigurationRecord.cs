@@ -4,7 +4,6 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace System.Configuration {
     using System.CodeDom.Compiler;
     using System.Collections;
     using System.Collections.Generic;
@@ -20,6 +19,7 @@ namespace System.Configuration {
     using System.Runtime.Versioning;
     using Collections;
     using Text;
+namespace System.Configuration {
 
     internal sealed class MgmtConfigurationRecord : BaseConfigurationRecord {
         private const int   DEFAULT_INDENT = 4;
