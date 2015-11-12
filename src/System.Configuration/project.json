@@ -32,6 +32,9 @@
     "System.Security.AccessControl": "4.0.0-beta-23409",
     "System.Security.Cryptography.Csp": "4.0.0-beta-23409",
     "System.Diagnostics.FileVersionInfo": "4.0.0-beta-23409",
-    "Microsoft.Bcl": "1.1.9"
+    "Microsoft.Bcl": "1.1.9",
+    "System.Diagnostics.Tools": "4.0.1-beta-23409",
+    "System.Private.Networking": "4.0.1-beta-23409",
+    "System.Collections.NonGeneric": "4.0.1-beta-23409"
   }
 }

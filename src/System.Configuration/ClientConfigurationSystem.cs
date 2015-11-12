@@ -3,7 +3,7 @@
     using System.Collections;
     using System.IO;
     using System.Xml;
-    using System.Security;
+    
     
     using System.Threading;
     using System.Net;
@@ -45,7 +45,7 @@ namespace System.Configuration
             // a new static constructor that calls config.  We need a dummy reference
             // to Uri class so the static constructor would be involved first to
             // initialize config.
-            string dummy = System.Uri.SchemeDelimiter;
+            string dummy = Uri.UnescapeDataString(null);
         }
 
         // Return true if the section might be used during initialization of the configuration system,

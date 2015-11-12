@@ -4,7 +4,7 @@ using System.Configuration;
 using System.Configuration.Internal;
 using System.IO;
 using System.Reflection;
-using System.Security;
+
 
 using System.Threading;
 using System.Runtime.Versioning;
@@ -293,7 +293,7 @@ namespace System.Configuration
         /////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////
-        public System.Func<string, string> TypeStringTransformer
+        public Func<string, string> TypeStringTransformer
         {
             get
             {
@@ -311,7 +311,7 @@ namespace System.Configuration
 
         /////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////
-        public System.Func<string, string> AssemblyStringTransformer
+        public Func<string, string> AssemblyStringTransformer
         {
             get
             {

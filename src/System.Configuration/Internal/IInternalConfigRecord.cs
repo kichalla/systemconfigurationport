@@ -6,7 +6,7 @@
 
 using System;
 using System.IO;
-using System.Security;
+
 using System.Collections.Specialized;
 using System.Configuration;
 using ClassConfiguration=System.Configuration.Configuration;
@@ -24,7 +24,7 @@ using ClassConfiguration=System.Configuration.Configuration;
 namespace System.Configuration.Internal {
 
     // Exposes the functionality of BaseConfigurationRecord.
-    [System.Runtime.InteropServices.ComVisible(false)]
+    //[System.Runtime.InteropServices.ComVisible(false)]
     public interface IInternalConfigRecord {
         string          ConfigPath {get;}
         string          StreamName {get;}

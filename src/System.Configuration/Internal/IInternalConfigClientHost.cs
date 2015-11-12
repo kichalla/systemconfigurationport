@@ -6,7 +6,7 @@
 
 using System;
 using System.IO;
-using System.Security;
+
 using System.Collections.Specialized;
 using System.Configuration;
 using ClassConfiguration=System.Configuration.Configuration;
@@ -27,7 +27,7 @@ namespace System.Configuration.Internal {
     // Provide support to Whitehorse for manipulating the configuration path, 
     // so the details of the path do not have to be known by Whitehorse.
     //
-    [System.Runtime.InteropServices.ComVisible(false)]
+    //[System.Runtime.InteropServices.ComVisible(false)]
     public interface IInternalConfigClientHost {
         bool IsExeConfig(string configPath);
         bool IsRoamingUserConfig(string configPath);

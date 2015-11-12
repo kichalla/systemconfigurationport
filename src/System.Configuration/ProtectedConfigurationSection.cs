@@ -4,13 +4,15 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-    using System.Collections;
-    using System.Collections.Specialized;
-    using System.Xml;
-    using System.Globalization;
+using System.Collections;
+using System.Collections.Specialized;
+using System.Xml;
+using System.Globalization;
 
-    using System.Diagnostics.CodeAnalysis;
-    using Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
+using Collections.Specialized;
+using System.Reflection;
+
 namespace System.Configuration
 {
 
@@ -53,7 +55,7 @@ namespace System.Configuration
         private ProtectedConfigurationProvider InstantiateProvider(ProviderSettings pn)
         {
             Type t = TypeUtil.GetTypeWithReflectionPermission(pn.Type, true);
-            if (!typeof(ProtectedConfigurationProvider).IsAssignableFrom(t)) {
+            if (!typeof(ProtectedConfigurationProvider).GetTypeInfo().IsAssignableFrom(t.GetTypeInfo())) {
                 throw new Exception(SR.GetString(SR.WrongType_of_Protected_provider));
             }
 

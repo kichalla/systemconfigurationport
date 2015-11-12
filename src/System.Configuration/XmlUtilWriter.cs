@@ -12,7 +12,7 @@
     using System.Globalization;
     using System.IO;
     using System.Runtime.InteropServices;
-    using System.Security;
+    
     
     using System.Text;
     using System.Xml;
@@ -275,9 +275,9 @@ namespace System.Configuration {
             return comment.Length + 7;
         }
 
-        internal int AppendAttributeValue(XmlTextReader reader) {
+        internal int AppendAttributeValue(XmlReader reader) {
             int charactersWritten = 0;
-            char quote = reader.QuoteChar;
+            char quote = '"';//reader.QuoteChar;
 
             //
             // In !DOCTYPE, quote is '\0' for second public attribute. 

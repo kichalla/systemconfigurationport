@@ -6,7 +6,7 @@
 
 using System;
 using System.IO;
-using System.Security;
+
 using System.Collections.Specialized;
 using System.Configuration;
 using ClassConfiguration=System.Configuration.Configuration;
@@ -27,7 +27,7 @@ namespace System.Configuration.Internal {
     // Used by System.Web.Configuration.HttpConfigurationSystem to set the 
     // configuration system for the ConfigurationSettings class.
     //
-    [System.Runtime.InteropServices.ComVisible(false)]
+    //[System.Runtime.InteropServices.ComVisible(false)]
     public interface IInternalConfigSettingsFactory {
         void SetConfigurationSystem(IInternalConfigSystem internalConfigSystem, bool initComplete);
         void CompleteInit();

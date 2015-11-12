@@ -14,7 +14,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
-using System.Security;
+
 
 using System.Threading;
 using System.Diagnostics;
@@ -34,24 +34,24 @@ namespace System.Configuration {
         [System.Security.SuppressUnmanagedCodeSecurityAttribute()]
         private static class NativeMethods {
             [DllImport("kernel32.dll")]
-            [ResourceExposure(ResourceScope.Process)]
+            //[ResourceExposure(ResourceScope.Process)]
             internal extern static int GetCurrentProcessId();
 
             [DllImport("kernel32.dll")]
             [Obsolete("Don't use this - fiber mode issues.")]
-            [ResourceExposure(ResourceScope.Process)]
+            //[ResourceExposure(ResourceScope.Process)]
             internal extern static int GetCurrentThreadId();
 
             [DllImport("kernel32.dll", CharSet=CharSet.Auto, SetLastError=true)]
-            [ResourceExposure(ResourceScope.Process)]
+            //[ResourceExposure(ResourceScope.Process)]
             internal extern static IntPtr GetCurrentProcess();
 
             [DllImport("kernel32.dll", SetLastError=true)]
-            [ResourceExposure(ResourceScope.Process)]
+            //[ResourceExposure(ResourceScope.Process)]
             internal extern static bool TerminateProcess(HandleRef processHandle, int exitCode);
 
             [DllImport("kernel32.dll", CharSet=CharSet.Auto, BestFitMapping=false)]
-            [ResourceExposure(ResourceScope.None)]
+            //[ResourceExposure(ResourceScope.None)]
             internal extern static void OutputDebugString(string message);
 
             internal const int PM_NOREMOVE = 0x0000;
@@ -69,7 +69,7 @@ namespace System.Configuration {
             }
 
             [DllImport("user32.dll", CharSet=System.Runtime.InteropServices.CharSet.Auto)]
-            [ResourceExposure(ResourceScope.None)]
+            //[ResourceExposure(ResourceScope.None)]
             internal extern static bool PeekMessage([In, Out] ref MSG msg, HandleRef hwnd, int msgMin, int msgMax, int remove);
 
             internal const int 
@@ -122,7 +122,7 @@ namespace System.Configuration {
 
 
             [DllImport("user32.dll", CharSet=CharSet.Auto, BestFitMapping=false)]
-            [ResourceExposure(ResourceScope.None)]
+            //[ResourceExposure(ResourceScope.None)]
             internal extern static int MessageBox(HandleRef hWnd, string text, string caption, int type);
 
             internal static readonly IntPtr HKEY_LOCAL_MACHINE = unchecked((IntPtr)(int)0x80000002);
@@ -149,11 +149,11 @@ namespace System.Configuration {
 
 
             [DllImport("advapi32.dll", CharSet=CharSet.Auto, BestFitMapping=false, SetLastError=true)]
-            [ResourceExposure(ResourceScope.Machine)]
+            //[ResourceExposure(ResourceScope.Machine)]
             internal extern static int RegOpenKeyEx(IntPtr hKey, string lpSubKey, int ulOptions, int samDesired, out SafeRegistryHandle hkResult);
 
             [DllImport("advapi32.dll", ExactSpelling=true, SetLastError=true)]
-            [ResourceExposure(ResourceScope.None)]
+            //[ResourceExposure(ResourceScope.None)]
             internal extern static int RegNotifyChangeKeyValue(SafeRegistryHandle hKey, bool watchSubTree, uint notifyFilter, SafeWaitHandle regEvent, bool async);
         }
 
@@ -174,7 +174,7 @@ namespace System.Configuration {
             [DllImport("advapi32.dll"),
              SuppressUnmanagedCodeSecurity,
              ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-            [ResourceExposure(ResourceScope.None)]
+            //[ResourceExposure(ResourceScope.None)]
             private static extern int RegCloseKey(IntPtr hKey);
 
             override protected bool ReleaseHandle()

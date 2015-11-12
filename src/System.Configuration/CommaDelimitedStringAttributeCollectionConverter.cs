@@ -13,12 +13,12 @@ using System.Xml;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.ComponentModel;
-using System.Security;
+
 using System.Text;
 
 namespace System.Configuration {
 
-    public sealed class CommaDelimitedStringCollectionConverter : ConfigurationConverterBase {
+    public sealed class CommaDelimitedStringAttributeCollectionConverter : ConfigurationConverterBase {
 
         public override object ConvertTo(ITypeDescriptorContext ctx, CultureInfo ci, object value, Type type) {
 

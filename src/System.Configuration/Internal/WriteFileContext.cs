@@ -9,7 +9,7 @@
 
     using System.Reflection;
     using System.Threading;
-    using System.Security;
+    
     using System.CodeDom.Compiler;
     using Microsoft.Win32;
 #if !FEATURE_PAL
@@ -125,24 +125,24 @@ namespace System.Configuration.Internal {
         // As of right now this is just acl's
         //
         private void DuplicateTemplateAttributes( string source, string destination ) {
-#if !FEATURE_PAL
-            if (IsWinNT) {
-                FileSecurity        fileSecurity;
+//#if !FEATURE_PAL
+//            if (IsWinNT) {
+//                FileSecurity        fileSecurity;
 
-                // Copy Security information
-                fileSecurity = File.GetAccessControl( source, AccessControlSections.Access );
+//                // Copy Security information
+//                fileSecurity = File.GetAccessControl( source, AccessControlSections.Access );
 
-                // Mark dirty, so effective for write
-                fileSecurity.SetAccessRuleProtection( fileSecurity.AreAccessRulesProtected, true );
-                File.SetAccessControl( destination, fileSecurity );
-            }
-            else {
-                FileAttributes  fileAttributes;
+//                // Mark dirty, so effective for write
+//                fileSecurity.SetAccessRuleProtection( fileSecurity.AreAccessRulesProtected, true );
+//                File.SetAccessControl( destination, fileSecurity );
+//            }
+//            else {
+//                FileAttributes  fileAttributes;
 
-                fileAttributes = File.GetAttributes( source );
-                File.SetAttributes( destination, fileAttributes );
-            }
-#endif	// FEATURE_PAL
+//                fileAttributes = File.GetAttributes( source );
+//                File.SetAttributes( destination, fileAttributes );
+//            }
+//#endif	// FEATURE_PAL
         }
 
         // ValidateWriteAccess

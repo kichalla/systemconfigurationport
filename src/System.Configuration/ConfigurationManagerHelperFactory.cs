@@ -14,7 +14,7 @@ namespace System.Configuration {
     // single instance of ConfigurationManagerHelper.
     //
     static internal class ConfigurationManagerHelperFactory {
-        private const string ConfigurationManagerHelperTypeString = "System.Configuration.Internal.ConfigurationManagerHelper, " + AssemblyRef.System;
+        private const string ConfigurationManagerHelperTypeString = "System.Configuration.Internal.ConfigurationManagerHelper, ";// + AssemblyRef.System;
 
         static private volatile IConfigurationManagerHelper s_instance;
 

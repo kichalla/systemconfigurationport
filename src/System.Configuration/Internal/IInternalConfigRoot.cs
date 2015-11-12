@@ -6,7 +6,7 @@
 
 using System;
 using System.IO;
-using System.Security;
+
 using System.Collections.Specialized;
 using System.Configuration;
 using ClassConfiguration=System.Configuration.Configuration;
@@ -24,7 +24,7 @@ using ClassConfiguration=System.Configuration.Configuration;
 namespace System.Configuration.Internal {
 
     // Exposes the functionality of InternalConfigRoot.
-    [System.Runtime.InteropServices.ComVisible(false)]
+    //[System.Runtime.InteropServices.ComVisible(false)]
     public interface IInternalConfigRoot {
         void                                Init(IInternalConfigHost host, bool isDesignTime);
         bool                                IsDesignTime {get;}

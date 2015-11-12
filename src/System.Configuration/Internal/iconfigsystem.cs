@@ -7,7 +7,7 @@
 namespace System.Configuration.Internal {
 
     using System;
-    using System.Configuration;
+    
 
     public interface IConfigSystem {
         void Init(Type typeConfigHost, params object[] hostInitParams);

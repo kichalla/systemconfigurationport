@@ -10,7 +10,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
-using System.Security;
+
 
 namespace System.Configuration
 {
@@ -134,30 +134,30 @@ namespace System.Configuration
         // an extra check to make sure that the calling type is allowed to access the target type.
         static internal object CreateInstanceRestricted(Type callingType, Type targetType)
         {
-            if (CallerHasMemberAccessOrAspNetPermission())
-            {
-                // If the caller asserts MemberAccess (or this is a full-trust AD),
+            //if (CallerHasMemberAccessOrAspNetPermission())
+            //{
+            //    // If the caller asserts MemberAccess (or this is a full-trust AD),
                 // access to any type in any assembly is allowed.
                 return CreateInstanceWithReflectionPermission(targetType);
-            }
-            else
-            {
-                // This DynamicMethod is just a thin wrapper around Activator.CreateInstance, but it is
-                // crafted to make the call site of CreateInstance look like it belongs to 'callingType'.
-                // If the calling type cannot be determined, an AHDM will be used so Activator.CreateInstance
-                // doesn't think System.Configuration.dll is the immediate caller.
-                DynamicMethod dm = CreateDynamicMethod(callingType, returnType: typeof(object), parameterTypes: new Type[] { typeof(Type) });
+            //}
+            //else
+            //{
+            //    // This DynamicMethod is just a thin wrapper around Activator.CreateInstance, but it is
+            //    // crafted to make the call site of CreateInstance look like it belongs to 'callingType'.
+            //    // If the calling type cannot be determined, an AHDM will be used so Activator.CreateInstance
+            //    // doesn't think System.Configuration.dll is the immediate caller.
+            //    DynamicMethod dm = CreateDynamicMethod(callingType, returnType: typeof(object), parameterTypes: new Type[] { typeof(Type) });
 
-                // type => Activator.CreateInstance(type, true)
-                var ilGen = dm.GetILGenerator();
-                ilGen.Emit(OpCodes.Ldarg_0); // stack = { type }
-                ilGen.Emit(OpCodes.Ldc_I4_1); // stack = { type, TRUE }
-                ilGen.Emit(OpCodes.Call, typeof(Activator).GetMethod("CreateInstance", new Type[] { typeof(Type), typeof(bool) })); // stack = { retVal }
-                PreventTailCall(ilGen); // stack = { retVal }
-                ilGen.Emit(OpCodes.Ret);
-                var createInstanceDel = (Func<Type, object>)dm.CreateDelegate(typeof(Func<Type, object>));
-                return createInstanceDel(targetType);
-            }
+            //    // type => Activator.CreateInstance(type, true)
+            //    var ilGen = dm.GetILGenerator();
+            //    ilGen.Emit(OpCodes.Ldarg_0); // stack = { type }
+            //    ilGen.Emit(OpCodes.Ldc_I4_1); // stack = { type, TRUE }
+            //    ilGen.Emit(OpCodes.Call, typeof(Activator).GetMethod("CreateInstance", new Type[] { typeof(Type), typeof(bool) })); // stack = { retVal }
+            //    PreventTailCall(ilGen); // stack = { retVal }
+            //    ilGen.Emit(OpCodes.Ret);
+            //    var createInstanceDel = (Func<Type, object>)dm.CreateDelegate(typeof(Func<Type, object>));
+            //    return createInstanceDel(targetType);
+            //}
         }
 
         // This is intended to be similar to Delegate.CreateDelegate, but there is
@@ -166,11 +166,13 @@ namespace System.Configuration
         {
             //if (CallerHasMemberAccessOrAspNetPermission())
             //{
-                // If the caller asserts MemberAccess (or this is a full-trust AD),
-                // access to any type in any assembly is allowed. Note: the original
-                // code path didn't assert before the call to CreateDelegate, so we
-                // won't, either.
-                return Delegate.CreateDelegate(delegateType, targetMethod);
+            // If the caller asserts MemberAccess (or this is a full-trust AD),
+            // access to any type in any assembly is allowed. Note: the original
+            // code path didn't assert before the call to CreateDelegate, so we
+            // won't, either.
+
+            // return Delegate.CreateDelegate(delegateType, targetMethod);
+            return targetMethod.CreateDelegate(delegateType); 
             //}
             //else
             //{
@@ -228,7 +230,7 @@ namespace System.Configuration
 
             BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
-            ConstructorInfo ctor = type.GetConstructor(bindingFlags, null, CallingConventions.HasThis, Type.EmptyTypes, null);
+            ConstructorInfo ctor = type.GetConstructor(Type.EmptyTypes);//bindingFlags, null, CallingConventions.HasThis, Type.EmptyTypes, null);
             if (ctor == null && throwOnError)
             {
                 throw new TypeLoadException(SR.GetString(SR.TypeNotPublic, type.AssemblyQualifiedName));
@@ -239,8 +241,9 @@ namespace System.Configuration
 
         static internal bool IsTypeFromTrustedAssemblyWithoutAptca(Type type)
         {
-            Assembly assembly = type.GetTypeInfo().Assembly;
-            return assembly.GlobalAssemblyCache;
+            return true;
+            //Assembly assembly = type.GetTypeInfo().Assembly;
+            //return assembly.GlobalAssemblyCache;
         }
 
         static internal Type VerifyAssignableType(Type baseType, Type type, bool throwOnError)
@@ -268,12 +271,12 @@ namespace System.Configuration
 
             // The APTCA bit is only relevant for assemblies living in the GAC, since the rest runs
             // under partial trust (VSWhidbey 422183)
-            Assembly assembly = t.GetTypeInfo().Assembly;
-            if (!assembly.GlobalAssemblyCache)
+            //Assembly assembly = t.GetTypeInfo().Assembly;
+            //if (!assembly.GlobalAssemblyCache)
                 return true;
 
             // It's a GAC type without APTCA in partial trust scenario: block it
-            return false;
+            //return false;
         }
     }
 }

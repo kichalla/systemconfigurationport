@@ -9,7 +9,7 @@
     using System.Configuration;
     using System.IO;
     using System.Reflection;
-    using System.Security;
+    
 #if !FEATURE_PAL
     using System.Security.AccessControl;
 #endif

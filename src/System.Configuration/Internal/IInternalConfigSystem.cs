@@ -6,7 +6,7 @@
 
 using System;
 using System.IO;
-using System.Security;
+
 using System.Collections.Specialized;
 using System.Configuration;
 using ClassConfiguration=System.Configuration.Configuration;
@@ -26,7 +26,7 @@ namespace System.Configuration.Internal {
     //
     // Methods called by ConfigurationSettings on the configuration system.
     //
-    [System.Runtime.InteropServices.ComVisible(false)]
+    //[System.Runtime.InteropServices.ComVisible(false)]
     public interface IInternalConfigSystem {
         // Returns the config object for the specified key.
         // It's actually GetSection

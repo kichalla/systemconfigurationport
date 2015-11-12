@@ -12,7 +12,7 @@
     using System.Globalization;
     using System.IO;
     using System.Runtime.InteropServices;
-    using System.Security;
+    
 
     using System.Text;
     using System.Xml;
@@ -80,7 +80,7 @@ namespace System.Configuration {
                 _reader = XmlReader.Create(_stream);
 
                 // config reads never require a resolver
-                _reader.XmlResolver = null;
+                // _reader.XmlResolver = null;
 
                 _schemaErrors = schemaErrors;
                 _lastLineNumber = 1;
@@ -91,7 +91,7 @@ namespace System.Configuration {
                 // before the first element.
                 //
                 if (readToFirstElement) {
-                    _reader.WhitespaceHandling = WhitespaceHandling.None;
+                    // _reader.WhitespaceHandling = WhitespaceHandling.None;
 
                     bool done = false;
                     while (!done && _reader.Read()) {
@@ -120,7 +120,7 @@ namespace System.Configuration {
         private void ReleaseResources() {
             if (_reader != null) {
                 // closing _reader will also close underlying _stream
-                _reader.Close();
+                _reader.Dispose();
                 _reader = null;
             }
             else if (_stream != null) {
@@ -130,7 +130,7 @@ namespace System.Configuration {
             _stream = null;
 
             if (_cachedStringWriter != null) {
-                _cachedStringWriter.Close();
+                _cachedStringWriter.Dispose();
                 _cachedStringWriter = null;
             }
         }
@@ -378,7 +378,7 @@ namespace System.Configuration {
         //
         internal bool SkipChildElementsAndCopyOuterXmlToNextElement(XmlUtilWriter utilWriter) {
             bool    isEmptyElement = _reader.IsEmptyElement;
-            int     startingLine = _reader.LineNumber;
+            int     startingLine = 0;  // Number;
 #if DBG
             int     depth = _reader.Depth;
 #endif
@@ -410,11 +410,11 @@ namespace System.Configuration {
                     }
                 }
 
-                if (_reader.LineNumber != startingLine) {
-                    // The whitespace in front of the EndElement was skipped above.
-                    // We need to append spaces to compensate for that.
-                    utilWriter.AppendSpacesToLinePosition(TrueLinePosition);
-                }
+                //if (_reader.LineNumber != startingLine) {
+                //    // The whitespace in front of the EndElement was skipped above.
+                //    // We need to append spaces to compensate for that.
+                //    utilWriter.AppendSpacesToLinePosition(TrueLinePosition);
+                //}
 
 
 #if DBG
@@ -498,7 +498,7 @@ namespace System.Configuration {
             // Skip over the element
             _reader.Skip();
 
-            int lineNumberOfEndElement = _reader.LineNumber;
+            int lineNumberOfEndElement = 0;  // Number;
 
             // Read until we hit a a non-whitespace node or reach the end
             while (!_reader.EOF) {
@@ -508,10 +508,10 @@ namespace System.Configuration {
                     // seek back to the beginning of the current blank line,
                     // skip a blank line of whitespace, and copy the remaining whitespace.
                     //
-                    if (_reader.LineNumber > lineNumberOfEndElement) {
-                        utilWriter.SeekToLineStart();
-                        utilWriter.AppendWhiteSpace(lineNumberOfEndElement + 1, 1, LineNumber, TrueLinePosition);
-                    }
+                    //if (_reader.LineNumber > lineNumberOfEndElement) {
+                    //    utilWriter.SeekToLineStart();
+                    //    utilWriter.AppendWhiteSpace(lineNumberOfEndElement + 1, 1, LineNumber, TrueLinePosition);
+                    //}
 
                     break;
                 }
@@ -591,8 +591,8 @@ namespace System.Configuration {
             int writerLineNumber = 0;
             int writerLinePosition = 0;
             if (utilWriter.TrackPosition) {
-                readerLineNumber = _reader.LineNumber;
-                readerLinePosition = _reader.LinePosition;
+                readerLineNumber = 0;  // Number;
+                readerLinePosition = 0;  // Position;
                 writerLineNumber = utilWriter.LineNumber;
                 writerLinePosition = utilWriter.LinePosition;
             }
@@ -610,8 +610,8 @@ namespace System.Configuration {
                 //              ^
                 //              linePosition
                 //
-                lineNumber = _reader.LineNumber;
-                linePosition = _reader.LinePosition + _reader.Name.Length;
+                lineNumber = 0;  // Number;
+                linePosition = 0;  // Position + _reader.Name.Length;
 
                 utilWriter.Write('<');
                 utilWriter.Write(_reader.Name);
@@ -634,8 +634,8 @@ namespace System.Configuration {
                     //               ^
                     //               attrLinePosition
                     //
-                    int attrLineNumber = _reader.LineNumber;
-                    int attrLinePosition = _reader.LinePosition;
+                    int attrLineNumber = 0;  // Number;
+                    int attrLinePosition = 0;  // Position;
 
                     // Write the whitespace before the attribute
                     utilWriter.AppendRequiredWhiteSpace(lineNumber, linePosition, attrLineNumber, attrLinePosition);
@@ -658,8 +658,8 @@ namespace System.Configuration {
                 //               ^
                 //               linePosition
                 //
-                lineNumber = _reader.LineNumber;
-                linePosition = _reader.LinePosition + _reader.Name.Length;
+                lineNumber = 0;  // Number;
+                linePosition = 0;  // Position + _reader.Name.Length;
 
                 utilWriter.Write("</");
                 utilWriter.Write(_reader.Name);
@@ -678,8 +678,8 @@ namespace System.Configuration {
                 //           ^
                 //           linePosition
                 //
-                lineNumber = _reader.LineNumber;
-                linePosition = _reader.LinePosition + 3;
+                lineNumber = 0;  // Number;
+                linePosition = 0;  // Position + 3;
 
                 utilWriter.Write("<?xml");
 
@@ -701,8 +701,8 @@ namespace System.Configuration {
                     //               ^
                     //               attrLinePosition
                     //
-                    int attrLineNumber = _reader.LineNumber;
-                    int attrLinePosition = _reader.LinePosition;
+                    int attrLineNumber = 0;  // Number;
+                    int attrLinePosition = 0;  // Position;
 
                     // Write the whitespace before the attribute
                     utilWriter.AppendRequiredWhiteSpace(lineNumber, linePosition, attrLineNumber, attrLinePosition);
@@ -758,7 +758,7 @@ namespace System.Configuration {
                 int c = utilWriter.Write("<!DOCTYPE");
 
                 // Write the space between <!DOCTYPE and the rootElementName
-                utilWriter.AppendRequiredWhiteSpace(_lastLineNumber, _lastLinePosition + c, _reader.LineNumber, _reader.LinePosition);
+                //utilWriter.AppendRequiredWhiteSpace(_lastLineNumber, _lastLinePosition + c, _reader.LineNumber, _reader.LinePosition);
 
                 // Write the rootElementName
                 utilWriter.Write(_reader.Name);
@@ -773,13 +773,14 @@ namespace System.Configuration {
                 //      <!DOCTYPE  rootElement     SYSTEM rootElementDtdUri >
                 //                            ^
                 //                            linePosition
-                lineNumber = _reader.LineNumber;
-                linePosition = _reader.LinePosition + _reader.Name.Length;
+                
+                lineNumber = 0;  // Number;
+                linePosition = 0;  // Position + _reader.Name.Length;
 
                 // Note that there is no way to get the spacing after PUBLIC or SYSTEM attributes and their values
                 if (_reader.MoveToFirstAttribute()) {
                     // Write the space before SYSTEM or PUBLIC
-                    utilWriter.AppendRequiredWhiteSpace(lineNumber, linePosition, _reader.LineNumber, _reader.LinePosition);
+                    // utilWriter.AppendRequiredWhiteSpace(lineNumber, linePosition, _reader.LineNumber, _reader.LinePosition);
 
                     // Write SYSTEM or PUBLIC and the 1st value of the attribute
                     string attrName = _reader.Name;
@@ -821,11 +822,11 @@ namespace System.Configuration {
                 //                        closeLinePosition
                 //
                 int startOffset = GetPositionOffset(nodeType);
-                int closeLineNumber = _reader.LineNumber;
-                int closeLinePosition = _reader.LinePosition - startOffset - close.Length;
+                //int closeLineNumber = 0;  // Number;
+                //int closeLinePosition = 0;  // Position - startOffset - close.Length;
 
-                // Add whitespace up to the position of the close string
-                utilWriter.AppendWhiteSpace(lineNumber, linePosition, closeLineNumber, closeLinePosition);
+                //// Add whitespace up to the position of the close string
+                //utilWriter.AppendWhiteSpace(lineNumber, linePosition, closeLineNumber, closeLinePosition);
 
                 // Write the close string
                 utilWriter.Write(close);
@@ -970,8 +971,8 @@ namespace System.Configuration {
             ResetCachedStringWriter();
 
             // Preserve whitespace for sections for backcompat
-            WhitespaceHandling originalHandling = _reader.WhitespaceHandling;
-            _reader.WhitespaceHandling = WhitespaceHandling.All;
+            //WhitespaceHandling originalHandling = _reader.WhitespaceHandling;
+            //_reader.WhitespaceHandling = WhitespaceHandling.All;
 
             // Create string writer to write to
             XmlUtilWriter utilWriter = new XmlUtilWriter(_cachedStringWriter, false);
@@ -980,14 +981,7 @@ namespace System.Configuration {
             CopyElement(utilWriter);
 
             // Reset whitespace handling
-            _reader.WhitespaceHandling = originalHandling;
-
-            if ((originalHandling == WhitespaceHandling.None) &&
-                 (Reader.NodeType  == XmlNodeType.Whitespace))  {
-                // If we were previously suppose to skip whitespace, and now we
-                // are at it, then lets jump to the next item
-                _reader.Read();
-            }
+ 
 
             utilWriter.Flush();
             string s = ((StringWriter)utilWriter.Writer).ToString();
@@ -1004,7 +998,9 @@ namespace System.Configuration {
         static internal string FormatXmlElement(string xmlElement, int linePosition, int indent, bool skipFirstIndent) {
 
             XmlParserContext context = new XmlParserContext(null, null, null, XmlSpace.Default, Encoding.Unicode);
-            XmlTextReader reader = new XmlTextReader(xmlElement, XmlNodeType.Element, context);
+            XmlReader reader = XmlReader.Create(new StringReader(xmlElement)     );
+            
+            // // new XmlReader(xmlElement, XmlNodeType.Element, context);
 
             StringWriter stringWriter = new StringWriter(new StringBuilder(64), CultureInfo.InvariantCulture);
             XmlUtilWriter utilWriter = new XmlUtilWriter(stringWriter, false);

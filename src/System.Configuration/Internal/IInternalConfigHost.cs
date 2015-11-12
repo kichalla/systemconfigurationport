@@ -7,7 +7,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Security;
+
 using System.Collections.Specialized;
 using System.Configuration;
 using ClassConfiguration=System.Configuration.Configuration;
@@ -27,7 +27,7 @@ namespace System.Configuration.Internal {
     //
     // The functionality required of a configuration host.
     //
-    [System.Runtime.InteropServices.ComVisible(false)]
+    //[System.Runtime.InteropServices.ComVisible(false)]
     public interface IInternalConfigHost {
         void        Init(IInternalConfigRoot configRoot, params object[] hostInitParams);
         void        InitForConfiguration(ref string locationSubPath, out string configPath, out string locationConfigPath,

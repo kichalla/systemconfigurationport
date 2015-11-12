@@ -6,7 +6,7 @@
 
 using System;
 using System.IO;
-using System.Security;
+
 using System.Collections.Specialized;
 using System.Configuration;
 using ClassConfiguration=System.Configuration.Configuration;
@@ -27,7 +27,7 @@ namespace System.Configuration.Internal {
     // Exposes support in System.Configuration for functions that were
     // once available in System.dll
     //
-    [System.Runtime.InteropServices.ComVisible(false)]
+    //[System.Runtime.InteropServices.ComVisible(false)]
     public interface IConfigurationManagerInternal {
         bool    SupportsUserConfig          {get;} 
         bool    SetConfigurationSystemInProgress {get;}

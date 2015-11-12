@@ -1,16 +1,12 @@
-﻿    using System.Configuration.Internal;
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.IO;
-    using System.Runtime.Serialization;
-    using System.Security;
-    
-    using System.Xml;
-    using System.Runtime.Versioning;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Xml.ReaderWriter;
+﻿using System.Configuration.Internal;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Runtime.Serialization;
+
+
+using System.Xml;
 namespace System.Configuration
 {
 
@@ -47,7 +43,7 @@ namespace System.Configuration
         // The ConfigurationException class is obsolete, but we still need to derive from it and call the base ctor, so we
         // just disable the obsoletion warning.
 #pragma warning disable 0618
-        public ConfigurationErrorsException(string message, Exception inner, string filename, int line) : base(message, inner)
+        public ConfigurationErrorsException(string message, Exception inner, string filename, int line) //: base(message, inner)
         {
 #pragma warning restore 0618
             Init(filename, line);
@@ -98,7 +94,7 @@ namespace System.Configuration
         { }
 
 
-        [ResourceExposure(ResourceScope.None)]
+        //[ResourceExposure(ResourceScope.None)]
         internal ConfigurationErrorsException(ICollection<ConfigurationException> coll) :
                 this(GetFirstException(coll))
         {

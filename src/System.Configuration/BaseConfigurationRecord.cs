@@ -7,7 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Security;
+
 using System.Text;
 using System.Threading;
 using System.Xml;
@@ -4649,8 +4649,7 @@ namespace System.Configuration
         // Note: Some of the per-attribute encryption stuff is moved to the end of the file to minimize
         //       FI merging conflicts
         //
-        const string ProtectedConfigurationSectionTypeName = "System.Configuration.ProtectedConfigurationSection, " 
-            + AssemblyRef.SystemConfiguration;
+        const string ProtectedConfigurationSectionTypeName = "System.Configuration.ProtectedConfigurationSection, ";//     + AssemblyRef.SystemConfiguration;
         internal const string RESERVED_SECTION_PROTECTED_CONFIGURATION = "configProtectedData";
 
         internal static bool IsImplicitSection(string configKey)
@@ -4894,7 +4893,7 @@ namespace System.Configuration
             }
         }
 
-        internal System.Func<string, string> TypeStringTransformer
+        internal Func<string, string> TypeStringTransformer
         {
             get
             {
@@ -4902,7 +4901,7 @@ namespace System.Configuration
             }
         }
 
-        internal System.Func<string, string> AssemblyStringTransformer
+        internal Func<string, string> AssemblyStringTransformer
         {
             get
             {

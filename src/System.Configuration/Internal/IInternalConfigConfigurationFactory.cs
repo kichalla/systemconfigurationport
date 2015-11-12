@@ -6,7 +6,7 @@
 
 using System;
 using System.IO;
-using System.Security;
+
 using System.Collections.Specialized;
 using System.Configuration;
 using ClassConfiguration=System.Configuration.Configuration;
@@ -26,7 +26,7 @@ namespace System.Configuration.Internal {
     //
     // Call into System.Configuration.dll to create and initialize a Configuration object.
     //
-    [System.Runtime.InteropServices.ComVisible(false)]
+    //[System.Runtime.InteropServices.ComVisible(false)]
     public interface IInternalConfigConfigurationFactory {
         ClassConfiguration  Create(Type typeConfigHost, params object[] hostInitConfigurationParams);
         string              NormalizeLocationSubPath(string subPath, IConfigErrorInfo errorInfo);

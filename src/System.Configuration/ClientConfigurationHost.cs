@@ -1,10 +1,10 @@
 ﻿    using System.Configuration.Internal;
     using System.IO;
-    using System.Security.Policy;
+    
     
     using System.Reflection;
     using System.Threading;
-    using System.Security;
+    
     using System.Net;
     using System.Security.Principal;
     using System.Diagnostics.CodeAnalysis;
@@ -379,33 +379,34 @@ namespace System.Configuration
             }
 
             // scheme is http
-            WebClient client = new WebClient();
+            //WebClient client = new WebClient();
 
-            // Try using default credentials
-            try
-            {
-                client.Credentials = CredentialCache.DefaultCredentials;
-            }
-            catch
-            {
-            }
+            //// Try using default credentials
+            //try
+            //{
+            //    client.Credentials = CredentialCache.DefaultCredentials;
+            //}
+            //catch
+            //{
+            //}
 
-            byte[] fileData = null;
-            try
-            {
-                fileData = client.DownloadData(streamName);
-            }
-            catch
-            {
-            }
+            //byte[] fileData = null;
+            //try
+            //{
+            //    fileData = client.DownloadData(streamName);
+            //}
+            //catch
+            //{
+            //}
 
-            if (fileData == null)
-            {
-                return null;
-            }
+            //if (fileData == null)
+            //{
+            //    return null;
+            //}
 
-            MemoryStream stream = new MemoryStream(fileData);
-            return stream;
+            //MemoryStream stream = new MemoryStream(fileData);
+            //return stream;
+            return null;
         }
 
         public override Stream OpenStreamForWrite(string streamName, string templateStreamName, ref object writeContext)

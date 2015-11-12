@@ -9,13 +9,13 @@
     using System.Globalization;
     using System.IO;
     using System.Reflection;
-    using System.Security;
+    
     using System.Xml;
     using System.Net;
     using System.Configuration.Internal;
     using Assembly = System.Reflection.Assembly;
     using System.Diagnostics.CodeAnalysis;
-    using Xml;
+    
 namespace System.Configuration {
 
     internal sealed class RuntimeConfigurationRecord : BaseConfigurationRecord {
@@ -82,13 +82,13 @@ namespace System.Configuration {
                 try {
                     using (Impersonate()) {
                         // If this configRecord is trusted, ignore user code on stack
-                        if (_flags[IsTrusted]) {
-                            runtimeObject = GetRuntimeObjectWithFullTrust(section);
-                        }
-                        else {
+                        //if (_flags[IsTrusted]) {
+                        //    runtimeObject = GetRuntimeObjectWithFullTrust(section);
+                        //}
+                        //else {
                             // Run configuration section handlers as if user code was on the stack
                             runtimeObject = GetRuntimeObjectWithRestrictedPermissions(section);
-                        }
+                        //}
                     }
                 }
                 catch (Exception e) {
@@ -141,7 +141,7 @@ namespace System.Configuration {
             }
 
             // Ignore user code on the stack
-            [PermissionSet(SecurityAction.Assert, Unrestricted=true)]
+            //[PermissionSet(SecurityAction.Assert, Unrestricted=true)]
             private void InitWithFullTrust(RuntimeConfigurationRecord configRecord, FactoryRecord factoryRecord) {
                 Init(configRecord, factoryRecord);
             }
