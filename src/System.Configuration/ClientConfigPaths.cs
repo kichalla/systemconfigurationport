@@ -5,9 +5,11 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.Linq;
 using System.Collections;
 using System.IO;
 using System.Reflection;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -43,8 +45,6 @@ namespace System.Configuration
 
         static volatile ClientConfigPaths s_current;
         static volatile bool s_currentIncludesUserConfig;
-        static volatile SecurityPermission s_serializationPerm;
-        static volatile SecurityPermission s_controlEvidencePerm;
 
         bool _hasEntryAssembly;
         bool _includesUserConfig;
@@ -343,18 +343,6 @@ namespace System.Configuration
             }
         }
 
-        private static SecurityPermission SerializationFormatterPermission
-        {
-            get
-            {
-                if (s_serializationPerm == null)
-                {
-                    s_serializationPerm = new SecurityPermission(SecurityPermissionFlag.SerializationFormatter);
-                }
-                return s_serializationPerm;
-            }
-        }
-
         // Combines path2 with path1 if possible, else returns null.
         private string CombineIfValid(string path1, string path2)
         {
@@ -511,20 +499,20 @@ namespace System.Configuration
             //
             if (exeAssembly != null)
             {
-                object[] attrs = exeAssembly.GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
-                if (attrs != null && attrs.Length > 0)
+                var companyAttribute = exeAssembly.GetCustomAttribute<AssemblyCompanyAttribute>();
+                if (companyAttribute != null)
                 {
-                    _companyName = ((AssemblyCompanyAttribute)attrs[0]).Company;
+                    _companyName = companyAttribute.Company;
                     if (_companyName != null)
                     {
                         _companyName = _companyName.Trim();
                     }
                 }
 
-                attrs = exeAssembly.GetCustomAttributes(typeof(AssemblyProductAttribute), false);
-                if (attrs != null && attrs.Length > 0)
+                var productAttribute = exeAssembly.GetCustomAttribute<AssemblyProductAttribute>();
+                if (productAttribute != null)
                 {
-                    _productName = ((AssemblyProductAttribute)attrs[0]).Product;
+                    _productName = productAttribute.Product;
                     if (_productName != null)
                     {
                         _productName = _productName.Trim();
@@ -565,7 +553,7 @@ namespace System.Configuration
 
                 if (versionInfoFileName != null)
                 {
-                    System.Diagnostics.FileVersionInfo version = System.Diagnostics.FileVersionInfo.GetVersionInfo(versionInfoFileName);
+                    FileVersionInfo version = FileVersionInfo.GetVersionInfo(versionInfoFileName);
                     if (version != null)
                     {
                         if (String.IsNullOrEmpty(_companyName))

@@ -30,6 +30,7 @@
         "System.Diagnostics.Debug": "4.0.11-beta-23409",
         "System.Security.Cryptography.Primitives": "4.0.0-beta-23409",
         "System.Security.AccessControl": "4.0.0-beta-23409",
-        "System.Security.Cryptography.Csp": "4.0.0-beta-23504"
+        "System.Security.Cryptography.Csp": "4.0.0-beta-23504",
+        "System.Diagnostics.FileVersionInfo": "4.0.0-beta-23409"
     }
 }

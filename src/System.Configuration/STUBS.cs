@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace System.Configuration
 {
@@ -36,12 +37,14 @@ namespace System.Configuration
 
     public class ConfigurationLocation
     {
+        public ConfigurationLocation() { }
 
+        public ConfigurationLocation(Configuration config, string str) { }
     }
 
     public interface IConfigurationSectionHandler
     {
-        object Create(Object parent, Object configContext, System.Xml.XmlNode section);
+        object Create(Object parent, Object configContext, XmlNode section);
     }
 
     namespace System.ComponentModel

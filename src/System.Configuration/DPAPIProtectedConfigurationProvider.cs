@@ -11,7 +11,7 @@
     using System.Text;
     using  System.Runtime.InteropServices;
     using Microsoft.Win32;
-    
+
     using Microsoft.Win32.SafeHandles;
     using System.Runtime.CompilerServices;
 namespace System.Configuration
@@ -77,7 +77,6 @@ namespace System.Configuration
             inputData.cbData = entData.cbData = outputData.cbData = 0;
             try {
 
-                RuntimeHelpers.PrepareConstrainedRegions();
                 try {
                 }
                 finally {
@@ -94,7 +93,6 @@ namespace System.Configuration
                     dwFlags |= CRYPTPROTECT_LOCAL_MACHINE;
                 bool success = false;
 
-                RuntimeHelpers.PrepareConstrainedRegions();
                 try {
                 }
                 finally {
@@ -143,7 +141,6 @@ namespace System.Configuration
             inputData.cbData = entData.cbData = outputData.cbData = 0;
 
             try {
-                RuntimeHelpers.PrepareConstrainedRegions();
                 try {
                 }
                 finally {

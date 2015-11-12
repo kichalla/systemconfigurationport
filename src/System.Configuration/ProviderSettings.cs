@@ -3,9 +3,9 @@
 //     Copyright (c) Microsoft Corporation.  All rights reserved.
 // </copyright>
 //------------------------------------------------------------------------------
-    using System;
-    using Collections.Specialized;
-    using Collections;
+using System;
+using System.Collections.Specialized;
+using System.Collections;
 
 namespace System.Configuration
 {

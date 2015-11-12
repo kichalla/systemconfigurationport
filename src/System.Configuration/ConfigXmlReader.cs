@@ -48,57 +48,57 @@ namespace System.Configuration {
             return new ConfigXmlReader(_rawXml, _filename, _lineOffset, _lineNumberIsConstant);
         }
 
-        public override System.String GetAttribute(System.Int32 i)
+        public override System.String GetAttribute(Int32 i)
         {
             throw new NotImplementedException();
         }
 
-        public override System.String GetAttribute(System.String name)
+        public override String GetAttribute(String name)
         {
             throw new NotImplementedException();
         }
 
-        public override System.String GetAttribute(System.String name, System.String namespaceURI)
+        public override String GetAttribute(String name, String namespaceURI)
         {
             throw new NotImplementedException();
         }
 
-        public override System.String LookupNamespace(System.String prefix)
+        public override String LookupNamespace(String prefix)
         {
             throw new NotImplementedException();
         }
 
-        public override System.Boolean MoveToAttribute(System.String name)
+        public override Boolean MoveToAttribute(String name)
         {
             throw new NotImplementedException();
         }
 
-        public override System.Boolean MoveToAttribute(System.String name, System.String ns)
+        public override Boolean MoveToAttribute(String name, String ns)
         {
             throw new NotImplementedException();
         }
 
-        public override System.Boolean MoveToElement()
+        public override Boolean MoveToElement()
         {
             throw new NotImplementedException();
         }
 
-        public override System.Boolean MoveToFirstAttribute()
+        public override Boolean MoveToFirstAttribute()
         {
             throw new NotImplementedException();
         }
 
-        public override System.Boolean MoveToNextAttribute()
+        public override Boolean MoveToNextAttribute()
         {
             throw new NotImplementedException();
         }
 
-        public override System.Boolean Read()
+        public override Boolean Read()
         {
             throw new NotImplementedException();
         }
 
-        public override System.Boolean ReadAttributeValue()
+        public override Boolean ReadAttributeValue()
         {
             throw new NotImplementedException();
         }
@@ -134,7 +134,7 @@ namespace System.Configuration {
             }
         }
 
-        public override System.Int32 AttributeCount
+        public override Int32 AttributeCount
         {
             get
             {
@@ -142,7 +142,7 @@ namespace System.Configuration {
             }
         }
 
-        public override System.String BaseURI
+        public override String BaseURI
         {
             get
             {
@@ -150,7 +150,7 @@ namespace System.Configuration {
             }
         }
 
-        public override System.Int32 Depth
+        public override Int32 Depth
         {
             get
             {
@@ -158,7 +158,7 @@ namespace System.Configuration {
             }
         }
 
-        public override System.Boolean EOF
+        public override Boolean EOF
         {
             get
             {
@@ -166,7 +166,7 @@ namespace System.Configuration {
             }
         }
 
-        public override System.Boolean IsEmptyElement
+        public override Boolean IsEmptyElement
         {
             get
             {
@@ -174,7 +174,7 @@ namespace System.Configuration {
             }
         }
 
-        public override System.String LocalName
+        public override String LocalName
         {
             get
             {
@@ -182,7 +182,7 @@ namespace System.Configuration {
             }
         }
 
-        public override System.String NamespaceURI
+        public override String NamespaceURI
         {
             get
             {
@@ -206,7 +206,7 @@ namespace System.Configuration {
             }
         }
 
-        public override System.String Prefix
+        public override String Prefix
         {
             get
             {
@@ -222,7 +222,7 @@ namespace System.Configuration {
             }
         }
 
-        public override System.String Value
+        public override String Value
         {
             get
             {
