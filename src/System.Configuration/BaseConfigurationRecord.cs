@@ -13,6 +13,7 @@ using System.Threading;
 using System.Xml;
 using System.Runtime.Versioning;
 using System.Diagnostics;
+using System;
 
 namespace System.Configuration
 {

@@ -12,7 +12,6 @@ using System.Reflection;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
@@ -73,16 +72,16 @@ namespace System.Configuration
             {
                 // First check if a configuration file has been set for this app domain. If so, we will use that.
                 // The CLR would already have normalized this, so no further processing necessary.
-                AppDomain domain = AppDomain.CurrentDomain;
-                AppDomainSetup setup = domain.SetupInformation;
-                _applicationConfigUri = setup.ConfigurationFile;
+                //AppDomain domain = AppDomain.CurrentDomain;
+                //AppDomainSetup setup = domain.SetupInformation;
+                _applicationConfigUri = null; // setup.ConfigurationFile;
 
                 // Now figure out the application path.
-                exeAssembly = Assembly.GetEntryAssembly();
+                exeAssembly = null; // null Assembly.GetEntryAssembly();
                 if (exeAssembly != null)
                 {
                     _hasEntryAssembly = true;
-                    applicationUri = exeAssembly.CodeBase;
+                    applicationUri = AppContext.BaseDirectory;
 
                     bool isFile = false;
 
@@ -108,13 +107,13 @@ namespace System.Configuration
                     }
                     else
                     {
-                        applicationUri = exeAssembly.EscapedCodeBase;
+                      //  applicationUri = exeAssembly.EscapedCodeBase;
                     }
                 }
                 else
                 {
                     StringBuilder sb = new StringBuilder(MAX_PATH);
-                    UnsafeNativeMethods.GetModuleFileName(new HandleRef(null, IntPtr.Zero), sb, sb.Capacity);
+                    //UnsafeNativeMethods.GetModuleFileName(new HandleRef(null, IntPtr.Zero), sb, sb.Capacity);
                     applicationUri = Path.GetFullPath(sb.ToString());
                     applicationFilename = applicationUri;
                 }
@@ -154,22 +153,7 @@ namespace System.Configuration
 
             SetNamesAndVersion(applicationFilename, exeAssembly, isHttp);
 
-            // Check if this is a clickonce deployed application. If so, point the user config
-            // files to the clickonce data directory.
-            if (this.IsClickOnceDeployed(AppDomain.CurrentDomain))
-            {
-                string dataPath = AppDomain.CurrentDomain.GetData(ClickOnceDataDirectory) as string;
-                string versionSuffix = Validate(_productVersion, false);
-
-                // NOTE: No roaming config for clickonce - not supported.
-                if (Path.IsPathRooted(dataPath))
-                {
-                    _localConfigDirectory = CombineIfValid(dataPath, versionSuffix);
-                    _localConfigFilename = CombineIfValid(_localConfigDirectory, UserConfigFilename);
-                }
-
-            }
-            else if (!isHttp)
+            if (!isHttp)
             {
                 // If we get the config from http, we do not have a roaming or local config directory,
                 // as it cannot be edited by the app in those cases because it does not have Full Trust.
@@ -178,10 +162,10 @@ namespace System.Configuration
 
                 string part1 = Validate(_companyName, true);
 
-                string validAppDomainName = Validate(AppDomain.CurrentDomain.FriendlyName, true);
-                string applicationUriLower = !String.IsNullOrEmpty(_applicationUri) ? _applicationUri.ToLower(CultureInfo.InvariantCulture) : null;
-                string namePrefix = !String.IsNullOrEmpty(validAppDomainName) ? validAppDomainName : Validate(_productName, true);
-                string hashSuffix = GetTypeAndHashSuffix(AppDomain.CurrentDomain, applicationUriLower);
+                // string validAppDomainName = Validate(AppDomain.CurrentDomain.FriendlyName, true);
+                string applicationUriLower = !String.IsNullOrEmpty(_applicationUri) ? _applicationUri.ToLower() : null;
+                string namePrefix = "todo"; //  !String.IsNullOrEmpty(validAppDomainName) ? validAppDomainName : Validate(_productName, true);
+                string hashSuffix = "todo"; //  GetTypeAndHashSuffix(AppDomain.CurrentDomain, applicationUriLower);
 
                 string part2 = (!String.IsNullOrEmpty(namePrefix) && !String.IsNullOrEmpty(hashSuffix)) ? namePrefix + hashSuffix : null;
 
@@ -189,14 +173,15 @@ namespace System.Configuration
 
                 string dirSuffix = CombineIfValid(CombineIfValid(part1, part2), part3);
 
-                string roamingFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                // Has no meaning in linux!
+                string roamingFolderPath = Environment.GetEnvironmentVariable("APPDATA");
                 if (Path.IsPathRooted(roamingFolderPath))
                 {
                     _roamingConfigDirectory = CombineIfValid(roamingFolderPath, dirSuffix);
                     _roamingConfigFilename = CombineIfValid(_roamingConfigDirectory, UserConfigFilename);
                 }
 
-                string localFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string localFolderPath = Environment.GetEnvironmentVariable("LOCALAPPDATA");
                 if (Path.IsPathRooted(localFolderPath))
                 {
                     _localConfigDirectory = CombineIfValid(localFolderPath, dirSuffix);
@@ -331,18 +316,6 @@ namespace System.Configuration
             }
         }
 
-        private static SecurityPermission ControlEvidencePermission
-        {
-            get
-            {
-                if (s_controlEvidencePerm == null)
-                {
-                    s_controlEvidencePerm = new SecurityPermission(SecurityPermissionFlag.ControlEvidence);
-                }
-                return s_controlEvidencePerm;
-            }
-        }
-
         // Combines path2 with path1 if possible, else returns null.
         private string CombineIfValid(string path1, string path2)
         {
@@ -366,128 +339,20 @@ namespace System.Configuration
             return returnPath;
         }
 
-        // Returns a type and hash suffix based on app domain evidence. The evidence we use, in
-        // priority order, is Strong Name, Url and Exe Path. If one of these is found, we compute a
-        // SHA1 hash of it and return a suffix based on that. If none is found, we return null.
-        private string GetTypeAndHashSuffix(AppDomain appDomain, string exePath)
-        {
-            string suffix = null;
-            string typeName = null;
-            object evidenceObj = null;
-
-            evidenceObj = GetEvidenceInfo(appDomain, exePath, out typeName);
-
-            if (evidenceObj != null && !String.IsNullOrEmpty(typeName))
-            {
-                MemoryStream ms = new MemoryStream();
-                BinaryFormatter bSer = new BinaryFormatter();
-                SerializationFormatterPermission.Assert();
-                bSer.Serialize(ms, evidenceObj);
-                ms.Position = 0;
-                string evidenceHash = GetHash(ms);
-
-                if (!String.IsNullOrEmpty(evidenceHash))
-                {
-                    suffix = "_" + typeName + "_" + evidenceHash;
-                }
-            }
-
-            return suffix;
-        }
-
-        // Mostly borrowed from IsolatedStorage, with some modifications
-        private static object GetEvidenceInfo(AppDomain appDomain, string exePath, out string typeName)
-        {
-            ControlEvidencePermission.Assert();
-            Evidence evidence = appDomain.Evidence;
-            StrongName sn = null;
-            Url url = null;
-
-            if (evidence != null)
-            {
-                IEnumerator e = evidence.GetHostEnumerator();
-                object temp = null;
-
-                while (e.MoveNext())
-                {
-                    temp = e.Current;
-
-                    if (temp is StrongName)
-                    {
-                        sn = (StrongName)temp;
-                        break;
-                    }
-                    else if (temp is Url)
-                    {
-                        url = (Url)temp;
-                    }
-                }
-            }
-
-            object o = null;
-
-            // The order of preference is StrongName, Url, ExePath.
-            if (sn != null)
-            {
-                o = MakeVersionIndependent(sn);
-                typeName = StrongNameDesc;
-            }
-            else if (url != null)
-            {
-                // Extract the url string and normalize it to use as evidence
-                o = url.Value.ToUpperInvariant();
-                typeName = UrlDesc;
-            }
-            else if (exePath != null)
-            {
-                o = exePath;
-                typeName = PathDesc;
-            }
-            else
-            {
-                typeName = null;
-            }
-
-            return o;
-        }
+ 
 
         private static String GetHash(Stream s)
         {
             byte[] hash;
 
-            using (SHA1 sha1 = new SHA1CryptoServiceProvider())
+            using (SHA1 sha1 = SHA1.Create())
             {
                 hash = sha1.ComputeHash(s);
             }
 
             return ToBase32StringSuitableForDirName(hash);
         }
-
-        private bool IsClickOnceDeployed(AppDomain appDomain)
-        {
-            // NOTE: For perf & servicing reasons, we don't want to introduce a dependency on
-            //       System.Deployment.dll here. The following code is an alternative to calling
-            //       ApplicationDeployment.IsNetworkDeployed.
-
-            ActivationContext actCtx = appDomain.ActivationContext;
-
-            // Ensures the app is running with a context from the store.
-            if (actCtx != null && actCtx.Form == ActivationContext.ContextForm.StoreBounded)
-            {
-                string fullAppId = actCtx.Identity.FullName;
-                if (!String.IsNullOrEmpty(fullAppId))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private static StrongName MakeVersionIndependent(StrongName sn)
-        {
-            return new StrongName(sn.PublicKey, sn.Name, new Version(0, 0, 0, 0));
-        }
+        
 
         private void SetNamesAndVersion(string applicationFilename, Assembly exeAssembly, bool isHttp)
         {
@@ -532,19 +397,6 @@ namespace System.Configuration
             if (!isHttp && (String.IsNullOrEmpty(_companyName) || String.IsNullOrEmpty(_productName) || String.IsNullOrEmpty(_productVersion)))
             {
                 string versionInfoFileName = null;
-
-                if (exeAssembly != null)
-                {
-                    MethodInfo entryPoint = exeAssembly.EntryPoint;
-                    if (entryPoint != null)
-                    {
-                        mainType = entryPoint.ReflectedType;
-                        if (mainType != null)
-                        {
-                            versionInfoFileName = mainType.Module.FullyQualifiedName;
-                        }
-                    }
-                }
 
                 if (versionInfoFileName == null)
                 {
