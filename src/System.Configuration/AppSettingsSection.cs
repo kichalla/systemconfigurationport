@@ -7,6 +7,9 @@
     using System.Collections;
     using System.IO;
     using System.Text;
+    using Collections.Specialized;
+    using Xml;
+    using IO;
 
     public sealed class AppSettingsSection : ConfigurationSection
     {
