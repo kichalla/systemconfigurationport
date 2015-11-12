@@ -81,8 +81,6 @@ namespace System.Configuration.Internal {
 
         // security support
         bool            IsTrustedConfigPath(string configPath);
-        bool            IsFullTrustSectionWithoutAptcaAllowed(IInternalConfigRecord configRecord);
-        //void            GetRestrictedPermissions(IInternalConfigRecord configRecord, out PermissionSet permissionSet, out bool isHostReady);
         IDisposable     Impersonate();
 
         // prefetch support

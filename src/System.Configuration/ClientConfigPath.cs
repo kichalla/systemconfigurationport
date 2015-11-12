@@ -7,8 +7,6 @@
     using System.Runtime.Serialization.Formatters.Binary;
     using System.Security;
     using System.Security.Cryptography;
-    using System.Security.Policy;
-    
     using System.Text;
     using System.Globalization;
     using Microsoft.Win32;
@@ -39,8 +37,6 @@ namespace System.Configuration
 
         static volatile ClientConfigPaths s_current;
         static volatile bool s_currentIncludesUserConfig;
-        static volatile SecurityPermission s_serializationPerm;
-        static volatile SecurityPermission s_controlEvidencePerm;
 
         bool _hasEntryAssembly;
         bool _includesUserConfig;
@@ -327,30 +323,6 @@ namespace System.Configuration
             }
         }
 
-        private static SecurityPermission ControlEvidencePermission
-        {
-            get
-            {
-                if (s_controlEvidencePerm == null)
-                {
-                    s_controlEvidencePerm = new SecurityPermission(SecurityPermissionFlag.ControlEvidence);
-                }
-                return s_controlEvidencePerm;
-            }
-        }
-
-        private static SecurityPermission SerializationFormatterPermission
-        {
-            get
-            {
-                if (s_serializationPerm == null)
-                {
-                    s_serializationPerm = new SecurityPermission(SecurityPermissionFlag.SerializationFormatter);
-                }
-                return s_serializationPerm;
-            }
-        }
-
         // Combines path2 with path1 if possible, else returns null.
         private string CombineIfValid(string path1, string path2)
         {
@@ -407,7 +379,6 @@ namespace System.Configuration
         private static object GetEvidenceInfo(AppDomain appDomain, string exePath, out string typeName)
         {
             ControlEvidencePermission.Assert();
-            Evidence evidence = appDomain.Evidence;
             StrongName sn = null;
             Url url = null;
 

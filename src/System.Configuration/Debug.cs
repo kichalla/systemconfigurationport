@@ -697,7 +697,7 @@ A=Exit process R=Debug I=Continue";
         // Sends the message to the debugger if the tag is enabled.
         // Also breaks into the debugger the value of the tag is 2 (TagValue.Break).
         //
-        [System.Diagnostics.Conditional("DBG")]
+        [Conditional("DBG")]
         internal static void Trace(string tagName, string message) {
 #if DBG
             if (TraceBreak(tagName, message, null, true)) {
@@ -710,7 +710,7 @@ A=Exit process R=Debug I=Continue";
         // Sends the message to the debugger if the tag is enabled.
         // Also breaks into the debugger the value of the tag is 2 (TagValue.Break).
         //
-        [System.Diagnostics.Conditional("DBG")]
+        [Conditional("DBG")]
         internal static void Trace(string tagName, string message, bool includePrefix) {
 #if DBG
             if (TraceBreak(tagName, message, null, includePrefix)) {
@@ -723,7 +723,7 @@ A=Exit process R=Debug I=Continue";
         // Sends the message to the debugger if the tag is enabled.
         // Also breaks into the debugger the value of the tag is 2 (TagValue.Break).
         //
-        [System.Diagnostics.Conditional("DBG")]
+        [Conditional("DBG")]
         internal static void Trace(string tagName, string message, Exception e) {
 #if DBG
             if (TraceBreak(tagName, message, e, true)) {
@@ -736,7 +736,7 @@ A=Exit process R=Debug I=Continue";
         // Sends the message to the debugger if the tag is enabled.
         // Also breaks into the debugger the value of the tag is 2 (TagValue.Break).
         //
-        [System.Diagnostics.Conditional("DBG")]
+        [Conditional("DBG")]
         internal static void Trace(string tagName, Exception e) {
 #if DBG
             if (TraceBreak(tagName, null, e, true)) {
@@ -749,7 +749,7 @@ A=Exit process R=Debug I=Continue";
         // Sends the message to the debugger if the tag is enabled.
         // Also breaks into the debugger the value of the tag is 2 (TagValue.Break).
         //
-        [System.Diagnostics.Conditional("DBG")]
+        [Conditional("DBG")]
         internal static void Trace(string tagName, string message, Exception e, bool includePrefix) {
 #if DBG
             if (TraceBreak(tagName, message, e, includePrefix)) {
@@ -762,7 +762,7 @@ A=Exit process R=Debug I=Continue";
 #endif
 
 #if UNUSED_CODE
-        [System.Diagnostics.Conditional("DBG")]
+        [Conditional("DBG")]
         public static void TraceException(String tagName, Exception e) {
 #if DBG
             if (TraceBreak(tagName, null, e, true)) {
@@ -779,7 +779,7 @@ A=Exit process R=Debug I=Continue";
         //      * If the 'AssertBreak' tag is enabled, immediately break into the debugger
         //      * Else display a dialog box asking the user to Abort, Retry (break), or Ignore
         //
-        [System.Diagnostics.Conditional("DBG")]
+        [Conditional("DBG")]
         internal static void Assert(bool assertion, string message) {
 #if DBG
             EnsureInit();
@@ -798,7 +798,7 @@ A=Exit process R=Debug I=Continue";
         //      * If the 'AssertBreak' tag is enabled, immediately break into the debugger
         //      * Else display a dialog box asking the user to Abort, Retry (break), or Ignore
         //
-        [System.Diagnostics.Conditional("DBG")]
+        [Conditional("DBG")]
         internal static void Assert(bool assertion) {
 #if DBG
             EnsureInit();
@@ -813,7 +813,7 @@ A=Exit process R=Debug I=Continue";
         //
         // Like Assert, but the assertion is always considered to be false.
         //
-        [System.Diagnostics.Conditional("DBG")]
+        [Conditional("DBG")]
         internal static void Fail(string message) {
 #if DBG
             Assert(false, message);
@@ -869,7 +869,7 @@ A=Exit process R=Debug I=Continue";
         // may not have control over the debug tags that are enabled
         // on a particular machine.
         // 
-        [System.Diagnostics.Conditional("DBG")]
+        [Conditional("DBG")]
         internal static void AlwaysValidate(string tagName) {
 #if DBG
             EnsureInit();
@@ -883,7 +883,7 @@ A=Exit process R=Debug I=Continue";
         // Use this function from a DebugValidate method where
         // you would otherwise use Assert.
         //
-        [System.Diagnostics.Conditional("DBG")]
+        [Conditional("DBG")]
         internal static void CheckValid(bool assertion, string message) {
 #if DBG
             if (!assertion) {
@@ -904,7 +904,7 @@ A=Exit process R=Debug I=Continue";
         // validate an object and have a failed validation caught in an assert.
         // Use Debug.Validate(tagName, obj) for that purpose.
         //
-        [System.Diagnostics.Conditional("DBG")]
+        [Conditional("DBG")]
         internal static void Validate(Object obj) {
 #if DBG
             Type        type;
@@ -933,7 +933,7 @@ A=Exit process R=Debug I=Continue";
         // the "Validate" tag is not disabled and the given 'tag' is enabled.
         // An Assertion is made if the validation fails.
         //
-        [System.Diagnostics.Conditional("DBG")]
+        [Conditional("DBG")]
         internal static void Validate(string tagName, Object obj) {
 #if DBG
             EnsureInit();
@@ -1013,7 +1013,7 @@ A=Exit process R=Debug I=Continue";
         // @param tagName  The tag to Dump with.
         // @param obj  The object to dump.
         // 
-        [System.Diagnostics.Conditional("DBG")]
+        [Conditional("DBG")]
         internal static void Dump(string tagName, Object obj) {
 #if DBG
             EnsureInit();

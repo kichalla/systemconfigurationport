@@ -115,8 +115,6 @@ namespace System.Configuration
         internal const string ConfigPathSeparatorString = "/";
         static internal readonly char[] ConfigPathSeparatorParams = new char[] { ConfigPathSeparatorChar };
 
-        private static volatile ConfigurationPermission s_unrestrictedConfigPermission; // cached ConfigurationPermission
-
         protected SafeBitVector32 _flags;                 // state
         protected BaseConfigurationRecord _parent;                // parent record
         protected Hashtable _children;              // configName -> record
@@ -1380,14 +1378,6 @@ namespace System.Configuration
             }
 
             //
-            // Check if permission to access the section is allowed.
-            //
-            if (checkPermission)
-            {
-                CheckPermissionAllowed(configKey, requirePermission, isResultTrustedWithoutAptca);
-            }
-
-            //
             // Return the results.
             //
             result = tmpResult;
@@ -1837,60 +1827,6 @@ namespace System.Configuration
 
             return result;
         }
-
-        //
-        // Create a single cached instance of UnrestrictedConfigPermission.
-        //
-        private static ConfigurationPermission UnrestrictedConfigPermission
-        {
-            get
-            {
-                if (s_unrestrictedConfigPermission == null)
-                {
-                    s_unrestrictedConfigPermission = new ConfigurationPermission(PermissionState.Unrestricted);
-                }
-
-                return s_unrestrictedConfigPermission;
-            }
-        }
-
-        //
-        // Check whether permission to the section is allowed to the caller.
-        //
-        private void CheckPermissionAllowed(string configKey, bool requirePermission, bool isTrustedWithoutAptca)
-        {
-            //
-            // Demand unrestricted ConfigurationPermission if the section requires it
-            //
-            if (requirePermission)
-            {
-
-                try
-                {
-                    UnrestrictedConfigPermission.Demand();
-                }
-                catch (SecurityException e)
-                {
-                    //
-                    // Add a nice error message that includes the sectionName and explains
-                    // how to use the requirePermission attribute.
-                    //
-                    throw new SecurityException(
-                            SR.GetString(SR.ConfigurationPermission_Denied, configKey),
-                            e);
-                }
-            }
-
-            //
-            // Ensure that the recepient isn't receiving an object they otherwise
-            // wouldn't be able to create due to Aptca.
-            //
-            if (isTrustedWithoutAptca && !Host.IsFullTrustSectionWithoutAptcaAllowed(this))
-            {
-                throw new ConfigurationErrorsException(SR.GetString(SR.Section_from_untrusted_assembly, configKey));
-            }
-        }
-
 
         private ConfigXmlReader FindSection(string[] keys, SectionXmlInfo sectionXmlInfo, out int lineNumber)
         {
@@ -2891,7 +2827,7 @@ namespace System.Configuration
             }
         }
 
-        [System.Diagnostics.Conditional("DBG")]
+        [Conditional("DBG")]
         private void DebugValidateIndirectInputs(SectionRecord sectionRecord)
         {
             if (_parent.IsRootConfig)
@@ -4121,7 +4057,7 @@ namespace System.Configuration
                 throw new ConfigurationErrorsException(SR.GetString(SR.Config_source_invalid_chars), errorInfo);
             }
 
-            if (String.IsNullOrEmpty(configSource) || System.IO.Path.IsPathRooted(configSource))
+            if (String.IsNullOrEmpty(configSource) || Path.IsPathRooted(configSource))
             {
                 throw new ConfigurationErrorsException(SR.GetString(SR.Config_source_invalid_format), errorInfo);
             }
@@ -4712,7 +4648,8 @@ namespace System.Configuration
         // Note: Some of the per-attribute encryption stuff is moved to the end of the file to minimize
         //       FI merging conflicts
         //
-        const string ProtectedConfigurationSectionTypeName = "System.Configuration.ProtectedConfigurationSection, " + AssemblyRef.SystemConfiguration;
+        const string ProtectedConfigurationSectionTypeName = "System.Configuration.ProtectedConfigurationSection, " 
+            + AssemblyRef.SystemConfiguration;
         internal const string RESERVED_SECTION_PROTECTED_CONFIGURATION = "configProtectedData";
 
         internal static bool IsImplicitSection(string configKey)

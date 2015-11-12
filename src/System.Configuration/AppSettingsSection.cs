@@ -1,13 +1,10 @@
-﻿    using System;
-    using System.Xml;
-    using System.Configuration;
-    using System.Collections.Specialized;
-    using System.Collections;
-    using System.IO;
-    using System.Text;
-    using Collections.Specialized;
-    using Xml;
-    using IO;
+﻿using System;
+using System.Xml;
+using System.Configuration;
+using System.Collections.Specialized;
+using System.Collections;
+using System.IO;
+using System.Text;
 namespace System.Configuration
 {
 
@@ -136,11 +133,11 @@ namespace System.Configuration
                 }
                 else
                 {
-                    configFileDirectory = System.IO.Path.GetDirectoryName(configFile);
-                    sourceFileFullPath = System.IO.Path.Combine(configFileDirectory, File);
+                    configFileDirectory = Path.GetDirectoryName(configFile);
+                    sourceFileFullPath = Path.Combine(configFileDirectory, File);
                 }
 
-                if (System.IO.File.Exists(sourceFileFullPath))
+                if (new FileInfo(sourceFileFullPath).Exists)
                 {
                     int lineOffset = 0;
                     string rawXml = null;

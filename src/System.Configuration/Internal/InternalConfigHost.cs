@@ -5,7 +5,6 @@
 //------------------------------------------------------------------------------
 
     using Microsoft.Win32;
-    using System.Diagnostics.CodeAnalysis;
     using System.CodeDom.Compiler;
     using System.Configuration;
     using System.IO;
@@ -15,7 +14,6 @@
     using System.Security.AccessControl;
 #endif
 
-    using System.Security.Policy;
     using System.Threading;
 namespace System.Configuration.Internal
 {
@@ -195,45 +193,15 @@ namespace System.Configuration.Internal
             {
                 if (!Directory.Exists(dir))
                 {
-                    //
-
-
-
-
-
-                    if (assertPermissions)
-                    {
-                        new FileIOPermission(PermissionState.Unrestricted).Assert();
-                        revertAssert = true;
-                    }
-
                     Directory.CreateDirectory(dir);
                 }
             }
             catch
             {
             }
-            finally
-            {
-                if (revertAssert)
-                {
-                    CodeAccessPermission.RevertAssert();
-                }
-            }
 
             Stream stream;
             WriteFileContext writeFileContext = null;
-            revertAssert = false;
-
-            if (assertPermissions)
-            {
-                // If we're asked to assert permission, we will assert allAccess on the directory (instead of just the file).
-                // We need to assert for the whole directory because WriteFileContext will call TempFileCollection.AddExtension,
-                // which will generate a temporary file and make a AllAccess Demand on that file.
-                // Since we don't know the name of the temporary file right now, we need to assert for the whole dir.
-                new FileIOPermission(FileIOPermissionAccess.AllAccess, dir).Assert();
-                revertAssert = true;
-            }
 
             try
             {
@@ -268,13 +236,6 @@ namespace System.Configuration.Internal
                 }
                 throw;
             }
-            finally
-            {
-                if (revertAssert)
-                {
-                    CodeAccessPermission.RevertAssert();
-                }
-            }
 
             writeContext = writeFileContext;
             return stream;
@@ -307,22 +268,9 @@ namespace System.Configuration.Internal
                 // WriteFileContext will call TempFileCollection.Dispose, which will remove a .tmp file it created.
                 string dir = Path.GetDirectoryName(streamName);
                 string[] filePaths = new string[] { streamName, writeFileContext.TempNewFilename, dir };
-                FileIOPermission fileIOPerm = new FileIOPermission(FileIOPermissionAccess.AllAccess, AccessControlActions.View | AccessControlActions.Change, filePaths);
-                fileIOPerm.Assert();
-                revertAssert = true;
             }
 
-            try
-            {
                 writeFileContext.Complete(streamName, success);
-            }
-            finally
-            {
-                if (revertAssert)
-                {
-                    CodeAccessPermission.RevertAssert();
-                }
-            }
         }
 
         void IInternalConfigHost.WriteCompleted(string streamName, bool success, object writeContext)
@@ -421,18 +369,6 @@ namespace System.Configuration.Internal
         {
             throw ExceptionUtil.UnexpectedError("IInternalConfigHost.IsTrustedConfigPath");
         }
-
-        // Default implementation: ensure that the caller has full trust.
-        bool IInternalConfigHost.IsFullTrustSectionWithoutAptcaAllowed(IInternalConfigRecord configRecord)
-        {
-            return TypeUtil.IsCallerFullTrust;
-        }
-
-        //// security support
-        //void IInternalConfigHost.GetRestrictedPermissions(IInternalConfigRecord configRecord, out PermissionSet permissionSet, out bool isHostReady) {
-        //    permissionSet = null;
-        //    isHostReady = true;
-        //}
 
         IDisposable IInternalConfigHost.Impersonate()
         {

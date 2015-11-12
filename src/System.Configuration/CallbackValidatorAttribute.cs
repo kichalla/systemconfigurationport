@@ -51,7 +51,7 @@ namespace System.Configuration
                 }
                 if (_callbackMethod == null)
                 {
-                    throw new System.ArgumentException(SR.GetString(SR.Validator_method_not_found, _callbackMethodName));
+                    throw new ArgumentException(SR.GetString(SR.Validator_method_not_found, _callbackMethodName));
                 }
 
                 return new CallbackValidator(_callbackMethod);

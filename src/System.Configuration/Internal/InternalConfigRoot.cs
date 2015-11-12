@@ -11,7 +11,7 @@
     using System.Globalization;
     using System.IO;
     using System.Runtime.InteropServices;
-    
+
     using System.Security;
     using System.Text;
     using System.Xml;
@@ -29,7 +29,7 @@ namespace System.Configuration.Internal {
     //
     internal sealed class InternalConfigRoot : IInternalConfigRoot {
         IInternalConfigHost         _host;                  // host, need to create records
-        ReaderWriterLock            _hierarchyLock;         // lock to protect hierarchy
+        ReaderWriterLockSlim            _hierarchyLock;         // lock to protect hierarchy
         BaseConfigurationRecord     _rootConfigRecord;      // root config record, one level above machine.config.
         bool                        _isDesignTime;          // Is the hierarchy for runtime or designtime?
         private Configuration        _CurrentConfiguration      = null;
@@ -46,7 +46,7 @@ namespace System.Configuration.Internal {
         void IInternalConfigRoot.Init(IInternalConfigHost host, bool isDesignTime) {
             _host = host;
             _isDesignTime = isDesignTime;
-            _hierarchyLock = new ReaderWriterLock();
+            _hierarchyLock = new ReaderWriterLockSlim();
 
             // Dummy record to hold _children for root
             if (_isDesignTime) {
@@ -73,13 +73,13 @@ namespace System.Configuration.Internal {
             // Protect against unexpected recursive entry on this thread.
             // We do this in retail, too, because the results would be very bad if this were to fail,
             // and the testing for this is not easy for all scenarios.
-            Debug.Assert(!_hierarchyLock.IsReaderLockHeld, "!_hierarchyLock.IsReaderLockHeld");
-            if (_hierarchyLock.IsReaderLockHeld) {
+            Debug.Assert(!_hierarchyLock.IsReadLockHeld, "!_hierarchyLock.IsReaderLockHeld");
+            if (_hierarchyLock.IsReadLockHeld) {
                 throw ExceptionUtil.UnexpectedError("System.Configuration.Internal.InternalConfigRoot::AcquireHierarchyLockForRead - reader lock already held by this thread");
             }
 
-            Debug.Assert(!_hierarchyLock.IsWriterLockHeld, "!_hierarchyLock.IsWriterLockHeld");
-            if (_hierarchyLock.IsWriterLockHeld) {
+            Debug.Assert(!_hierarchyLock.IsWriteLockHeld, "!_hierarchyLock.IsWriterLockHeld");
+            if (_hierarchyLock.IsWriteLockHeld) {
                 throw ExceptionUtil.UnexpectedError("System.Configuration.Internal.InternalConfigRoot::AcquireHierarchyLockForRead - writer lock already held by this thread");
             }
 
@@ -87,9 +87,9 @@ namespace System.Configuration.Internal {
         }
 
         private void ReleaseHierarchyLockForRead() {
-            Debug.Assert(!_hierarchyLock.IsWriterLockHeld, "!_hierarchyLock.IsWriterLockHeld");
+            Debug.Assert(!_hierarchyLock.IsWriteLockHeld, "!_hierarchyLock.IsWriterLockHeld");
 
-            if (_hierarchyLock.IsReaderLockHeld) {
+            if (_hierarchyLock.IsReadLockHeld) {
                 _hierarchyLock.ReleaseReaderLock();
             }
         }
@@ -98,11 +98,11 @@ namespace System.Configuration.Internal {
             // Protect against unexpected recursive entry on this thread.
             // We do this in retail, too, because the results would be very bad if this were to fail,
             // and the testing for this is not easy for all scenarios.
-            if (_hierarchyLock.IsReaderLockHeld) {
+            if (_hierarchyLock.IsReadLockHeld) {
                 throw ExceptionUtil.UnexpectedError("System.Configuration.Internal.InternalConfigRoot::AcquireHierarchyLockForWrite - reader lock already held by this thread");
             }
 
-            if (_hierarchyLock.IsWriterLockHeld) {
+            if (_hierarchyLock.IsWriteLockHeld) {
                 throw ExceptionUtil.UnexpectedError("System.Configuration.Internal.InternalConfigRoot::AcquireHierarchyLockForWrite - writer lock already held by this thread");
             }
 
@@ -110,9 +110,9 @@ namespace System.Configuration.Internal {
         }
 
         private void ReleaseHierarchyLockForWrite() {
-            Debug.Assert(!_hierarchyLock.IsReaderLockHeld, "!_hierarchyLock.IsReaderLockHeld");
+            Debug.Assert(!_hierarchyLock.IsReadLockHeld, "!_hierarchyLock.IsReaderLockHeld");
 
-            if (_hierarchyLock.IsWriterLockHeld) {
+            if (_hierarchyLock.IsReadLockHeld) {
                 _hierarchyLock.ReleaseWriterLock();
             }
         }

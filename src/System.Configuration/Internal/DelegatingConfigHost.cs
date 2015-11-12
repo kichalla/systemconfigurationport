@@ -174,10 +174,6 @@ namespace System.Configuration.Internal {
             return Host.IsTrustedConfigPath(configPath);
         }
 
-        public virtual bool IsFullTrustSectionWithoutAptcaAllowed(IInternalConfigRecord configRecord) {
-            return Host.IsFullTrustSectionWithoutAptcaAllowed(configRecord);
-        }
-
         //public virtual void GetRestrictedPermissions(IInternalConfigRecord configRecord, out PermissionSet permissionSet, out bool isHostReady) {
         //    Host.GetRestrictedPermissions(configRecord, out permissionSet, out isHostReady);
         //}
