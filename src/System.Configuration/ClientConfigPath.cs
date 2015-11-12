@@ -55,8 +55,6 @@
         string _productVersion;
 
 
-        [FileIOPermission(SecurityAction.Assert, AllFiles = FileIOPermissionAccess.PathDiscovery | FileIOPermissionAccess.Read)]
-        [SecurityPermission(SecurityAction.Assert, UnmanagedCode = true)]
         private ClientConfigPaths(string exePath, bool includeUserConfig)
         {
 

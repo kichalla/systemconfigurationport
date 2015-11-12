@@ -46,9 +46,7 @@ namespace System.Configuration
 
         private static string GetFilenameFromMachineConfigFilePath()
         {
-            string filename = ClientConfigurationHost.MachineConfigFilePath;
-            new FileIOPermission(FileIOPermissionAccess.PathDiscovery, filename).Demand();
-            return filename;
+            return ClientConfigurationHost.MachineConfigFilePath;
         }
 
         //

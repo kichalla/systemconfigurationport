@@ -1116,10 +1116,6 @@ namespace System.Configuration {
                     filepath = String.Empty;
                 }
 
-                if (!String.IsNullOrEmpty(filepath)) {
-                    new FileIOPermission(FileIOPermissionAccess.PathDiscovery, filepath).Demand();
-                }
-
                 return filepath;
             }
         }

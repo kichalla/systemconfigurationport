@@ -161,8 +161,6 @@
         //
         // We assert PathDiscovery so that we get the full filename when calling ConfigurationException.Filename
         //
-        [FileIOPermission(SecurityAction.Assert, AllFiles = FileIOPermissionAccess.PathDiscovery)]
-        [SuppressMessage("Microsoft.Security", "CA2106:SecureAsserts", Justification = "Our Filename property getter demands the appropriate permissions.")]
         static private string GetUnsafeFilename(ConfigurationException e)
         {
             if (e != null)
@@ -230,7 +228,6 @@
             }
         }
 
-        [SecurityPermissionAttribute(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             int subErrors = 0;
@@ -406,8 +403,6 @@
             }
         }
 
-        [FileIOPermission(SecurityAction.Assert, AllFiles = FileIOPermissionAccess.PathDiscovery)]
-        [SuppressMessage("Microsoft.Security", "CA2106:SecureAsserts", Justification = "This method simply extracts the filename, which isn't sensitive information.")]
         private static string ExtractFileNameWithAssert(string filename)
         {
             // This method can throw; callers should wrap in try / catch.

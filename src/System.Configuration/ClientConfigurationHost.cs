@@ -66,8 +66,6 @@
 
         static internal string MachineConfigFilePath
         {
-            [FileIOPermissionAttribute(SecurityAction.Assert, AllFiles = FileIOPermissionAccess.PathDiscovery)]
-            [SuppressMessage("Microsoft.Security", "CA2106:SecureAsserts", Justification = "The callers do not expose this information without performing the appropriate demands themselves.")]
             get
             {
                 if (s_machineConfigFilePath == null)
