@@ -10,7 +10,7 @@ namespace System.Configuration
     using System.Collections.Specialized;
     using System.Xml;
     using System.Globalization;
-    using System.Security.Permissions;
+    
     using System.Diagnostics.CodeAnalysis;
 
     public sealed class ProtectedConfigurationSection : ConfigurationSection

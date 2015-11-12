@@ -7,7 +7,7 @@
 namespace System.Configuration.Internal {
     using System.Configuration;
     using System.IO;
-    using System.Security.Permissions;
+    
     using System.Reflection;
     using System.Threading;
     using System.Security;

@@ -8,7 +8,7 @@
     using System.IO;
     using System.Runtime.Serialization;
     using System.Security;
-    using System.Security.Permissions;
+    
     using System.Xml;
     using System.Runtime.Versioning;
     using System.Diagnostics.CodeAnalysis;

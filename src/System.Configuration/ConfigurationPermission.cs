@@ -7,7 +7,7 @@
 namespace System.Configuration {
 
     using System.Security;
-    using System.Security.Permissions;
+    
     using System.Globalization;
     using System.Diagnostics.CodeAnalysis;
     

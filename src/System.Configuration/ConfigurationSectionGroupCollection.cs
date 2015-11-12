@@ -8,7 +8,7 @@ namespace System.Configuration {
     using System.Collections;
     using System.Collections.Specialized;
     using System.Runtime.Serialization;
-    using System.Security.Permissions;
+    
 
     [STUBS()]
     public sealed class ConfigurationSectionGroupCollection : NameObjectCollectionBase {

@@ -13,7 +13,7 @@ namespace System.Configuration
     using System.Text;
     using  System.Runtime.InteropServices;
     using Microsoft.Win32;
-    using System.Security.Permissions;
+    
     using Microsoft.Win32.SafeHandles;
     using System.Runtime.CompilerServices;
 

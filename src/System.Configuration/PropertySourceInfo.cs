@@ -11,7 +11,7 @@ using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Security.Permissions;
+
 using System.Xml;
 using System.Globalization;
 using System.ComponentModel;
@@ -31,22 +31,22 @@ namespace System.Configuration {
 
         internal string FileName {
             get {
-                //
-                // Ensure we return the same string to the caller as the one on which we issued the demand.
-                //
-                string filename = _fileName;
-                try {
-                    new FileIOPermission(FileIOPermissionAccess.PathDiscovery, filename).Demand();
-                }
-                catch (SecurityException) {
-                    // don't expose the path to this user but show the filename
-                    filename = Path.GetFileName(_fileName);
-                    if (filename == null) {
-                        filename = String.Empty;
-                    }
-                }
+                ////
+                //// Ensure we return the same string to the caller as the one on which we issued the demand.
+                ////
+                //string filename = _fileName;
+                //try {
+                //    new FileIOPermission(FileIOPermissionAccess.PathDiscovery, filename).Demand();
+                //}
+                //catch (SecurityException) {
+                //    // don't expose the path to this user but show the filename
+                //    filename = Path.GetFileName(_fileName);
+                //    if (filename == null) {
+                //        filename = String.Empty;
+                //    }
+                //}
 
-                return filename;
+                return _fileName;
             }
         }
 

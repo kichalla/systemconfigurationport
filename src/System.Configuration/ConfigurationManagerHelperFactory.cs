@@ -7,7 +7,7 @@
 namespace System.Configuration {
     using System.Configuration.Internal;
     using System.Diagnostics.CodeAnalysis;
-    using System.Security.Permissions;
+    
 
     //
     // class ConfigurationManagerHelperFactory manages access to a 

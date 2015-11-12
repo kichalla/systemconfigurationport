@@ -11,7 +11,7 @@ namespace System.Configuration {
     using System.Globalization;
     using System.Configuration.Internal;
     using System.IO;
-    using System.Security.Permissions;
+    
     using System.Threading;
 
     public static class ConfigurationManager {

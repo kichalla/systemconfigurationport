@@ -14,7 +14,7 @@ namespace System.Configuration {
     using System.IO;
     using System.Reflection;
     using System.Runtime.InteropServices;
-    using System.Security.Permissions;
+    
     using System.Security;
     using System.Text;
     using System.Xml;

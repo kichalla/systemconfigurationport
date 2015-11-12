@@ -15,7 +15,7 @@ namespace System.Configuration.Internal {
 #if !FEATURE_PAL
     using System.Security.AccessControl;
 #endif
-    using System.Security.Permissions;
+    
     using System.Security.Policy;
     using System.Threading;
 

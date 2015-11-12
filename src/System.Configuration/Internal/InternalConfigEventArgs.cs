@@ -12,7 +12,7 @@ namespace System.Configuration.Internal {
     using System.Globalization;
     using System.IO;
     using System.Runtime.InteropServices;
-    using System.Security.Permissions;
+    
     using System.Security;
     using System.Text;
     using System.Xml;

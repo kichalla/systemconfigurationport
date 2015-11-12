@@ -15,7 +15,7 @@ namespace System.Configuration {
     using System.Security;
     using System.Security.Cryptography;
     using System.Security.Policy;
-    using System.Security.Permissions;
+    
     using System.Text;
     using System.Globalization;
     using Microsoft.Win32;

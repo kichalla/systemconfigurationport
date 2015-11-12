@@ -11,7 +11,7 @@ namespace System.Configuration
     using System.Runtime.Serialization;
     using System.Configuration.Provider;
     using System.Xml;
-    using System.Security.Permissions;
+    
     using System.Diagnostics.CodeAnalysis;
 
     [PermissionSet(SecurityAction.LinkDemand, Name = "FullTrust")]

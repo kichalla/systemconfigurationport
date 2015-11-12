@@ -8,7 +8,7 @@ using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Security;
-using System.Security.Permissions;
+
 
 
 namespace System.Configuration {

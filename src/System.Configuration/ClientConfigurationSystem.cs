@@ -6,7 +6,7 @@
     using System.IO;
     using System.Xml;
     using System.Security;
-    using System.Security.Permissions;
+    
     using System.Threading;
     using System.Net;
     using Assembly = System.Reflection.Assembly;

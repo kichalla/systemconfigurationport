@@ -9,7 +9,7 @@ namespace System.Configuration
     using System.Configuration.Internal;
     using System.IO;
     using System.Xml;
-    using System.Security.Permissions;
+    
 
     internal sealed class ConfigXmlAttribute : XmlAttribute, IConfigErrorInfo {
         int _line;

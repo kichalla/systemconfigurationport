@@ -17,7 +17,7 @@ namespace System.Configuration {
     using System.Runtime.InteropServices;
     using System.Runtime.Versioning;
     using System.Security;
-    using System.Security.Permissions;
+    
     using System.Threading;
 
     internal static class Debug {

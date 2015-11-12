@@ -10,7 +10,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Collections;
 using System.Runtime.Serialization;
-using System.Security.Permissions;
+
 
 namespace System.Configuration {
 
